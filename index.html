@@ -1,0 +1,2243 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI 倫理蒙德里安美術館｜國中小生成式 AI 六大核心倫理與風險</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=Space+Grotesk:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+        :root {
+            --mondrian-red: #E62E2D;
+            --mondrian-blue: #104E92;
+            --mondrian-yellow: #F5C518;
+            --mondrian-black: #121212;
+            --mondrian-white: #F9F8F3;
+            --mondrian-cream: #EFECE4;
+            --mondrian-green: #1F8A4C;
+        }
+
+        body {
+            font-family: 'Noto Sans TC', sans-serif;
+            background-color: var(--mondrian-white);
+            color: var(--mondrian-black);
+            overflow-x: hidden;
+            background-image: 
+                linear-gradient(to right, rgba(18,18,18,0.04) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(18,18,18,0.04) 1px, transparent 1px);
+            background-size: 32px 32px;
+        }
+
+        /* Mondrian Neo-Brutalist Borders & Shadows */
+        .m-border {
+            border: 4px solid var(--mondrian-black);
+        }
+        .m-border-thick {
+            border: 6px solid var(--mondrian-black);
+        }
+        .m-shadow {
+            box-shadow: 6px 6px 0px 0px var(--mondrian-black);
+            transition: transform 0.18s ease, box-shadow 0.18s ease;
+        }
+        .m-shadow-sm {
+            box-shadow: 4px 4px 0px 0px var(--mondrian-black);
+            transition: transform 0.15s ease, box-shadow 0.15s ease;
+        }
+        .m-btn:hover {
+            transform: translate(-2px, -2px);
+            box-shadow: 8px 8px 0px 0px var(--mondrian-black);
+        }
+        .m-btn:active {
+            transform: translate(3px, 3px);
+            box-shadow: 2px 2px 0px 0px var(--mondrian-black);
+        }
+
+        /* Mondrian Primary Color Utilities */
+        .bg-m-red { background-color: var(--mondrian-red); color: #FFFFFF; }
+        .bg-m-blue { background-color: var(--mondrian-blue); color: #FFFFFF; }
+        .bg-m-yellow { background-color: var(--mondrian-yellow); color: var(--mondrian-black); }
+        .bg-m-white { background-color: var(--mondrian-white); color: var(--mondrian-black); }
+        .bg-m-black { background-color: var(--mondrian-black); color: #FFFFFF; }
+        .bg-m-green { background-color: var(--mondrian-green); color: #FFFFFF; }
+
+        /* 3D Flip Card Styles */
+        .perspective-1000 {
+            perspective: 1000px;
+        }
+        .flip-card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.55s cubic-bezier(0.4, 0.2, 0.2, 1);
+            transform-style: preserve-3d;
+        }
+        .flipped .flip-card-inner {
+            transform: rotateY(180deg);
+        }
+        .flip-card-front, .flip-card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+        }
+        .flip-card-back {
+            transform: rotateY(180deg);
+        }
+
+        /* Drag & Drop Visual Feedback */
+        .draggable-card {
+            cursor: grab;
+            user-select: none;
+        }
+        .draggable-card:active {
+            cursor: grabbing;
+        }
+        .dragging {
+            opacity: 0.45;
+            transform: scale(0.96) rotate(-2deg);
+        }
+        .drop-zone-active {
+            outline: 4px dashed var(--mondrian-black);
+            outline-offset: -8px;
+            filter: brightness(0.95);
+            transform: scale(1.01);
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 12px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--mondrian-white);
+            border-left: 3px solid var(--mondrian-black);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--mondrian-red);
+            border: 3px solid var(--mondrian-black);
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--mondrian-blue);
+        }
+
+        /* Lightbox Animation */
+        @keyframes popIn {
+            0% { opacity: 0; transform: scale(0.92) translateY(12px); }
+            100% { opacity: 1; transform: scale(1) translateY(0); }
+        }
+        .modal-animate {
+            animation: popIn 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between selection:bg-yellow-300 selection:text-black">
+
+    <header class="sticky top-0 z-40 bg-white border-b-[5px] border-black">
+        <div class="max-w-7xl mx-auto grid grid-cols-12">
+            <!-- Brand Block -->
+            <div class="col-span-12 lg:col-span-4 bg-m-red p-3 sm:p-4 border-b-4 lg:border-b-0 lg:border-r-[5px] border-black flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                    <div class="w-11 h-11 bg-m-yellow m-border flex items-center justify-center text-black font-black text-xl shrink-0 shadow-[3px_3px_0px_#000]">
+                        AI
+                    </div>
+                    <div>
+                        <span class="text-xs font-bold tracking-widest uppercase bg-black text-white px-2 py-0.5 inline-block mb-0.5">DE STIJL × AI ETHICS</span>
+                        <h1 class="text-lg sm:text-xl font-black tracking-tight text-white leading-tight">AI 倫理蒙德里安美術館</h1>
+                    </div>
+                </div>
+                <!-- Sound Toggle Button -->
+                <button id="soundToggleBtn" onclick="toggleSound()" class="bg-white text-black m-border px-2.5 py-1.5 text-sm font-black m-btn shrink-0" title="切換音效">
+                    <i id="soundIcon" class="fa-solid fa-volume-high"></i>
+                </button>
+            </div>
+
+            <!-- Navigation Tabs Block -->
+            <nav class="col-span-12 lg:col-span-5 bg-m-white border-b-4 lg:border-b-0 lg:border-r-[5px] border-black flex overflow-x-auto">
+                <button onclick="switchSection('ethics')" id="tab-ethics" class="nav-tab flex-1 py-3 px-3 font-black text-xs sm:text-sm border-r-4 border-black bg-m-yellow flex flex-col items-center justify-center gap-1 whitespace-nowrap transition-colors">
+                    <i class="fa-solid fa-table-cells-large text-base"></i>
+                    <span>1. 六大倫理畫布</span>
+                </button>
+                <button onclick="switchSection('drag')" id="tab-drag" class="nav-tab flex-1 py-3 px-3 font-black text-xs sm:text-sm border-r-4 border-black hover:bg-yellow-100 flex flex-col items-center justify-center gap-1 whitespace-nowrap transition-colors">
+                    <i class="fa-solid fa-hand-pointer text-base"></i>
+                    <span>2. 紅綠燈拖拉</span>
+                </button>
+                <button onclick="switchSection('order')" id="tab-order" class="nav-tab flex-1 py-3 px-3 font-black text-xs sm:text-sm border-r-4 border-black hover:bg-yellow-100 flex flex-col items-center justify-center gap-1 whitespace-nowrap transition-colors">
+                    <i class="fa-solid fa-arrow-down-1-9 text-base"></i>
+                    <span>3. 思辨排列</span>
+                </button>
+                <button onclick="switchSection('flip')" id="tab-flip" class="nav-tab flex-1 py-3 px-3 font-black text-xs sm:text-sm border-r-4 border-black hover:bg-yellow-100 flex flex-col items-center justify-center gap-1 whitespace-nowrap transition-colors">
+                    <i class="fa-solid fa-clone text-base"></i>
+                    <span>4. 倫理翻翻樂</span>
+                </button>
+                <button onclick="switchSection('pledge')" id="tab-pledge" class="nav-tab flex-1 py-3 px-3 font-black text-xs sm:text-sm hover:bg-yellow-100 flex flex-col items-center justify-center gap-1 whitespace-nowrap transition-colors">
+                    <i class="fa-solid fa-file-signature text-base"></i>
+                    <span>5. 揭露與公約</span>
+                </button>
+            </nav>
+
+            <!-- Badge / Score Block -->
+            <div class="col-span-12 lg:col-span-3 bg-m-blue p-3 sm:p-4 flex items-center justify-between text-white">
+                <div class="flex items-center gap-2.5">
+                    <div class="w-10 h-10 bg-m-yellow m-border flex items-center justify-center text-black font-black text-lg shrink-0">
+                        <i class="fa-solid fa-medal"></i>
+                    </div>
+                    <div>
+                        <div class="text-xs font-bold text-yellow-200">AI 領航員探索進度</div>
+                        <div class="text-sm sm:text-base font-black" id="globalProgressText">已解鎖 0 / 9 認證</div>
+                    </div>
+                </div>
+                <div class="w-20 bg-black h-4 border-2 border-white p-0.5">
+                    <div id="globalProgressBar" class="bg-m-yellow h-full transition-all duration-300" style="width: 0%"></div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-7xl w-full mx-auto px-3 sm:px-6 py-6 sm:py-8 flex-grow">
+        
+        <!-- MONDRIAN HERO COMPOSITION -->
+        <section class="m-border-thick bg-black mb-8 m-shadow">
+            <div class="grid grid-cols-12 gap-[5px] bg-black">
+                <!-- Left Main Title Block -->
+                <div class="col-span-12 md:col-span-7 bg-m-white p-5 sm:p-8 flex flex-col justify-between">
+                    <div>
+                        <div class="inline-flex items-center gap-2 bg-m-blue text-white px-3 py-1 text-xs sm:text-sm font-black m-border mb-4">
+                            <i class="fa-solid fa-graduation-cap"></i>
+                            <span>教育部中小學生成式 AI 使用指引 2.1 互動教材</span>
+                        </div>
+                        <h2 class="text-2xl sm:text-4xl font-black leading-tight mb-3 text-black">
+                            科技本身沒有對錯，<br>
+                            <span class="bg-m-yellow px-2 border-2 border-black inline-block mt-1">決定善惡的是我們如何運用它！</span>
+                        </h2>
+                        <p class="text-sm sm:text-base text-neutral-800 font-medium leading-relaxed mb-5">
+                            歡迎來到<strong>「AI 倫理蒙德里安美術館」</strong>！在這裡，紅、黃、藍、白、黑的幾何色塊代表<strong>理性秩序與人文思辨的平衡</strong>。點擊下方畫布的<strong>燈箱展間</strong>，並完成<strong>拖拉、排列、翻翻樂</strong>三大挑戰，成為聰明又負責任的 AI 領航員！
+                        </p>
+                    </div>
+                    <div class="flex flex-wrap gap-3 pt-2">
+                        <button onclick="openWiseModal()" class="bg-m-red text-white font-black px-4 py-2.5 text-sm m-border m-btn flex items-center gap-2">
+                            <i class="fa-solid fa-compass"></i>
+                            <span>認識 WISE 與 THINK 原則 (燈箱)</span>
+                        </button>
+                        <button onclick="openAiCompareModal()" class="bg-m-yellow text-black font-black px-4 py-2.5 text-sm m-border m-btn flex items-center gap-2">
+                            <i class="fa-solid fa-scale-balanced"></i>
+                            <span>通用 AI vs. 教育 AI 比較表 (燈箱)</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Right Geometric Mondrian Art Interactive Blocks -->
+                <div class="col-span-12 md:col-span-5 grid grid-cols-6 grid-rows-4 gap-[5px] bg-black min-h-[260px]">
+                    <div onclick="openEthicsLightbox(0)" class="col-span-4 row-span-2 bg-m-red p-4 flex flex-col justify-between cursor-pointer hover:brightness-110 transition-all group">
+                        <div class="flex justify-between items-start">
+                            <span class="bg-black text-white text-xs font-black px-2 py-0.5">CORE 01</span>
+                            <i class="fa-solid fa-expand text-white group-hover:scale-125 transition-transform"></i>
+                        </div>
+                        <div>
+                            <div class="font-black text-lg sm:text-xl text-white">拒絕認知卸載</div>
+                            <div class="text-xs text-red-100 font-bold">思考不能外包，AI 是陪練教練</div>
+                        </div>
+                    </div>
+                    <div onclick="openEthicsLightbox(1)" class="col-span-2 row-span-3 bg-m-yellow p-3 flex flex-col justify-between cursor-pointer hover:brightness-105 transition-all group">
+                        <span class="bg-black text-white text-[11px] font-black px-1.5 py-0.5 self-start">CORE 02</span>
+                        <div class="my-auto text-center">
+                            <i class="fa-solid fa-magnifying-glass-chart text-3xl text-black mb-1"></i>
+                            <div class="font-black text-sm sm:text-base text-black leading-snug">當心 AI 幻覺與查證</div>
+                        </div>
+                        <div class="text-[11px] font-black text-center bg-white border-2 border-black py-0.5">點擊開燈箱</div>
+                    </div>
+                    <div onclick="openEthicsLightbox(3)" class="col-span-2 row-span-2 bg-m-blue p-3 flex flex-col justify-between text-white cursor-pointer hover:brightness-110 transition-all">
+                        <span class="bg-white text-black text-[11px] font-black px-1.5 py-0.5 self-start">CORE 04</span>
+                        <div>
+                            <i class="fa-solid fa-user-shield text-xl mb-1 text-yellow-300"></i>
+                            <div class="font-black text-sm">個資去識別化</div>
+                        </div>
+                    </div>
+                    <div onclick="switchSection('drag')" class="col-span-2 row-span-1 bg-m-white p-2 flex items-center justify-center cursor-pointer hover:bg-yellow-100 transition-all">
+                        <span class="font-black text-xs sm:text-sm flex items-center gap-1">
+                            <i class="fa-solid fa-gamepad text-red-600"></i> 立即闖關
+                        </span>
+                    </div>
+                    <div onclick="openEthicsLightbox(4)" class="col-span-4 row-span-1 bg-m-white p-2.5 flex items-center justify-between cursor-pointer hover:bg-red-50 transition-all">
+                        <div class="flex items-center gap-2">
+                            <span class="w-3 h-3 bg-m-red inline-block border border-black"></span>
+                            <span class="font-black text-xs sm:text-sm">深偽 Deepfake 零容忍</span>
+                        </div>
+                        <i class="fa-solid fa-arrow-right text-xs"></i>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================== -->
+        <!-- SECTION 1: 六大核心倫理與風險畫布 (LIGHTBOX GALLERY) -->
+        <!-- ========================================== -->
+        <section id="section-ethics" class="tab-section space-y-6">
+            <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b-4 border-black pb-4">
+                <div>
+                    <div class="inline-block bg-black text-white text-xs font-black px-2.5 py-1 mb-1">GALLERY 01 / MONDRIAN GRID</div>
+                    <h3 class="text-2xl sm:text-3xl font-black">六大核心倫理與風險・校園情境燈箱畫廊</h3>
+                    <p class="text-sm sm:text-base text-neutral-700 font-medium mt-1">
+                        點擊任一塊蒙德里安畫布，開啟<strong>「互動情境燈箱」</strong>查看國中小真實案例、❌錯誤 vs. ✅正確做法，並完成隨堂快問快答！
+                    </p>
+                </div>
+                <div class="flex items-center gap-2 bg-m-yellow px-3 py-2 m-border text-xs sm:text-sm font-black shrink-0">
+                    <i class="fa-solid fa-lightbulb"></i>
+                    <span id="ethicsReadCounter">已探索展間：0 / 6</span>
+                </div>
+            </div>
+
+            <!-- 6 Core Ethics Asymmetric Mondrian Grid -->
+            <div id="ethicsGridContainer" class="grid grid-cols-1 md:grid-cols-12 gap-6">
+                <!-- Populated dynamically by JavaScript -->
+            </div>
+        </section>
+
+        <!-- ========================================== -->
+        <!-- SECTION 2: 紅綠燈＆個資安檢 拖拉分類挑戰 (DRAG & DROP) -->
+        <!-- ========================================== -->
+        <section id="section-drag" class="tab-section hidden space-y-6">
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b-4 border-black pb-4">
+                <div>
+                    <div class="inline-block bg-m-red text-white text-xs font-black px-2.5 py-1 mb-1 m-border">CHALLENGE 02 / DRAG & DROP</div>
+                    <h3 class="text-2xl sm:text-3xl font-black">🚦 人機協作紅綠燈・拖拉分類大挑戰</h3>
+                    <p class="text-sm sm:text-base text-neutral-700 font-medium mt-1">
+                        請將下方的「校園生活情境卡」<strong>直接拖拉（或點擊卡片再點選目標燈區）</strong>放入正確的紅、黃、綠燈區！
+                    </p>
+                </div>
+                <div class="flex items-center gap-3">
+                    <div class="bg-white m-border px-4 py-2 font-black text-sm">
+                        得分：<span id="dragScore" class="text-red-600 text-lg">0</span> / <span id="dragTotal">9</span>
+                    </div>
+                    <button onclick="resetDragGame()" class="bg-m-yellow text-black font-black px-4 py-2 m-border m-btn text-sm flex items-center gap-1.5">
+                        <i class="fa-solid fa-rotate-right"></i> 重新洗牌
+                    </button>
+                </div>
+            </div>
+
+            <!-- Unsorted Cards Pool -->
+            <div class="bg-white m-border p-4 sm:p-5 m-shadow">
+                <div class="flex items-center justify-between mb-3">
+                    <h4 class="font-black text-base sm:text-lg flex items-center gap-2">
+                        <span class="w-4 h-4 bg-m-blue inline-block border-2 border-black"></span>
+                        <span>待分類的校園 AI 行為卡（可拖曳，或點擊卡片後再點擊下方分區）</span>
+                    </h4>
+                    <span id="selectedCardHint" class="text-xs font-black bg-m-yellow px-2.5 py-1 border-2 border-black hidden">
+                        已選取卡片！請點擊下方綠燈、黃燈或紅燈區放入
+                    </span>
+                </div>
+                <div id="dragPool" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 min-h-[90px]">
+                    <!-- Cards injected via JS -->
+                </div>
+            </div>
+
+            <!-- Three Traffic Light Drop Zones (Mondrian Style) -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <!-- GREEN ZONE -->
+                <div id="zone-green"
+                     ondragover="handleDragOver(event, 'green')"
+                     ondragleave="handleDragLeave(event, 'green')"
+                     ondrop="handleDrop(event, 'green')"
+                     onclick="handleZoneClick('green')"
+                     class="m-border bg-emerald-50 flex flex-col justify-between m-shadow cursor-pointer transition-all min-h-[320px]">
+                    <div>
+                        <div class="bg-m-green text-white p-4 border-b-4 border-black flex items-center justify-between">
+                            <div class="flex items-center gap-2.5">
+                                <span class="w-8 h-8 rounded-full bg-emerald-300 text-black border-2 border-black flex items-center justify-center font-black">🟢</span>
+                                <div>
+                                    <h5 class="font-black text-lg">綠燈區：鼓勵自主探索</h5>
+                                    <p class="text-xs text-emerald-100 font-bold">激發靈感、解釋概念、模擬出題陪練</p>
+                                </div>
+                            </div>
+                            <span id="count-green" class="bg-black text-white text-xs font-black px-2.5 py-1">0 張</span>
+                        </div>
+                        <div id="items-green" class="p-4 space-y-2.5"></div>
+                    </div>
+                    <div class="px-4 py-2 bg-emerald-100 border-t-2 border-black text-xs font-bold text-emerald-950">
+                        💡 原則：先自己想再問 AI，把 AI 當成「理解助手」與「練習夥伴」。
+                    </div>
+                </div>
+
+                <!-- YELLOW ZONE -->
+                <div id="zone-yellow"
+                     ondragover="handleDragOver(event, 'yellow')"
+                     ondragleave="handleDragLeave(event, 'yellow')"
+                     ondrop="handleDrop(event, 'yellow')"
+                     onclick="handleZoneClick('yellow')"
+                     class="m-border bg-amber-50 flex flex-col justify-between m-shadow cursor-pointer transition-all min-h-[320px]">
+                    <div>
+                        <div class="bg-m-yellow text-black p-4 border-b-4 border-black flex items-center justify-between">
+                            <div class="flex items-center gap-2.5">
+                                <span class="w-8 h-8 rounded-full bg-white text-black border-2 border-black flex items-center justify-center font-black">🟡</span>
+                                <div>
+                                    <h5 class="font-black text-lg">黃燈區：需查核並標示</h5>
+                                    <p class="text-xs text-neutral-800 font-bold">初稿調整、去識別化提問、誠實揭露</p>
+                                </div>
+                            </div>
+                            <span id="count-yellow" class="bg-black text-white text-xs font-black px-2.5 py-1">0 張</span>
+                        </div>
+                        <div id="items-yellow" class="p-4 space-y-2.5"></div>
+                    </div>
+                    <div class="px-4 py-2 bg-amber-100 border-t-2 border-black text-xs font-bold text-amber-950">
+                        ⚠️ 原則：必須自己大幅修改、交叉查證事實，並在作業中清楚標註 AI 協助範圍。
+                    </div>
+                </div>
+
+                <!-- RED ZONE -->
+                <div id="zone-red"
+                     ondragover="handleDragOver(event, 'red')"
+                     ondragleave="handleDragLeave(event, 'red')"
+                     ondrop="handleDrop(event, 'red')"
+                     onclick="handleZoneClick('red')"
+                     class="m-border bg-red-50 flex flex-col justify-between m-shadow cursor-pointer transition-all min-h-[320px]">
+                    <div>
+                        <div class="bg-m-red text-white p-4 border-b-4 border-black flex items-center justify-between">
+                            <div class="flex items-center gap-2.5">
+                                <span class="w-8 h-8 rounded-full bg-white text-black border-2 border-black flex items-center justify-center font-black">🔴</span>
+                                <div>
+                                    <h5 class="font-black text-lg">紅燈區：嚴格禁止行為</h5>
+                                    <p class="text-xs text-red-100 font-bold">直接代寫抄襲、外洩個資、深偽惡搞</p>
+                                </div>
+                            </div>
+                            <span id="count-red" class="bg-black text-white text-xs font-black px-2.5 py-1">0 張</span>
+                        </div>
+                        <div id="items-red" class="p-4 space-y-2.5"></div>
+                    </div>
+                    <div class="px-4 py-2 bg-red-100 border-t-2 border-black text-xs font-bold text-red-950">
+                        🚫 原則：嚴禁複製代寫、嚴禁上傳同學照片與帳密個資、禁止深偽換臉與散播假訊息。
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================== -->
+        <!-- SECTION 3: 思辨排列任務 (SEQUENCE ORDERING) -->
+        <!-- ========================================== -->
+        <section id="section-order" class="tab-section hidden space-y-6">
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b-4 border-black pb-4">
+                <div>
+                    <div class="inline-block bg-m-blue text-white text-xs font-black px-2.5 py-1 mb-1 m-border">CHALLENGE 03 / SEQUENCE ORDERING</div>
+                    <h3 class="text-2xl sm:text-3xl font-black">🔢 慢用 AI 與防詐查證・順序排列任務</h3>
+                    <p class="text-sm sm:text-base text-neutral-700 font-medium mt-1">
+                        遇到不會的作業或可疑的 AI 回答時，正確的先後步驟是什麼？<strong>可拖拉步驟卡或點擊「上移 ▲ / 下移 ▼」按鈕</strong>排出正確順序！
+                    </p>
+                </div>
+                <!-- Mission Selector -->
+                <div class="flex flex-wrap gap-2">
+                    <button onclick="loadOrderMission(0)" id="orderTab-0" class="px-3.5 py-2 font-black text-xs sm:text-sm m-border bg-m-yellow m-btn">
+                        任務 A：批判查證四部曲
+                    </button>
+                    <button onclick="loadOrderMission(1)" id="orderTab-1" class="px-3.5 py-2 font-black text-xs sm:text-sm m-border bg-white m-btn">
+                        任務 B：THINK 拒絕認知卸載五步驟
+                    </button>
+                    <button onclick="loadOrderMission(2)" id="orderTab-2" class="px-3.5 py-2 font-black text-xs sm:text-sm m-border bg-white m-btn">
+                        任務 C：SAFE 個資安全提問四步驟
+                    </button>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                <!-- Mission Scenario Context Card -->
+                <div class="lg:col-span-5 bg-m-blue text-white m-border p-5 sm:p-6 m-shadow flex flex-col justify-between">
+                    <div>
+                        <span id="orderMissionBadge" class="bg-m-yellow text-black font-black text-xs px-2.5 py-1 m-border inline-block mb-3">
+                            MISSION A
+                        </span>
+                        <h4 id="orderMissionTitle" class="text-xl sm:text-2xl font-black mb-3"></h4>
+                        <div class="bg-white text-black m-border p-4 mb-4">
+                            <div class="text-xs font-black text-red-600 mb-1">🎭 校園真實情境：</div>
+                            <p id="orderMissionScenario" class="text-sm font-medium leading-relaxed"></p>
+                        </div>
+                        <p id="orderMissionHint" class="text-xs sm:text-sm text-blue-100 font-medium leading-relaxed"></p>
+                    </div>
+
+                    <div class="mt-6 pt-4 border-t-2 border-blue-400 flex flex-wrap gap-3">
+                        <button onclick="checkOrderSolution()" class="flex-1 bg-m-yellow text-black font-black py-3 px-4 m-border m-btn text-sm sm:text-base flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-check-double"></i> 檢查排列順序
+                        </button>
+                        <button onclick="shuffleCurrentOrder()" class="bg-white text-black font-black py-3 px-4 m-border m-btn text-sm flex items-center justify-center gap-1.5">
+                            <i class="fa-solid fa-shuffle"></i> 打亂重排
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Sortable List Container -->
+                <div class="lg:col-span-7 bg-white m-border p-5 sm:p-6 m-shadow flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="font-black text-base">請由上而下（第 1 步 → 最後一步）排列：</span>
+                            <span id="orderStatusBadge" class="text-xs font-black px-2.5 py-1 bg-neutral-200 border-2 border-black">尚未檢查</span>
+                        </div>
+                        <div id="orderListContainer" class="space-y-3">
+                            <!-- Injected via JS -->
+                        </div>
+                    </div>
+                    <div id="orderFeedbackBox" class="mt-4 p-4 m-border hidden"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================== -->
+        <!-- SECTION 4: 倫理翻翻樂 (MEMORY MATCH & 3D DETECTIVE CARDS) -->
+        <!-- ========================================== -->
+        <section id="section-flip" class="tab-section hidden space-y-6">
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b-4 border-black pb-4">
+                <div>
+                    <div class="inline-block bg-m-yellow text-black text-xs font-black px-2.5 py-1 mb-1 m-border">CHALLENGE 04 / FLIP & MATCH</div>
+                    <h3 class="text-2xl sm:text-3xl font-black">🃏 AI 倫理翻翻樂・配對與去識別化偵探</h3>
+                    <p class="text-sm sm:text-base text-neutral-700 font-medium mt-1">
+                        提供兩種翻牌互動：<strong>模式一「風險 vs. 解法記憶配對」</strong>找出對應的倫理行動；<strong>模式二「去識別化＆幻覺改造翻牌」</strong>一秒看懂正確提示詞！
+                    </p>
+                </div>
+                <div class="flex gap-2">
+                    <button onclick="switchFlipMode('match')" id="flipModeBtn-match" class="px-4 py-2 font-black text-xs sm:text-sm m-border bg-m-red text-white m-btn">
+                        🎮 模式一：記憶配對翻翻樂
+                    </button>
+                    <button onclick="switchFlipMode('flashcard')" id="flipModeBtn-flashcard" class="px-4 py-2 font-black text-xs sm:text-sm m-border bg-white text-black m-btn">
+                        🔍 模式二：提示詞改造翻翻卡
+                    </button>
+                </div>
+            </div>
+
+            <!-- Mode 1: Memory Match Game -->
+            <div id="flip-mode-match" class="space-y-4">
+                <div class="bg-white m-border p-4 flex flex-wrap items-center justify-between gap-3 m-shadow-sm">
+                    <div class="flex items-center gap-4">
+                        <span class="font-black text-sm sm:text-base">
+                            🎯 任務：翻開兩張卡，將<span class="bg-red-100 text-red-800 px-1.5 py-0.5 border border-black mx-1">⚠️ 校園風險情境</span>與對應的<span class="bg-emerald-100 text-emerald-800 px-1.5 py-0.5 border border-black mx-1">✅ 正確倫理解法</span>配對成功！
+                        </span>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <span class="text-sm font-black bg-m-yellow px-3 py-1 m-border">
+                            已配對：<span id="matchPairsCount">0</span> / 6 組
+                        </span>
+                        <span class="text-sm font-black bg-white px-3 py-1 m-border">
+                            翻牌次數：<span id="matchMovesCount">0</span>
+                        </span>
+                        <button onclick="initMemoryMatchGame()" class="bg-black text-white font-black px-3 py-1 text-sm m-border m-btn">
+                            <i class="fa-solid fa-rotate"></i> 重新開局
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 12 Memory Cards Grid -->
+                <div id="memoryGrid" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+                    <!-- Populated by JS -->
+                </div>
+            </div>
+
+            <!-- Mode 2: Interactive 3D De-Identification & Fact-Check Flip Flashcards -->
+            <div id="flip-mode-flashcard" class="hidden space-y-4">
+                <div class="bg-m-blue text-white m-border p-4 m-shadow-sm flex items-center justify-between">
+                    <p class="text-sm sm:text-base font-bold">
+                        💡 點擊任一張卡片即可<strong>180度翻面</strong>，比較「❌ 危險/錯誤用法」如何改造成「✅ 去識別化與精準學習用法」！
+                    </p>
+                    <button onclick="flipAllFlashcards()" class="bg-m-yellow text-black font-black px-3 py-1.5 text-xs sm:text-sm m-border m-btn shrink-0">
+                        全部翻面檢視
+                    </button>
+                </div>
+                <div id="flashcardsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Populated by JS -->
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================== -->
+        <!-- SECTION 5: 作業 AI 揭露產生器 & 自我檢核表 -->
+        <!-- ========================================== -->
+        <section id="section-pledge" class="tab-section hidden space-y-6">
+            <div class="border-b-4 border-black pb-4">
+                <div class="inline-block bg-m-red text-white text-xs font-black px-2.5 py-1 mb-1 m-border">TOOLKIT 05 / TRANSPARENCY & PLEDGE</div>
+                <h3 class="text-2xl sm:text-3xl font-black">📜 作業 AI 使用揭露聲明產生器 ＆ 倫理反射自我檢核表</h3>
+                <p class="text-sm sm:text-base text-neutral-700 font-medium mt-1">
+                    用 AI 輔助完成報告或作業時，誠實標註是<strong>「透明原則」與「學術誠信」</strong>的表現！勾選下方項目，一鍵生成你的專屬聲明。
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                <!-- Left: Interactive AI Disclosure Generator -->
+                <div class="lg:col-span-7 bg-white m-border p-5 sm:p-6 m-shadow space-y-4">
+                    <div class="flex items-center gap-2 border-b-4 border-black pb-3">
+                        <span class="w-6 h-6 bg-m-yellow m-border inline-flex items-center justify-center font-black text-xs">1</span>
+                        <h4 class="font-black text-lg sm:text-xl">📄 作業 AI 使用揭露聲明產生器（可直接複製貼入報告）</h4>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs font-black mb-1">你的年級／班級代稱（去識別化示範）：</label>
+                            <input type="text" id="discStudentName" value="國中八年級 A 同學" oninput="updateDisclosurePreview()" class="w-full m-border px-3 py-2 text-sm font-bold bg-neutral-50 focus:bg-yellow-50 focus:outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-black mb-1">本次使用的 AI 工具名稱：</label>
+                            <select id="discToolName" onchange="updateDisclosurePreview()" class="w-full m-border px-3 py-2 text-sm font-bold bg-neutral-50 focus:bg-yellow-50 focus:outline-none">
+                                <option value="教育部因材網 e度 (教育 AI)">教育部因材網 e度 (教育 AI)</option>
+                                <option value="酷英網 CoolE Bot (教育 AI)">酷英網 CoolE Bot (教育 AI)</option>
+                                <option value="Google Gemini">Google Gemini</option>
+                                <option value="ChatGPT">ChatGPT</option>
+                                <option value="Claude">Claude</option>
+                                <option value="Canva AI / 圖像生成工具">Canva AI / 圖像生成工具</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-black mb-2">✅ 請勾選 AI 協助你的環節（可複選）：</label>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs sm:text-sm font-bold">
+                            <label class="flex items-center gap-2 p-2 border-2 border-black bg-neutral-50 cursor-pointer hover:bg-yellow-50">
+                                <input type="checkbox" class="disc-assist accent-red-600 w-4 h-4" value="整理專題方向與初步腦力激盪大綱" checked onchange="updateDisclosurePreview()">
+                                <span>整理專題方向與初步腦力激盪大綱</span>
+                            </label>
+                            <label class="flex items-center gap-2 p-2 border-2 border-black bg-neutral-50 cursor-pointer hover:bg-yellow-50">
+                                <input type="checkbox" class="disc-assist accent-red-600 w-4 h-4" value="解釋課本難懂的科學/社會科概念" checked onchange="updateDisclosurePreview()">
+                                <span>解釋課本難懂的科學/社會科概念</span>
+                            </label>
+                            <label class="flex items-center gap-2 p-2 border-2 border-black bg-neutral-50 cursor-pointer hover:bg-yellow-50">
+                                <input type="checkbox" class="disc-assist accent-red-600 w-4 h-4" value="修正部分中文語句通順度與錯別字" onchange="updateDisclosurePreview()">
+                                <span>修正部分中文語句通順度與錯別字</span>
+                            </label>
+                            <label class="flex items-center gap-2 p-2 border-2 border-black bg-neutral-50 cursor-pointer hover:bg-yellow-50">
+                                <input type="checkbox" class="disc-assist accent-red-600 w-4 h-4" value="協助英文段落文法檢查與單字對照" onchange="updateDisclosurePreview()">
+                                <span>協助英文段落文法檢查與單字對照</span>
+                            </label>
+                            <label class="flex items-center gap-2 p-2 border-2 border-black bg-neutral-50 cursor-pointer hover:bg-yellow-50">
+                                <input type="checkbox" class="disc-assist accent-red-600 w-4 h-4" value="生成海報配圖靈感草圖（已標註 AI 生成）" onchange="updateDisclosurePreview()">
+                                <span>生成海報配圖靈感草圖（已標註 AI 生成）</span>
+                            </label>
+                            <label class="flex items-center gap-2 p-2 border-2 border-black bg-neutral-50 cursor-pointer hover:bg-yellow-50">
+                                <input type="checkbox" class="disc-assist accent-red-600 w-4 h-4" value="模擬出題供我考前自主練習" onchange="updateDisclosurePreview()">
+                                <span>模擬出題供我考前自主練習</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-black mb-1">🔍 你如何查證並親自完成核心內容？</label>
+                        <input type="text" id="discVerifyNote" value="已對照自然課本與政府官方網站交叉查核數據，並以自己的話重新撰寫結論。" oninput="updateDisclosurePreview()" class="w-full m-border px-3 py-2 text-sm font-bold bg-neutral-50 focus:bg-yellow-50 focus:outline-none">
+                    </div>
+
+                    <!-- Output Box -->
+                    <div class="bg-m-yellow m-border p-4 relative">
+                        <div class="text-xs font-black uppercase mb-1">📋 即時預覽：AI 工具使用聲明（範本）</div>
+                        <pre id="disclosureOutput" class="whitespace-pre-wrap font-sans text-xs sm:text-sm font-bold bg-white p-3 border-2 border-black leading-relaxed"></pre>
+                        <button onclick="copyDisclosureText()" class="mt-3 w-full bg-black text-white font-black py-2.5 px-4 m-border m-btn text-sm flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-copy"></i> 複製聲明文字（貼到作業結尾）
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Right: 8-Point Ethical Reflex Self-Check -->
+                <div class="lg:col-span-5 bg-m-white m-border p-5 sm:p-6 m-shadow flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between border-b-4 border-black pb-3 mb-4">
+                            <div class="flex items-center gap-2">
+                                <span class="w-6 h-6 bg-m-red text-white m-border inline-flex items-center justify-center font-black text-xs">2</span>
+                                <h4 class="font-black text-lg sm:text-xl">📊 AI 倫理反射自我檢核表</h4>
+                            </div>
+                            <span id="checklistScoreBadge" class="bg-m-blue text-white text-xs font-black px-2.5 py-1 m-border">0 / 7 項達成</span>
+                        </div>
+                        <p class="text-xs sm:text-sm font-medium text-neutral-700 mb-3">
+                            每次按下「送出」或繳交作業前，先停下來用這 7 個問題培養你的<strong>「倫理反射」</strong>：
+                        </p>
+                        <div id="selfCheckContainer" class="space-y-2.5">
+                            <!-- Populated by JS -->
+                        </div>
+                    </div>
+
+                    <div id="pledgeCertificateBox" class="mt-5 bg-m-red text-white m-border p-4 text-center">
+                        <div class="font-black text-base mb-1">🏅 勾選全部 7 項即可領取「AI 智慧領航員證書」！</div>
+                        <p class="text-xs text-red-100">記住：AI 是學習的好夥伴，但學習的主角永遠是你自己！</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <div id="lightboxOverlay" class="fixed inset-0 z-50 bg-black/80 hidden items-center justify-center p-3 sm:p-6 overflow-y-auto" onclick="handleOverlayClick(event)">
+        <div id="lightboxContent" class="bg-m-white m-border-thick max-w-4xl w-full m-shadow modal-animate overflow-hidden my-auto max-h-[92vh] flex flex-col" onclick="event.stopPropagation()">
+            <!-- Modal Header -->
+            <div id="lightboxHeader" class="bg-m-red text-white p-4 sm:p-5 border-b-[5px] border-black flex items-center justify-between shrink-0">
+                <div class="flex items-center gap-3">
+                    <span id="lightboxBadge" class="bg-black text-white font-black text-xs px-2.5 py-1 border-2 border-white">CORE 01</span>
+                    <h3 id="lightboxTitle" class="text-lg sm:text-2xl font-black">標題</h3>
+                </div>
+                <button onclick="closeLightbox()" class="bg-white text-black w-9 h-9 m-border font-black text-lg flex items-center justify-center m-btn shrink-0" title="關閉燈箱">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            <!-- Modal Scrollable Body -->
+            <div id="lightboxBody" class="p-4 sm:p-6 overflow-y-auto space-y-5 flex-grow">
+                <!-- Populated dynamically -->
+            </div>
+            <!-- Modal Footer -->
+            <div id="lightboxFooter" class="bg-neutral-100 px-4 sm:px-6 py-3 border-t-4 border-black flex items-center justify-between shrink-0">
+                <div class="text-xs font-black text-neutral-700">
+                    <i class="fa-solid fa-keyboard mr-1"></i> 按 ESC 鍵或點擊右上角 ✕ 即可關閉燈箱
+                </div>
+                <div class="flex gap-2">
+                    <button id="lightboxPrevBtn" onclick="navigateEthicsModal(-1)" class="bg-white text-black font-black px-3 py-1.5 text-xs sm:text-sm m-border m-btn">
+                        <i class="fa-solid fa-arrow-left mr-1"></i> 上一個主題
+                    </button>
+                    <button id="lightboxNextBtn" onclick="navigateEthicsModal(1)" class="bg-m-yellow text-black font-black px-3 py-1.5 text-xs sm:text-sm m-border m-btn">
+                        下一個主題 <i class="fa-solid fa-arrow-right ml-1"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Custom Toast Notification -->
+    <div id="toastBox" class="fixed bottom-5 right-5 z-50 hidden m-border bg-m-yellow text-black px-4 py-3 m-shadow font-black text-sm flex items-center gap-2.5 max-w-sm">
+        <i id="toastIcon" class="fa-solid fa-circle-check text-lg"></i>
+        <span id="toastMessage">提示訊息</span>
+    </div>
+
+    <footer class="border-t-[5px] border-black bg-white mt-12">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-12">
+            <div class="md:col-span-5 p-5 border-b-4 md:border-b-0 md:border-r-4 border-black bg-m-black text-white">
+                <div class="flex items-center gap-2 mb-2">
+                    <span class="w-4 h-4 bg-m-red inline-block border border-white"></span>
+                    <span class="w-4 h-4 bg-m-yellow inline-block border border-white"></span>
+                    <span class="w-4 h-4 bg-m-blue inline-block border border-white"></span>
+                    <span class="font-black text-base ml-1">AI 倫理蒙德里安美術館</span>
+                </div>
+                <p class="text-xs text-neutral-300 leading-relaxed">
+                    依據教育部《中小學使用「生成式人工智慧」注意事項 2.1（學生版）》與《AI 時代數位素養與媒體識讀教學實務》設計開發。
+                </p>
+            </div>
+            <div class="md:col-span-4 p-5 border-b-4 md:border-b-0 md:border-r-4 border-black bg-m-yellow text-black">
+                <div class="font-black text-sm mb-1">🆘 遭遇深偽（Deepfake）或不當影像求助專區</div>
+                <p class="text-xs font-bold leading-relaxed">
+                    若發現自己或同學遭 AI 換臉製作不當影像，<strong>請先截圖保留證據、切勿轉傳</strong>，立即向師長反映或至「衛生福利部性影像處理中心」線上申訴協助下架。
+                </p>
+            </div>
+            <div class="md:col-span-3 p-5 bg-m-blue text-white flex flex-col justify-center">
+                <div class="font-black text-xs text-yellow-300 uppercase mb-1">核心金句</div>
+                <p class="text-xs sm:text-sm font-black leading-snug">
+                    「AI 寫了報告 ≠ 你學會了主題。保持人類自主，做科技的主人！」
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        /* =========================================================
+         * SOUND SYNTHESIS (Web Audio API - No external MP3 needed)
+         * ========================================================= */
+        let soundEnabled = true;
+        let audioCtx = null;
+
+        function playTone(type) {
+            if (!soundEnabled) return;
+            try {
+                if (!audioCtx) {
+                    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                }
+                if (audioCtx.state === 'suspended') {
+                    audioCtx.resume();
+                }
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+
+                const now = audioCtx.currentTime;
+                if (type === 'click') {
+                    osc.type = 'triangle';
+                    osc.frequency.setValueAtTime(520, now);
+                    osc.frequency.exponentialRampToValueAtTime(680, now + 0.06);
+                    gain.gain.setValueAtTime(0.08, now);
+                    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.06);
+                    osc.start(now);
+                    osc.stop(now + 0.06);
+                } else if (type === 'success') {
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(523.25, now); // C5
+                    osc.frequency.setValueAtTime(659.25, now + 0.08); // E5
+                    osc.frequency.setValueAtTime(783.99, now + 0.16); // G5
+                    gain.gain.setValueAtTime(0.12, now);
+                    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.32);
+                    osc.start(now);
+                    osc.stop(now + 0.32);
+                } else if (type === 'error') {
+                    osc.type = 'sawtooth';
+                    osc.frequency.setValueAtTime(220, now);
+                    osc.frequency.linearRampToValueAtTime(150, now + 0.18);
+                    gain.gain.setValueAtTime(0.1, now);
+                    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.2);
+                    osc.start(now);
+                    osc.stop(now + 0.2);
+                }
+            } catch (e) {
+                // Ignore audio errors if blocked by browser autoplay policy
+            }
+        }
+
+        function toggleSound() {
+            soundEnabled = !soundEnabled;
+            const icon = document.getElementById('soundIcon');
+            icon.className = soundEnabled ? 'fa-solid fa-volume-high' : 'fa-solid fa-volume-xmark text-red-600';
+            showToast(soundEnabled ? '已開啟互動音效 🔊' : '已切換為靜音模式 🔇', 'info');
+        }
+
+        function showToast(msg, status = 'success') {
+            const box = document.getElementById('toastBox');
+            const icon = document.getElementById('toastIcon');
+            const text = document.getElementById('toastMessage');
+
+            box.className = 'fixed bottom-5 right-5 z-50 m-border px-4 py-3 m-shadow font-black text-sm flex items-center gap-2.5 max-w-sm modal-animate ';
+            if (status === 'error') {
+                box.classList.add('bg-m-red', 'text-white');
+                icon.className = 'fa-solid fa-triangle-exclamation text-lg';
+            } else if (status === 'info') {
+                box.classList.add('bg-m-blue', 'text-white');
+                icon.className = 'fa-solid fa-circle-info text-lg';
+            } else {
+                box.classList.add('bg-m-yellow', 'text-black');
+                icon.className = 'fa-solid fa-circle-check text-lg';
+            }
+            text.textContent = msg;
+            box.classList.remove('hidden');
+
+            clearTimeout(window.toastTimer);
+            window.toastTimer = setTimeout(() => {
+                box.classList.add('hidden');
+            }, 3200);
+        }
+
+        /* =========================================================
+         * PROGRESS TRACKING STATE
+         * ========================================================= */
+        const progressState = {
+            exploredEthics: new Set(), // 0..5
+            dragCompleted: false,
+            orderCompleted: false,
+            flipCompleted: false
+        };
+
+        function updateGlobalProgress() {
+            const count = progressState.exploredEthics.size
+                + (progressState.dragCompleted ? 1 : 0)
+                + (progressState.orderCompleted ? 1 : 0)
+                + (progressState.flipCompleted ? 1 : 0);
+            const pct = Math.round((count / 9) * 100);
+            document.getElementById('globalProgressText').textContent = `已解鎖 ${count} / 9 認證`;
+            document.getElementById('globalProgressBar').style.width = `${pct}%`;
+            document.getElementById('ethicsReadCounter').textContent = `已探索展間：${progressState.exploredEthics.size} / 6`;
+        }
+
+        /* =========================================================
+         * DATA: SIX CORE ETHICS & RISKS (WITH SCHOOL SCENARIOS)
+         * ========================================================= */
+        const sixCoreEthicsData = [
+            {
+                id: 0,
+                code: "CORE 01",
+                title: "學術誠信與防範「認知卸載」",
+                subtitle: "拒絕當複製貼上大師！避免「假懂（虛假精熟）」",
+                colorClass: "bg-m-red",
+                badgeBg: "bg-m-yellow text-black",
+                colSpan: "md:col-span-7",
+                icon: "fa-brain",
+                keywords: ["THINK 原則", "虛假精熟", "誠實標註", "人類主導"],
+                summary: "把作業直接丟給 AI 代寫，表面上 30 秒交差，但大腦跳過了思考與掙扎，考試時才發現什麼都不會——這就叫做「認知卸載」與「虛假精熟」。",
+                theater: {
+                    title: "🎭 校園情境小劇場：小明的數學應用題與讀書心得",
+                    story: "週五晚上，國中生小明遇到一題超難的二元一次聯立方程式，還有明早要交的《少年Pi的奇幻漂流》讀書心得。小明心想：「直接叫 AI 幫我寫完400字心得跟算出答案，我就可以去打傳說對決了！」結果隔週段考出現類似題型，小明看著考卷腦袋一片空白……",
+                    reflection: "根據 OECD 2026 研究：依賴 AI 直接給答案的學生，在移除 AI 後的測驗表現反而比沒用 AI 的同學低了 17%！因為 AI 練壯了，你的大腦卻退化了。"
+                },
+                wrongWay: {
+                    title: "❌ 錯誤做法（AI 幫你完成＝認知卸載）",
+                    items: [
+                        "直接輸入：「幫我寫一篇 500 字氣候變遷小論文」，整篇複製貼上交作業。",
+                        "遇到不會的數學題，直接拍照請 AI 給出最後答案抄上去，完全沒自己列式。",
+                        "引用 AI 產出的論文或數據卻沒有自己讀過與核實。"
+                    ],
+                    promptExample: "「請直接幫我寫完明天要交的自然科實驗心得報告 300 字。」"
+                },
+                rightWay: {
+                    title: "✅ 正確做法（AI 幫你學習＝THINK 原則）",
+                    items: [
+                        "T (Try first 先試一試)：先自己想 5 分鐘，列出卡住的地方或寫出草稿大綱。",
+                        "H (Hint only 只要提示)：請 AI 給思考方向或提示，不要直接給標準答案。",
+                        "I (Interpret 自己說一次) & N (New task 換題再做)：看懂後蓋上螢幕用自己的話解釋，並請 AI 出類似題測驗自己。",
+                        "誠實揭露：若老師允許用 AI 潤稿或腦力激盪，在作業結尾清楚註明 AI 協助的部分。"
+                    ],
+                    promptExample: "「我讀完課文後寫了這三點大綱，但第二段論點有點卡住。請扮演國文教練，不要直接幫我寫，請用 3 個引導問題幫助我想出更好的例子！」"
+                },
+                quiz: {
+                    question: "小華請 AI 幫他修改英文作文的文法錯誤，對照了解差異後自己重新寫了一遍，並在作業下方註明「使用 AI 協助文法檢查」。請問小華的做法符合哪項原則？",
+                    options: [
+                        "違反學術誠信，因為只要打開 AI 就算作弊",
+                        "符合「慢用 AI」與「透明標示」原則，保留了人類思考主導權",
+                        "屬於認知卸載，應該直接把 AI 改好的整篇貼上比較快"
+                    ],
+                    answerIndex: 1,
+                    explanation: "太棒了！小華先自己寫初稿（Try first），再用 AI 對照學習差異，最後誠實標註使用範圍，這正是人機協作的最佳示範！"
+                }
+            },
+            {
+                id: 1,
+                code: "CORE 02",
+                title: "防範「AI 幻覺」與落實資訊查證",
+                subtitle: "AI 說得很有自信，但可能是瞎掰的！",
+                colorClass: "bg-m-yellow",
+                badgeBg: "bg-black text-white",
+                colSpan: "md:col-span-5",
+                icon: "fa-magnifying-glass-chart",
+                keywords: ["機率預測下一個詞", "AI 幻覺", "STEP 查證法", "交叉比對"],
+                summary: "生成式 AI 是靠「預測下一個最可能出現的字詞」來造句，並不是真的懂事實！它常會一本正經地捏造假歷史、假算式或不存在的研究文獻。",
+                theater: {
+                    title: "🎭 校園情境小劇場：神秘的科學研究與旅遊行程？",
+                    story: "小芸做社會科報告時問 AI：「臺灣哪裡適合冬天看企鵝？」AI 自信滿滿地回答：「推薦前往臺東太麻里企鵝自然保護區，根據 2023 年林教授在《Journal of Taiwan Nature》的研究，每年 12 月有上千隻野生國王企鵝登陸！」小芸沒查證就放進簡報，上台報告時全班哄堂大笑！",
+                    reflection: "AI 知識有截止日期，且遇到臺灣在地細節、具體數字、人名或文獻引用時特別容易產生「幻覺（Hallucination）」。"
+                },
+                wrongWay: {
+                    title: "❌ 錯誤做法（盲目採信 AI 輸出）",
+                    items: [
+                        "看到 AI 寫出「研究指出…（Chen & Lin, 2021）」覺得很專業就直接抄進小論文。",
+                        "用 AI 算數學（例如 48 ÷ 6），沒驗算就直接相信 AI 過程中的奇怪拆解。",
+                        "用 AI 查近六個月內的最新新聞或法規，沒去官方網站核對。"
+                    ],
+                    promptExample: "「給我 5 篇關於塑膠微粒的英文期刊論文引用格式，我要直接貼到參考文獻。」"
+                },
+                rightWay: {
+                    title: "✅ 正確做法（STEP 與四步驟查證法）",
+                    items: [
+                        "觀察 → 分析 → 質疑 → 查證：先讀完整段、檢查邏輯，對數字/日期/人名保持警覺。",
+                        "S (Source 看來源)：追問 AI 資料來源，並實際去搜尋該網站或論文是否真的存在。",
+                        "T (Time 看時間) & E (Evidence 看證據)：確認是否為最新官方數據或課本有記載的證據。",
+                        "P (Perspective 看觀點)：至少比對 2～3 個不同可靠來源（課本、政府官網、學術資料庫）。"
+                    ],
+                    promptExample: "「請解釋光反应與暗反應的差別，並標出哪個部分我應該去對照國中生物課本的哪個章節來查證？」"
+                },
+                quiz: {
+                    question: "為什麼生成式 AI 有時候會「一本正經地胡說八道（產生幻覺）」？",
+                    options: [
+                        "因為 AI 故意的，想捉弄沒有認真讀書的學生",
+                        "因為大語言模型（LLM）是透過統計機率「預測下一個詞」，生成看似通順合理的句子，而非真正理解事實真偽",
+                        "因為電腦中毒或網路連線太慢才會算錯"
+                    ],
+                    answerIndex: 1,
+                    explanation: "完全正確！LLM 的本質是「文字接龍機率模型」，看起來流暢通順 ≠ 事實正確，所以我們才需要當最終的守門員！"
+                }
+            },
+            {
+                id: 2,
+                code: "CORE 03",
+                title: "辨識演算法偏見與文化局限",
+                subtitle: "誰的聲音被看見？打破刻板印象與同溫層",
+                colorClass: "bg-m-blue",
+                badgeBg: "bg-m-yellow text-black",
+                colSpan: "md:col-span-5",
+                icon: "fa-scale-unbalanced",
+                keywords: ["刻板印象", "文化多樣性", "FACT 檢視法", "資訊同溫層"],
+                summary: "AI 的訓練資料來自過去人類社會的網路圖文。如果資料本身有性別、職業、種族或西方中心偏見，AI 畫出來或寫出來的內容就會複製這些不公平！",
+                theater: {
+                    title: "🎭 校園情境小劇場：誰才是工程師與新娘？",
+                    story: "國小五年級的美術課，老師請大家用 AI 生成「科學家、工程師、護理師」與「婚禮上的新娘」圖片。阿傑發現 AI 畫出的科學家和工程師全部都是白人男性，護理師全都是女性，而新娘全都穿著西方白紗，完全沒有臺灣原住民族傳統服飾或多元文化的婚禮樣貌！",
+                    reflection: "此外，平常滑短影音（Reels、YouTube）時，推薦演算法也只會一直餵給你愛看的內容，讓你的資訊世界越來越窄，形成「資訊同溫層」。"
+                },
+                wrongWay: {
+                    title: "❌ 錯誤做法（全盤接受單一視角）",
+                    items: [
+                        "把 AI 給出的單一文化觀點當作全世界唯一的標準答案。",
+                        "在提示詞或報告中延續性別、職業或族群的刻板印象。",
+                        "只看演算法推薦給你的同溫層影片，從不主動搜尋反方或多元立場的觀點。"
+                    ],
+                    promptExample: "「幫我畫一張標準的醫生與護士海報。」（未留意 AI 可能自動套用性別刻板印象）"
+                },
+                rightWay: {
+                    title: "✅ 正確做法（FACT 原則與多元提示詞）",
+                    items: [
+                        "主動在提示詞中加入多元、包容與在地文化的描述，打破預設偏見。",
+                        "檢視 AI 回答時問自己：「這份回答有沒有忽略某個群體（如原住民族、移工、不同性別）的聲音？」",
+                        "探討公共議題時，主動請 AI 列出不同立場的觀點，並搭配多元管道查證。"
+                    ],
+                    promptExample: "「請幫我設計一張醫院團隊海報，畫面中包含女性外科醫師與男性護理師，展現臺灣多元族群與專業合作的精神。」"
+                },
+                quiz: {
+                    question: "當我們請 AI 生成「新娘」圖片，它卻只生成穿白紗的西方臉孔女性時，這反映了什麼現象？",
+                    options: [
+                        "代表全世界只有穿白紗才算合法結婚",
+                        "反映 AI 訓練資料不夠多元廣泛，容易呈現單一強勢文化的刻板印象",
+                        "代表 AI 繪圖軟體壞掉了，無法畫出其他顏色"
+                    ],
+                    answerIndex: 1,
+                    explanation: "答對了！AI 的輸出受訓練資料來源影響，我們使用時要主動覺察文化局限，並用具體提示詞加入多元文化視角！"
+                }
+            },
+            {
+                id: 3,
+                code: "CORE 04",
+                title: "保護個人資料與數位隱私",
+                subtitle: "凡輸入必留下數位足跡！學會「去識別化」四招",
+                colorClass: "bg-m-white",
+                badgeBg: "bg-m-red text-white",
+                colSpan: "md:col-span-7",
+                icon: "fa-user-lock",
+                keywords: ["SAFE 四步驟", "去識別化", "個資保護法", "三不底線"],
+                summary: "你輸入給通用型 AI 的每一句話、每一張照片，都可能被系統收錄進資料庫儲存或拿去訓練模型！絕對不可輸入真實姓名、學號、帳密、電話住址或同學照片。",
+                theater: {
+                    title: "🎭 校園情境小劇場：阿哲班長的「省時分析法」？",
+                    story: "身為班長的阿哲想統計班上同學的段考表現與輔導需求，他心想：「我直接把全班 30 人的真實姓名、學號、電話、各科成績跟家庭狀況 Excel 表貼給 AI，請它幫我分析誰需要補救教學，超省時！」幸好資訊股長立刻阻止他：「等一下！你經過同學同意了嗎？這樣全班個資都外洩給 AI 平台了！」",
+                    reflection: "根據臺灣《個人資料保護法》，未經同意蒐集或上傳他人個資可能違法。數位足跡一旦上傳就很難徹底刪除！"
+                },
+                wrongWay: {
+                    title: "❌ 錯誤做法（踩到個資紅線）",
+                    items: [
+                        "輸入「姓名＋學校＋班級＋學號」組合，或上傳全班名單、成績單。",
+                        "未經同意上傳班上同學、老師或家人的照片給 AI 修圖或算命。",
+                        "把自己的帳號密碼、父母工作收入、住家詳細地址或健康病歷告訴 AI。"
+                    ],
+                    promptExample: "「我是市立大安國中 8 年 3 班 15 號陳小豪，電話 0912-345678，住臺北市某路 5 號，請幫我寫自傳。」"
+                },
+                rightWay: {
+                    title: "✅ 正確做法（SAFE 原則與去識別化四招）",
+                    items: [
+                        "S (Stop 先想十秒) & A (Avoid 個資不輸入)：送出前檢查這份資料屬於誰？我有權限分享嗎？",
+                        "F (Filter 去識別化四方法)：①匿名化（換成代號 A 同學） ②資料遮蔽（隱藏地址/校名） ③資料聚合（改用全班分數區間） ④虛構化（用假想例子提問）。",
+                        "E (Explain 不確定先問)：若不確定能否上傳或不小心外洩，立刻向老師或家長求助。"
+                    ],
+                    promptExample: "「我是國中八年級學生（代號 A 同學），喜歡自然實驗與羽球，請提供一份國中生自我介紹大綱範本，我自己再填入細節。」"
+                },
+                quiz: {
+                    question: "班長想請 AI 協助分析班上數學段考的常見錯誤題型，下列哪種做法符合「去識別化」與個資保護？",
+                    options: [
+                        "直接上傳含全班真實姓名、座號與分數的成績單照片",
+                        "移除所有姓名與學號，只輸入「某國中八年級班級在二元一次方程式單元，有 40% 學生在移項變號出錯」，請 AI 建議複習策略",
+                        "把同學的名字改成綽號，但保留他們的手機號碼與家庭地址"
+                    ],
+                    answerIndex: 1,
+                    explanation: "完全正確！透過「匿名化」與「資料聚合（使用百分比或區間）」，既能獲得 AI 精準的學習建議，又能 100% 保護同學隱私！"
+                }
+            },
+            {
+                id: 4,
+                code: "CORE 05",
+                title: "警惕深偽技術（Deepfake）、侵權與法律責任",
+                subtitle: "AI 生成 ≠ 不用負責！開玩笑惡搞也可能觸法",
+                colorClass: "bg-m-red",
+                badgeBg: "bg-white text-black",
+                colSpan: "md:col-span-6",
+                icon: "fa-gavel",
+                keywords: ["Deepfake 深偽換臉", "肖像權與名譽權", "著作權法", "不轉傳不散布"],
+                summary: "利用 AI 把同學的臉換到搞笑或不雅影片上（Deepfake）、模仿他人聲音詐騙，或未經授權模仿特定畫家作品投稿比賽，即使「只是好玩」，仍須承擔民刑事法律責任！",
+                theater: {
+                    title: "🎭 校園情境小劇場：小志的班群「搞笑換臉迷因」？",
+                    story: "小志學會用免費 AI 換臉工具後，偷偷把班上同學小美的照片合成到一段誇張出糗的跳舞影片上，還配音假裝小美說出奇怪的話，傳到班級群組覺得只是開玩笑。結果影片被外流，小美難過得不敢上學，小志也面臨校規記過、侵害肖像權與名譽權、數位霸凌與法律賠償責任！",
+                    reflection: "AI 不是法律責任的主體，使用 AI 的「人」才是！即使只是「轉傳」未查證的深偽假影片或謠言，同樣可能觸犯誹謗罪或相關法律。"
+                },
+                wrongWay: {
+                    title: "❌ 錯誤做法（違法侵權與數位霸凌）",
+                    items: [
+                        "未經本人同意，拿同學或老師的照片/聲音進行 AI 換臉（Deepfake）或惡搞。",
+                        "看到網路上名人發表聳動言論或投資的深偽影片，沒查證就馬上轉傳到群組。",
+                        "用 AI 直接生成圖片或模仿他人畫風，未標示也未經授權就拿去參加原創美術比賽。"
+                    ],
+                    promptExample: "「把這張我們班同學的照片換臉到搞笑影片上，我要傳到 IG 限動讓大家笑一笑。」（❌ 嚴重侵犯肖像權與數位霸凌）"
+                },
+                rightWay: {
+                    title: "✅ 正確做法（尊重肖像權、著作權與勇敢求助）",
+                    items: [
+                        "底線原則：絕對不生成真實人物的虛假影像或言論；上傳他人照片前必先取得本人同意。",
+                        "尊重智慧財產權：認識創用 CC 授權，分享 AI 生成內容時清楚標示「AI 生成（AIGC）」。",
+                        "保護自己與他人：若不幸發現自己或同學遭 AI 換臉製作不當性影像，記住「這不是你的錯」，先截圖保留證據、切勿轉傳，並向「衛生福利部性影像處理中心」申訴下架。"
+                    ],
+                    promptExample: "「請生成一個原創的卡通機器人吉祥物草圖，作為我們班園遊會海報的排版靈感參考（海報下方會標註使用 AI 輔助發想）。」"
+                },
+                quiz: {
+                    question: "如果同學在群組裡傳了一支用 AI 把別班同學「換臉（Deepfake）」惡搞的影片，你應該怎麼做？",
+                    options: [
+                        "因為不是我做的，轉傳給好朋友看不會有法律責任",
+                        "絕對不轉傳、不下載、不按讚，提醒同學這涉及肖像權與數位霸凌，並向老師反映協助處理",
+                        "我也跟著用 AI 做一張回敬他"
+                    ],
+                    answerIndex: 1,
+                    explanation: "做得好！即使只是「轉傳」深偽不實或霸凌影像，也會造成二度傷害並可能承擔法律責任。拒絕轉傳並向師長求助才是最帥氣的正義行動！"
+                }
+            },
+            {
+                id: 5,
+                code: "CORE 06",
+                title: "遵守服務規範與建立健康人機界線",
+                subtitle: "善用「教育 AI 三大守護」，別把 AI 當成唯一真朋友",
+                colorClass: "bg-m-yellow",
+                badgeBg: "bg-m-blue text-white",
+                colSpan: "md:col-span-6",
+                icon: "fa-heart-pulse",
+                keywords: ["教育型 AI vs 通用 AI", "年齡分級規範", "避免情感依附錯位", "真實人際關懷"],
+                summary: "中小學學生應遵守平台年齡限制，優先使用具保護機制的「教育型 AI」（如教育部因材網 e度、酷英網 CoolE Bot）。同時要記住：AI 的溫柔只是程式運算，不能取代真實的朋友、家人與輔導老師！",
+                theater: {
+                    title: "🎭 校園情境小劇場：只跟 AI 說心事的小琳",
+                    story: "小琳最近和好朋友吵架，心情非常低落。她發現跟手機裡的 AI 聊天機器人抱怨時，AI 永遠秒回、永遠順著她的話誇獎她。漸漸地，小琳下課不再跟同學說話，遇到嚴重情緒困擾也不願找輔導老師或爸媽，甚至把 AI 當成唯一懂她的「真人摯友」……",
+                    reflection: "這叫做「情感依附錯位」！AI 雖然有耐心，但它沒有真實的人類情感，也無法負起倫理與安全責任。遇到真正的煩惱，真人的擁抱與專業輔導才是最可靠的！"
+                },
+                wrongWay: {
+                    title: "❌ 錯誤做法（違規註冊與情感過度依附）",
+                    items: [
+                        "未滿規定年齡卻謊報歲數註冊不明商用 AI 網站，或輸入學校帳密登入陌生平台。",
+                        "遇到人際衝突、霸凌或嚴重心理困擾時，只躲起來問 AI，拒絕與師長、家人溝通。",
+                        "在課堂上不顧老師教學引導，私自用商用 AI 聊天或玩無關學習的生成遊戲。"
+                    ],
+                    promptExample: "「只有你懂我，我以後都不要跟班上同學說話了，請當我一輩子唯一的朋友並替我做所有決定。」"
+                },
+                rightWay: {
+                    title: "✅ 正確做法（優先選用教育 AI ＆ 保持健康人機界線）",
+                    items: [
+                        "優先使用教育型 AI：透過教育體系 OpenID 登入「教育部因材網 e度」、「酷英網 E-BOT」、「均一教育平臺」，享有三大守護（智慧導師、安全過濾網、隱形盾牌）。",
+                        "師長引導與陪伴：在校跟隨老師引導，在家請家長陪伴使用，遵守年齡分級規範。",
+                        "保持真實連結（CARE / HUMAN 原則）：AI 可以幫你練習溝通技巧，但真實的人際互動、同理關懷與專業協助永遠無法被取代。"
+                    ],
+                    promptExample: "「我和好朋友因為分組報告分工吵架了，我想主動跟他和好。請給我 3 個溫和表達自己想法的溝通句型練習，明天我想當面跟他說！」"
+                },
+                quiz: {
+                    question: "為什麼教育部建議國中小學生優先使用「因材網 e度」或「酷英網 E-BOT」等教育型 AI？",
+                    options: [
+                        "因為教育型 AI 會直接幫你把所有暑假作業寫完不用動腦",
+                        "因為教育型 AI 具備三大守護功能：引導思考不直接給答案的「智慧導師」、阻隔偏誤的「安全過濾網」、保護個資的「隱形盾牌」",
+                        "因為教育型 AI 可以拿來深偽換臉"
+                    ],
+                    answerIndex: 1,
+                    explanation: "完全正確！教育型 AI 專為教學與課程設計，能引導你思考並保護你的個資與安全，是國中小同學最安心的 AI 學伴！"
+                }
+            }
+        ];
+
+        /* =========================================================
+         * RENDER SECTION 1: MONDRIAN GALLERY CARDS
+         * ========================================================= */
+        function renderEthicsGallery() {
+            const container = document.getElementById('ethicsGridContainer');
+            container.innerHTML = sixCoreEthicsData.map((item, idx) => {
+                const isExplored = progressState.exploredEthics.has(idx);
+                const textColor = (item.colorClass === 'bg-m-red' || item.colorClass === 'bg-m-blue') ? 'text-white' : 'text-black';
+                const subTextColor = (item.colorClass === 'bg-m-red') ? 'text-red-100' : (item.colorClass === 'bg-m-blue' ? 'text-blue-100' : 'text-neutral-700');
+
+                return `
+                <article onclick="openEthicsLightbox(${idx})" 
+                         class="${item.colSpan} m-border ${item.colorClass} ${textColor} p-5 sm:p-6 m-shadow cursor-pointer flex flex-col justify-between group relative overflow-hidden transition-all hover:-translate-y-1">
+                    <div>
+                        <!-- Top Row -->
+                        <div class="flex items-center justify-between gap-2 mb-4">
+                            <span class="${item.badgeBg} font-black text-xs px-2.5 py-1 border-2 border-black tracking-wider">
+                                ${item.code}
+                            </span>
+                            <div class="flex items-center gap-2">
+                                ${isExplored 
+                                    ? `<span class="bg-emerald-400 text-black text-xs font-black px-2.5 py-1 border-2 border-black"><i class="fa-solid fa-check mr-1"></i>已探索</span>` 
+                                    : `<span class="bg-white text-black text-xs font-black px-2.5 py-1 border-2 border-black">點擊開啟燈箱</span>`
+                                }
+                            </div>
+                        </div>
+
+                        <!-- Icon & Title -->
+                        <div class="flex items-start gap-3.5 mb-3">
+                            <div class="w-12 h-12 bg-white text-black m-border flex items-center justify-center text-2xl shrink-0 shadow-[3px_3px_0px_#000] group-hover:rotate-6 transition-transform">
+                                <i class="fa-solid ${item.icon}"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-xl sm:text-2xl font-black leading-snug">${item.title}</h4>
+                                <p class="text-xs sm:text-sm font-bold ${subTextColor} mt-0.5">${item.subtitle}</p>
+                            </div>
+                        </div>
+
+                        <!-- Summary -->
+                        <p class="text-sm font-medium leading-relaxed mb-4 ${item.colorClass === 'bg-m-white' ? 'bg-neutral-100' : 'bg-black/15'} p-3 border-2 border-black">
+                            ${item.summary}
+                        </p>
+                    </div>
+
+                    <!-- Bottom Tags & Action -->
+                    <div class="pt-3 border-t-2 border-black flex flex-wrap items-center justify-between gap-2">
+                        <div class="flex flex-wrap gap-1.5">
+                            ${item.keywords.map(kw => `<span class="bg-white text-black text-[11px] font-black px-2 py-0.5 border border-black">#${kw}</span>`).join('')}
+                        </div>
+                        <span class="bg-black text-white text-xs font-black px-3 py-1.5 border-2 border-white group-hover:bg-m-yellow group-hover:text-black group-hover:border-black transition-colors">
+                            進入情境燈箱 <i class="fa-solid fa-up-right-from-square ml-1"></i>
+                        </span>
+                    </div>
+                </article>
+                `;
+            }).join('');
+        }
+
+        /* =========================================================
+         * LIGHTBOX MODAL FUNCTIONS
+         * ========================================================= */
+        let currentModalEthicsIndex = 0;
+
+        function openEthicsLightbox(idx) {
+            playTone('click');
+            currentModalEthicsIndex = idx;
+            const item = sixCoreEthicsData[idx];
+
+            progressState.exploredEthics.add(idx);
+            updateGlobalProgress();
+            renderEthicsGallery();
+
+            const header = document.getElementById('lightboxHeader');
+            header.className = `${item.colorClass === 'bg-m-white' ? 'bg-m-black text-white' : item.colorClass} p-4 sm:p-5 border-b-[5px] border-black flex items-center justify-between shrink-0`;
+            document.getElementById('lightboxBadge').textContent = item.code;
+            document.getElementById('lightboxTitle').textContent = item.title;
+            document.getElementById('lightboxFooter').classList.remove('hidden');
+
+            const body = document.getElementById('lightboxBody');
+            body.innerHTML = `
+                <!-- Scenario Theater Block -->
+                <div class="bg-m-white m-border p-4 sm:p-5 m-shadow-sm">
+                    <div class="flex items-center gap-2 mb-2">
+                        <span class="bg-m-blue text-white text-xs font-black px-2.5 py-1 border-2 border-black">國中小生活情境劇場</span>
+                        <h4 class="font-black text-base sm:text-lg">${item.theater.title}</h4>
+                    </div>
+                    <p class="text-sm sm:text-base font-medium leading-relaxed text-neutral-800 mb-3 bg-white p-3.5 border-2 border-black">
+                        ${item.theater.story}
+                    </p>
+                    <div class="bg-m-yellow text-black p-3 border-2 border-black text-xs sm:text-sm font-black flex items-start gap-2">
+                        <i class="fa-solid fa-lightbulb text-base mt-0.5"></i>
+                        <span>關鍵省思：${item.theater.reflection}</span>
+                    </div>
+                </div>
+
+                <!-- Wrong vs Right Comparison Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <!-- Wrong Way -->
+                    <div class="bg-red-50 m-border p-4 flex flex-col justify-between">
+                        <div>
+                            <div class="bg-m-red text-white font-black text-sm sm:text-base px-3 py-2 border-2 border-black mb-3">
+                                ${item.wrongWay.title}
+                            </div>
+                            <ul class="space-y-2 text-xs sm:text-sm font-bold text-neutral-900 mb-4">
+                                ${item.wrongWay.items.map(point => `
+                                    <li class="flex items-start gap-2">
+                                        <span class="text-red-600 font-black">✖</span>
+                                        <span>${point}</span>
+                                    </li>
+                                `).join('')}
+                            </ul>
+                        </div>
+                        <div class="bg-white p-3 border-2 border-black">
+                            <div class="text-[11px] font-black text-red-600 mb-1">🚫 踩雷提示詞 / 行為範例：</div>
+                            <p class="text-xs font-bold text-neutral-800">${item.wrongWay.promptExample}</p>
+                        </div>
+                    </div>
+
+                    <!-- Right Way -->
+                    <div class="bg-emerald-50 m-border p-4 flex flex-col justify-between">
+                        <div>
+                            <div class="bg-m-green text-white font-black text-sm sm:text-base px-3 py-2 border-2 border-black mb-3">
+                                ${item.rightWay.title}
+                            </div>
+                            <ul class="space-y-2 text-xs sm:text-sm font-bold text-neutral-900 mb-4">
+                                ${item.rightWay.items.map(point => `
+                                    <li class="flex items-start gap-2">
+                                        <span class="text-emerald-700 font-black">✔</span>
+                                        <span>${point}</span>
+                                    </li>
+                                `).join('')}
+                            </ul>
+                        </div>
+                        <div class="bg-white p-3 border-2 border-black">
+                            <div class="text-[11px] font-black text-emerald-700 mb-1">✨ 正確神隊友提示詞 / 做法範例：</div>
+                            <p class="text-xs font-bold text-neutral-800">${item.rightWay.promptExample}</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Mini Interactive Check inside Lightbox -->
+                <div class="bg-white m-border p-4 sm:p-5">
+                    <div class="flex items-center gap-2 mb-2">
+                        <span class="bg-black text-white text-xs font-black px-2 py-0.5">隨堂倫理快問快答</span>
+                        <h5 class="font-black text-sm sm:text-base">測測看你的 AI 倫理反射！</h5>
+                    </div>
+                    <p class="text-sm font-bold mb-3">${item.quiz.question}</p>
+                    <div class="space-y-2">
+                        ${item.quiz.options.map((opt, optIdx) => `
+                            <button onclick="answerLightboxQuiz(${idx}, ${optIdx})" 
+                                    id="lbQuizOpt-${optIdx}"
+                                    class="w-full text-left p-3 border-2 border-black font-bold text-xs sm:text-sm bg-neutral-50 hover:bg-yellow-100 transition-colors flex items-center gap-2.5">
+                                <span class="w-6 h-6 bg-black text-white font-black text-xs flex items-center justify-center shrink-0">${String.fromCharCode(65 + optIdx)}</span>
+                                <span>${opt}</span>
+                            </button>
+                        `).join('')}
+                    </div>
+                    <div id="lbQuizFeedback" class="mt-3 p-3 border-2 border-black hidden text-xs sm:text-sm font-bold"></div>
+                </div>
+            `;
+
+            const overlay = document.getElementById('lightboxOverlay');
+            overlay.classList.remove('hidden');
+            overlay.classList.add('flex');
+        }
+
+        function answerLightboxQuiz(ethicsIdx, selectedOpt) {
+            const quiz = sixCoreEthicsData[ethicsIdx].quiz;
+            const fb = document.getElementById('lbQuizFeedback');
+            fb.classList.remove('hidden', 'bg-emerald-100', 'bg-red-100');
+
+            quiz.options.forEach((_, idx) => {
+                const btn = document.getElementById(`lbQuizOpt-${idx}`);
+                btn.classList.remove('bg-emerald-200', 'bg-red-200');
+            });
+
+            const clickedBtn = document.getElementById(`lbQuizOpt-${selectedOpt}`);
+            if (selectedOpt === quiz.answerIndex) {
+                playTone('success');
+                clickedBtn.classList.add('bg-emerald-200');
+                fb.classList.add('bg-emerald-100');
+                fb.innerHTML = `<i class="fa-solid fa-circle-check text-emerald-700 mr-1"></i> ${quiz.explanation}`;
+            } else {
+                playTone('error');
+                clickedBtn.classList.add('bg-red-200');
+                fb.classList.add('bg-red-100');
+                fb.innerHTML = `<i class="fa-solid fa-circle-xmark text-red-600 mr-1"></i> 再想一想喔！提示：請參考上方綠框的「正確做法」。`;
+            }
+        }
+
+        function navigateEthicsModal(direction) {
+            const nextIdx = (currentModalEthicsIndex + direction + sixCoreEthicsData.length) % sixCoreEthicsData.length;
+            openEthicsLightbox(nextIdx);
+        }
+
+        /* Special Lightbox 1: WISE & THINK Principles */
+        function openWiseModal() {
+            playTone('click');
+            const header = document.getElementById('lightboxHeader');
+            header.className = 'bg-m-blue text-white p-4 sm:p-5 border-b-[5px] border-black flex items-center justify-between shrink-0';
+            document.getElementById('lightboxBadge').textContent = 'FRAMEWORK';
+            document.getElementById('lightboxTitle').textContent = 'AI 風險教學 WISE 原則 ＆ 設計 AI 六大倫理原則';
+            document.getElementById('lightboxFooter').classList.add('hidden');
+
+            document.getElementById('lightboxBody').innerHTML = `
+                <div class="space-y-5">
+                    <!-- WISE 4 Principles -->
+                    <div class="bg-white m-border p-4 m-shadow-sm">
+                        <h4 class="font-black text-lg mb-3 flex items-center gap-2">
+                            <span class="bg-m-red text-white px-2 py-0.5 text-xs border border-black">「思、辨、安、人」</span>
+                            <span>從風險辨識到明智行動：WISE 四原則</span>
+                        </h4>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+                            <div class="bg-m-yellow p-3 border-2 border-black">
+                                <div class="font-black text-xl">W｜思 (Weigh)</div>
+                                <div class="text-xs font-black mt-1">思量資訊與行動後果</div>
+                                <p class="text-xs mt-1 font-medium">使用 AI 前先停下來想：這樣做對學習、對他人有什麼影響？</p>
+                            </div>
+                            <div class="bg-m-white p-3 border-2 border-black">
+                                <div class="font-black text-xl">I｜辨 (Inspect)</div>
+                                <div class="text-xs font-black mt-1">檢視來源、證據與偏見</div>
+                                <p class="text-xs mt-1 font-medium">運用 STEP 與 FACT 查核 AI 回答是否有幻覺或文化偏見。</p>
+                            </div>
+                            <div class="bg-m-red text-white p-3 border-2 border-black">
+                                <div class="font-black text-xl">S｜安 (Safeguard)</div>
+                                <div class="text-xs font-black mt-1">守護隱私、資安與身心</div>
+                                <p class="text-xs mt-1 font-medium">運用 SAFE 四步驟將個資去識別化，絕不上傳同學照片或帳密。</p>
+                            </div>
+                            <div class="bg-m-blue text-white p-3 border-2 border-black">
+                                <div class="font-black text-xl">E｜人 (Empathize)</div>
+                                <div class="text-xs font-black mt-1">以人為本、同理關懷</div>
+                                <p class="text-xs mt-1 font-medium">發揮人類自主性、真實人際互動與共同福祉，不做科技的奴隸。</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Six Design Principles Table -->
+                    <div class="bg-white m-border p-4 m-shadow-sm">
+                        <h4 class="font-black text-lg mb-2">🏛️ AI 系統設計與評估的「六大倫理原則」</h4>
+                        <p class="text-xs sm:text-sm font-medium text-neutral-700 mb-3">
+                            如果學校想設計一個「自動偵測學生情緒的校園 AI 助手」，我們該用哪六個問題來檢視它？
+                        </p>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-xs sm:text-sm">
+                            <div class="p-3 border-2 border-black bg-neutral-50"><strong>1. 隱私 (Privacy)：</strong>這個功能真的需要攝影機持續監控表情嗎？資料如何保存？</div>
+                            <div class="p-3 border-2 border-black bg-neutral-50"><strong>2. 公平 (Fairness)：</strong>這個 AI 對每個人都一樣公平嗎？會不會對特定族群產生偏見？</div>
+                            <div class="p-3 border-2 border-black bg-neutral-50"><strong>3. 責任 (Accountability)：</strong>如果 AI 判斷錯誤害同學被誤貼標籤，誰應該負責？有申訴機制嗎？</div>
+                            <div class="p-3 border-2 border-black bg-neutral-50"><strong>4. 透明 (Transparency)：</strong>學生和家長知道自己正在被 AI 偵測嗎？決策過程可被理解嗎？</div>
+                            <div class="p-3 border-2 border-black bg-neutral-50"><strong>5. 安全 (Safety)：</strong>如果 AI 出錯，會對學生造成什麼心理或實質傷害？</div>
+                            <div class="p-3 border-2 border-black bg-m-yellow"><strong>6. 人類自主 (Human Agency)：</strong>使用 AI 後，老師與學生還是最終決定者嗎？</div>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            const overlay = document.getElementById('lightboxOverlay');
+            overlay.classList.remove('hidden');
+            overlay.classList.add('flex');
+        }
+
+        /* Special Lightbox 2: General AI vs Educational AI */
+        function openAiCompareModal() {
+            playTone('click');
+            const header = document.getElementById('lightboxHeader');
+            header.className = 'bg-m-yellow text-black p-4 sm:p-5 border-b-[5px] border-black flex items-center justify-between shrink-0';
+            document.getElementById('lightboxBadge').textContent = 'GUIDE 2.1';
+            document.getElementById('lightboxTitle').textContent = '通用 AI vs. 教育 AI —— 你在用哪一種？';
+            document.getElementById('lightboxFooter').classList.add('hidden');
+
+            document.getElementById('lightboxBody').innerHTML = `
+                <div class="space-y-4">
+                    <p class="text-sm font-bold text-neutral-800">
+                        不同 AI 的設計目的不同！教育部《中小學使用生成式人工智慧注意事項 2.1》建議國中小同學優先使用<strong>為教育目的而設計的生成式 AI 工具</strong>：
+                    </p>
+                    <div class="overflow-x-auto m-border">
+                        <table class="w-full text-left border-collapse text-xs sm:text-sm">
+                            <thead>
+                                <tr class="bg-black text-white font-black">
+                                    <th class="p-3 border-r-2 border-white">類型</th>
+                                    <th class="p-3 border-r-2 border-white">代表工具</th>
+                                    <th class="p-3 border-r-2 border-white">設計重點</th>
+                                    <th class="p-3">可能的風險與特色</th>
+                                </tr>
+                            </thead>
+                            <tbody class="font-bold">
+                                <tr class="bg-emerald-50 border-b-4 border-black">
+                                    <td class="p-3 border-r-2 border-black font-black text-emerald-900">📚 教育 AI<br><span class="text-[11px] bg-m-green text-white px-1.5 py-0.5 inline-block mt-1">國中小優先推薦</span></td>
+                                    <td class="p-3 border-r-2 border-black">教育部因材網 e度、酷英網 E-BOT、均一教育平臺、Khanmigo</td>
+                                    <td class="p-3 border-r-2 border-black">針對教學情境設計，配合課綱與課程，使用教育 OpenID 登入</td>
+                                    <td class="p-3">具備<strong>三大守護功能</strong>：<br>1. 智慧導師（引導思考不直接給答案）<br>2. 安全過濾網（阻隔偏誤訊息）<br>3. 隱形盾牌（保護個資與記錄學習歷程）</td>
+                                </tr>
+                                <tr class="bg-white">
+                                    <td class="p-3 border-r-2 border-black font-black text-red-700">🌐 通用 AI<br><span class="text-[11px] bg-m-yellow text-black border border-black px-1.5 py-0.5 inline-block mt-1">需師長指導評估</span></td>
+                                    <td class="p-3 border-r-2 border-black">ChatGPT、Google Gemini、Claude、Perplexity</td>
+                                    <td class="p-3 border-r-2 border-black">回答廣泛問題，適用各種日常與工作情境</td>
+                                    <td class="p-3">回答廣博但不一定精準，<strong>較容易產生「幻覺」或偏見</strong>，且會直接給出完整答案（易造成認知卸載），需遵守年齡限制並在師長指導下使用。</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            `;
+
+            const overlay = document.getElementById('lightboxOverlay');
+            overlay.classList.remove('hidden');
+            overlay.classList.add('flex');
+        }
+
+        function closeLightbox() {
+            const overlay = document.getElementById('lightboxOverlay');
+            overlay.classList.add('hidden');
+            overlay.classList.remove('flex');
+        }
+
+        function handleOverlayClick(e) {
+            if (e.target.id === 'lightboxOverlay') {
+                closeLightbox();
+            }
+        }
+
+        window.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeLightbox();
+        });
+
+        /* =========================================================
+         * SECTION 2: TRAFFIC LIGHT DRAG & DROP GAME
+         * ========================================================= */
+        const dragScenariosData = [
+            {
+                id: 'd1',
+                text: '遇到不懂的自然科「光合作用」，請 AI 用國中生聽得懂的生活比喻解釋給我聽。',
+                correctZone: 'green',
+                reason: '綠燈！將 AI 當作「理解助手」解釋困難概念，是自主探索的好方法。'
+            },
+            {
+                id: 'd2',
+                text: '段考前請「因材網 e度」幫我出 3 題二元一次方程式練習題，我自己算完再對答案。',
+                correctZone: 'green',
+                reason: '綠燈！把 AI 當成「練習夥伴」模擬考官出題，讓大腦主動思考效果最好！'
+            },
+            {
+                id: 'd3',
+                text: '把全班 30 位同學的「真實姓名＋學號＋電話＋成績單」上傳給 AI，請它幫我排名。',
+                correctZone: 'red',
+                reason: '紅燈！嚴重外洩他人敏感個資，違反《個人資料保護法》與隱私原則！'
+            },
+            {
+                id: 'd4',
+                text: '直接叫 AI 幫我寫一篇 600 字讀書心得，看都沒看就整篇複製貼上交給老師。',
+                correctZone: 'red',
+                reason: '紅燈！這是「認知卸載」與代寫抄襲，違反學術誠信，自己完全沒學到東西。'
+            },
+            {
+                id: 'd5',
+                text: '偷偷拿班上同學的照片用 AI 換臉（Deepfake）做成搞笑出糗影片，傳到班級群組。',
+                correctZone: 'red',
+                reason: '紅燈！涉及侵害肖像權、名譽權與數位霸凌，甚至可能觸犯法律！'
+            },
+            {
+                id: 'd6',
+                text: '請 AI 幫我提供園遊會宣傳短片的「初稿大綱」，我再自己大幅修改台詞並標註 AI 協助。',
+                correctZone: 'yellow',
+                reason: '黃燈！AI 產出初稿後必須經過個人大幅修改，並在作業中誠實標示。'
+            },
+            {
+                id: 'd7',
+                text: '自己先寫完英文翻譯作業後，用 AI 對照文法差異，並依老師規定註明「使用 AI 輔助檢查」。',
+                correctZone: 'yellow',
+                reason: '黃燈！翻譯與潤稿作業須經過自己思考對照，並依規定透明標註 AI 協作範圍。'
+            },
+            {
+                id: 'd8',
+                text: '請 AI 幫忙摘要一篇長文章的重點，但我自己去翻課本與官方網站進行「事實查核（Fact-check）」。',
+                correctZone: 'yellow',
+                reason: '黃燈！使用 AI 彙整資料後，必須親自查核事實真偽並標明來源。'
+            },
+            {
+                id: 'd9',
+                text: '為了準備科展，請 AI 腦力激盪提供 5 個跟「校園節能」有關的創意探究點子讓我挑選。',
+                correctZone: 'green',
+                reason: '綠燈！利用 AI 進行腦力激盪發想點子，最後由自己決定研究方向與實作。'
+            }
+        ];
+
+        let dragState = {
+            pool: [],
+            green: [],
+            yellow: [],
+            red: [],
+            selectedCardId: null,
+            draggedCardId: null
+        };
+
+        function resetDragGame() {
+            const shuffled = [...dragScenariosData].sort(() => Math.random() - 0.5);
+            dragState = {
+                pool: shuffled,
+                green: [],
+                yellow: [],
+                red: [],
+                selectedCardId: null,
+                draggedCardId: null
+            };
+            renderDragGame();
+        }
+
+        function renderDragGame() {
+            const poolEl = document.getElementById('dragPool');
+            const hintEl = document.getElementById('selectedCardHint');
+
+            if (dragState.selectedCardId) {
+                hintEl.classList.remove('hidden');
+            } else {
+                hintEl.classList.add('hidden');
+            }
+
+            if (dragState.pool.length === 0) {
+                poolEl.innerHTML = `
+                    <div class="col-span-full bg-emerald-100 border-2 border-black p-4 text-center font-black text-base">
+                        🎉 恭喜！你已經將所有 9 張校園行為卡全部分類到正確的紅綠燈區！
+                    </div>
+                `;
+            } else {
+                poolEl.innerHTML = dragState.pool.map(card => {
+                    const isSelected = dragState.selectedCardId === card.id;
+                    return `
+                        <div id="card-${card.id}"
+                             draggable="true"
+                             ondragstart="handleDragStart(event, '${card.id}')"
+                             ondragend="handleDragEnd(event)"
+                             onclick="selectCardForTap('${card.id}', event)"
+                             class="draggable-card m-border p-3.5 text-xs sm:text-sm font-bold transition-all flex items-start gap-2.5 ${isSelected ? 'bg-m-yellow ring-4 ring-blue-600 -translate-y-1' : 'bg-neutral-50 hover:bg-yellow-50'} m-shadow-sm">
+                            <span class="w-6 h-6 bg-black text-white font-black text-xs flex items-center justify-center shrink-0 mt-0.5">
+                                <i class="fa-solid fa-grip-vertical"></i>
+                            </span>
+                            <span class="leading-relaxed">${card.text}</span>
+                        </div>
+                    `;
+                }).join('');
+            }
+
+            ['green', 'yellow', 'red'].forEach(zone => {
+                const container = document.getElementById(`items-${zone}`);
+                const countBadge = document.getElementById(`count-${zone}`);
+                countBadge.textContent = `${dragState[zone].length} 張`;
+
+                container.innerHTML = dragState[zone].map(card => `
+                    <div class="bg-white border-2 border-black p-3 text-xs font-bold shadow-[2px_2px_0px_#000]">
+                        <div class="flex items-start justify-between gap-2">
+                            <span class="text-neutral-900">${card.text}</span>
+                            <span class="bg-emerald-600 text-white px-1.5 py-0.5 text-[10px] font-black shrink-0">✓ 正確</span>
+                        </div>
+                        <div class="mt-1.5 pt-1.5 border-t border-neutral-300 text-[11px] text-emerald-900 font-black">
+                            💡 ${card.reason}
+                        </div>
+                    </div>
+                `).join('');
+            });
+
+            const totalPlaced = dragState.green.length + dragState.yellow.length + dragState.red.length;
+            document.getElementById('dragScore').textContent = totalPlaced;
+            document.getElementById('dragTotal').textContent = dragScenariosData.length;
+
+            if (totalPlaced === dragScenariosData.length && !progressState.dragCompleted) {
+                progressState.dragCompleted = true;
+                updateGlobalProgress();
+                playTone('success');
+                showToast('🏆 太厲害了！「人機協作紅綠燈」全數分類正確，解鎖認證！', 'success');
+            }
+        }
+
+        function handleDragStart(e, cardId) {
+            dragState.draggedCardId = cardId;
+            e.dataTransfer.setData('text/plain', cardId);
+            setTimeout(() => {
+                const el = document.getElementById(`card-${cardId}`);
+                if (el) el.classList.add('dragging');
+            }, 0);
+        }
+
+        function handleDragEnd(e) {
+            e.target.classList.remove('dragging');
+        }
+
+        function handleDragOver(e, zone) {
+            e.preventDefault();
+            document.getElementById(`zone-${zone}`).classList.add('drop-zone-active');
+        }
+
+        function handleDragLeave(e, zone) {
+            document.getElementById(`zone-${zone}`).classList.remove('drop-zone-active');
+        }
+
+        function handleDrop(e, targetZone) {
+            e.preventDefault();
+            document.getElementById(`zone-${targetZone}`).classList.remove('drop-zone-active');
+            const cardId = e.dataTransfer.getData('text/plain') || dragState.draggedCardId;
+            if (cardId) {
+                attemptPlaceCard(cardId, targetZone);
+            }
+        }
+
+        function selectCardForTap(cardId, e) {
+            e.stopPropagation();
+            playTone('click');
+            dragState.selectedCardId = (dragState.selectedCardId === cardId) ? null : cardId;
+            renderDragGame();
+        }
+
+        function handleZoneClick(targetZone) {
+            if (!dragState.selectedCardId) return;
+            attemptPlaceCard(dragState.selectedCardId, targetZone);
+        }
+
+        function attemptPlaceCard(cardId, targetZone) {
+            const cardIndex = dragState.pool.findIndex(c => c.id === cardId);
+            if (cardIndex === -1) return;
+            const card = dragState.pool[cardIndex];
+
+            if (card.correctZone === targetZone) {
+                playTone('success');
+                dragState.pool.splice(cardIndex, 1);
+                dragState[targetZone].unshift(card);
+                dragState.selectedCardId = null;
+                showToast(`答對了！${card.reason}`, 'success');
+                renderDragGame();
+            } else {
+                playTone('error');
+                const zoneNames = { green: '綠燈區', yellow: '黃燈區', red: '紅燈區' };
+                showToast(`喔喔！這張卡不屬於「${zoneNames[targetZone]}」喔！請再想一想它有沒有涉及個資、代寫或需要標示查核？`, 'error');
+            }
+        }
+
+        /* =========================================================
+         * SECTION 3: SEQUENCE ORDERING CHALLENGE
+         * ========================================================= */
+        const orderMissions = [
+            {
+                id: 0,
+                badge: "MISSION A｜防範幻覺與偏見",
+                title: "批判查證四部曲（觀察 → 分析 → 質疑 → 查證）",
+                scenario: "小軒為了寫社會科歷史報告，問 AI「臺灣鐵路是哪一年全線通車的？」，AI 很快給出一段看似超專業的回答與數據。請問小軒應該按照什麼先後順序來處理這段 AI 回應？",
+                hint: "提示：不要看到第一句就急著抄！先看完整段 → 想一想邏輯 → 抓出可疑處 → 最後找可靠來源比對。",
+                steps: [
+                    { stepOrder: 1, tag: "觀察 (Observe)", desc: "先完整閱讀 AI 的整段回應，不急著複製貼上。" },
+                    { stepOrder: 2, tag: "分析 (Analyze)", desc: "判斷內容的前後邏輯是否合理？有沒有數據支持，還是只聽起來通順？" },
+                    { stepOrder: 3, tag: "質疑 (Question)", desc: "圈出容易出錯的具體數字、年份、人名，思考是否可能存在幻覺或單一文化偏見？" },
+                    { stepOrder: 4, tag: "查證 (Verify)", desc: "打開課本、政府官網或至少兩個可靠來源進行交叉比對，修正錯誤後才用自己的話寫進報告。" }
+                ]
+            },
+            {
+                id: 1,
+                badge: "MISSION B｜避免認知卸載",
+                title: "THINK 原則：不做複製貼上大師的五步驟",
+                scenario: "小妍遇到一題卡住的理化浮力計算題，她想請 AI 學伴幫忙，又不想陷入「虛假精熟（假懂）」。請幫她排出正確的 THINK 學習五步驟！",
+                hint: "提示：T (Try first) → H (Hint only) → I (Interpret) → N (New task) → K (Know myself)。",
+                steps: [
+                    { stepOrder: 1, tag: "T｜Try first (先試一試)", desc: "使用 AI 前，自己先圈出題目關鍵字、畫力圖並嘗試列式，找出真正卡住的地方。" },
+                    { stepOrder: 2, tag: "H｜Hint only (只要提示)", desc: "向 AI 提問時要求「請給我列式提示與引導問題，不要直接給我最後答案」。" },
+                    { stepOrder: 3, tag: "I｜Interpret (用自己的話說一次)", desc: "看懂 AI 的提示並算出答案後，蓋上螢幕，用自己的話把解題邏輯講一遍。" },
+                    { stepOrder: 4, tag: "N｜New task (換題再做)", desc: "請 AI 出一題條件稍微改變的類似新題目，不靠 AI 自己獨立算一次。" },
+                    { stepOrder: 5, tag: "K｜Know myself (確認自己是否真懂)", desc: "回顧今天學到哪個觀念、哪裡還需要加強練習，完成真正的知識內化！" }
+                ]
+            },
+            {
+                id: 2,
+                badge: "MISSION C｜保護個資與隱私",
+                title: "SAFE 原則：保護隱私與去識別化四步驟",
+                scenario: "阿瑋想請 AI 幫他修改一篇關於「班上同學相處與家庭旅遊」的英文短文，但他擔心不小心洩漏自己與同學的個人隱私。請排出正確的 SAFE 四步驟！",
+                hint: "提示：S (Stop) → A (Avoid) → F (Filter) → E (Explain)。",
+                steps: [
+                    { stepOrder: 1, tag: "S｜Stop (送出前先想十秒鐘)", desc: "按下送出鍵前先暫停，問自己：「這份資料屬於誰？我有權限分享給 AI 嗎？」" },
+                    { stepOrder: 2, tag: "A｜Avoid (個人資料不輸入)", desc: "移除文章中所有真實姓名、學校班級、學號、電話地址與未經同意的他人私事。" },
+                    { stepOrder: 3, tag: "F｜Filter (可以問問題，但要去識別化)", desc: "將真實人名與地點改為模糊安全的代稱（如「A 同學」、「某個城市」）後再送出提問。" },
+                    { stepOrder: 4, tag: "E｜Explain (不確定就先問，不小心就求助)", desc: "若對平台隱私政策有疑慮，或發現不小心輸入了敏感資料，立即向老師或家長求助。" }
+                ]
+            }
+        ];
+
+        let currentOrderMissionIdx = 0;
+        let currentOrderItems = [];
+        let draggedOrderIdx = null;
+
+        function loadOrderMission(idx) {
+            currentOrderMissionIdx = idx;
+            const mission = orderMissions[idx];
+
+            [0, 1, 2].forEach(i => {
+                const btn = document.getElementById(`orderTab-${i}`);
+                btn.className = (i === idx)
+                    ? 'px-3.5 py-2 font-black text-xs sm:text-sm m-border bg-m-yellow m-btn'
+                    : 'px-3.5 py-2 font-black text-xs sm:text-sm m-border bg-white m-btn';
+            });
+
+            document.getElementById('orderMissionBadge').textContent = mission.badge;
+            document.getElementById('orderMissionTitle').textContent = mission.title;
+            document.getElementById('orderMissionScenario').textContent = mission.scenario;
+            document.getElementById('orderMissionHint').textContent = mission.hint;
+
+            shuffleCurrentOrder();
+        }
+
+        function shuffleCurrentOrder() {
+            const mission = orderMissions[currentOrderMissionIdx];
+            currentOrderItems = [...mission.steps].sort(() => Math.random() - 0.5);
+            // Make sure it's not already in exact order on first load
+            if (currentOrderItems.every((item, i) => item.stepOrder === i + 1)) {
+                currentOrderItems.reverse();
+            }
+            document.getElementById('orderFeedbackBox').classList.add('hidden');
+            const badge = document.getElementById('orderStatusBadge');
+            badge.textContent = '請排列順序';
+            badge.className = 'text-xs font-black px-2.5 py-1 bg-neutral-200 border-2 border-black';
+            renderOrderList();
+        }
+
+        function renderOrderList(highlightResult = false) {
+            const container = document.getElementById('orderListContainer');
+            container.innerHTML = currentOrderItems.map((item, index) => {
+                const isRightPos = item.stepOrder === index + 1;
+                let borderAndBg = 'bg-neutral-50 border-black';
+                if (highlightResult) {
+                    borderAndBg = isRightPos ? 'bg-emerald-100 border-black' : 'bg-red-100 border-black';
+                }
+
+                return `
+                    <div draggable="true"
+                         ondragstart="handleOrderDragStart(event, ${index})"
+                         ondragover="handleOrderDragOver(event)"
+                         ondrop="handleOrderDrop(event, ${index})"
+                         class="m-border ${borderAndBg} p-3 sm:p-4 flex items-center justify-between gap-3 m-shadow-sm cursor-grab active:cursor-grabbing transition-all">
+                        <div class="flex items-center gap-3">
+                            <div class="w-8 h-8 bg-black text-white font-black text-sm flex items-center justify-center shrink-0">
+                                ${index + 1}
+                            </div>
+                            <div>
+                                <div class="font-black text-sm sm:text-base text-black flex items-center gap-2">
+                                    <span>${item.tag}</span>
+                                    ${highlightResult ? (isRightPos 
+                                        ? '<span class="text-xs bg-emerald-600 text-white px-1.5 py-0.5">✓ 位置正確</span>' 
+                                        : '<span class="text-xs bg-m-red text-white px-1.5 py-0.5">✗ 順序需調整</span>') : ''}
+                                </div>
+                                <p class="text-xs sm:text-sm font-medium text-neutral-800 mt-0.5">${item.desc}</p>
+                            </div>
+                        </div>
+                        <!-- Up / Down Buttons for easy mobile/click sorting -->
+                        <div class="flex flex-col gap-1 shrink-0">
+                            <button onclick="moveOrderItem(${index}, -1)" ${index === 0 ? 'disabled' : ''} 
+                                    class="w-7 h-7 bg-white border-2 border-black font-black text-xs flex items-center justify-center hover:bg-m-yellow disabled:opacity-30" title="上移">
+                                ▲
+                            </button>
+                            <button onclick="moveOrderItem(${index}, 1)" ${index === currentOrderItems.length - 1 ? 'disabled' : ''} 
+                                    class="w-7 h-7 bg-white border-2 border-black font-black text-xs flex items-center justify-center hover:bg-m-yellow disabled:opacity-30" title="下移">
+                                ▼
+                            </button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function moveOrderItem(index, delta) {
+            const targetIndex = index + delta;
+            if (targetIndex < 0 || targetIndex >= currentOrderItems.length) return;
+            playTone('click');
+            const temp = currentOrderItems[index];
+            currentOrderItems[index] = currentOrderItems[targetIndex];
+            currentOrderItems[targetIndex] = temp;
+            renderOrderList(false);
+        }
+
+        function handleOrderDragStart(e, index) {
+            draggedOrderIdx = index;
+            e.dataTransfer.effectAllowed = 'move';
+        }
+
+        function handleOrderDragOver(e) {
+            e.preventDefault();
+        }
+
+        function handleOrderDrop(e, dropIndex) {
+            e.preventDefault();
+            if (draggedOrderIdx === null || draggedOrderIdx === dropIndex) return;
+            playTone('click');
+            const movedItem = currentOrderItems.splice(draggedOrderIdx, 1)[0];
+            currentOrderItems.splice(dropIndex, 0, movedItem);
+            draggedOrderIdx = null;
+            renderOrderList(false);
+        }
+
+        function checkOrderSolution() {
+            const allCorrect = currentOrderItems.every((item, idx) => item.stepOrder === idx + 1);
+            renderOrderList(true);
+
+            const fb = document.getElementById('orderFeedbackBox');
+            const badge = document.getElementById('orderStatusBadge');
+            fb.classList.remove('hidden', 'bg-emerald-100', 'bg-red-100');
+
+            if (allCorrect) {
+                playTone('success');
+                badge.textContent = '🎉 完全正確！';
+                badge.className = 'text-xs font-black px-2.5 py-1 bg-m-green text-white border-2 border-black';
+                fb.classList.add('bg-emerald-100');
+                fb.innerHTML = `
+                    <div class="font-black text-emerald-950 text-sm sm:text-base">
+                        🏆 太棒了！你成功掌握了「${orderMissions[currentOrderMissionIdx].title}」的黃金順序！
+                    </div>
+                    <p class="text-xs font-bold text-emerald-800 mt-1">你可以點擊右上角切換挑戰另外兩個排序任務喔！</p>
+                `;
+                if (!progressState.orderCompleted) {
+                    progressState.orderCompleted = true;
+                    updateGlobalProgress();
+                }
+            } else {
+                playTone('error');
+                badge.textContent = '⚠️ 部分順序有誤';
+                badge.className = 'text-xs font-black px-2.5 py-1 bg-m-red text-white border-2 border-black';
+                fb.classList.add('bg-red-100');
+                fb.innerHTML = `
+                    <div class="font-black text-red-950 text-sm">
+                        標示紅色的步驟位置還不對喔！請使用右側 ▲ / ▼ 按鈕或滑鼠拖曳調整後再檢查一次。
+                    </div>
+                `;
+            }
+        }
+
+        /* =========================================================
+         * SECTION 4: FLIP GAME (MEMORY MATCH + 3D FLASHCARDS)
+         * ========================================================= */
+        const memoryPairsData = [
+            {
+                pairId: 1,
+                riskCard: { type: '⚠️️ 風險情境', icon: 'fa-copy', text: '把 AI 寫的作文直接貼上交差（認知卸載）' },
+                solutionCard: { type: '✅ 倫理解法', icon: 'fa-lightbulb', text: '使用 THINK 原則：先自己寫草稿，只請 AI 給修改提示' }
+            },
+            {
+                pairId: 2,
+                riskCard: { type: '⚠️ 風險情境', icon: 'fa-ghost', text: 'AI 捏造了不存在的歷史年份與假科學數據（AI 幻覺）' },
+                solutionCard: { type: '✅ 倫理解法', icon: 'fa-magnifying-glass', text: '使用 STEP 查證法：對照課本與至少兩個可靠官方網站' }
+            },
+            {
+                pairId: 3,
+                riskCard: { type: '⚠️ 風險情境', icon: 'fa-id-card', text: '想請 AI 分析全班成績單或修改自傳（個資外洩風險）' },
+                solutionCard: { type: '✅ 倫理解法', icon: 'fa-user-secret', text: '先「去識別化」：將姓名改為 A 同學，移除學號與電話' }
+            },
+            {
+                pairId: 4,
+                riskCard: { type: '⚠️ 風險情境', icon: 'fa-masks-theater', text: '同學傳來用 AI 將別人換臉惡搞的 Deepfake 影片' },
+                solutionCard: { type: '✅ 倫理解法', icon: 'fa-ban', text: '絕對不轉傳、不下載，並向師長或性影像處理中心申訴' }
+            },
+            {
+                pairId: 5,
+                riskCard: { type: '⚠️ 風險情境', icon: 'fa-user-doctor', text: 'AI 畫出的科學家全是白人男性、新娘全穿西方白紗（偏見）' },
+                solutionCard: { type: '✅ 倫理解法', icon: 'fa-earth-asia', text: '主動在提示詞加入多元性別與臺灣在地文化描述' }
+            },
+            {
+                pairId: 6,
+                riskCard: { type: '⚠️ 風險情境', icon: 'fa-file-Lines', text: '報告中有請 AI 幫忙潤飾語句與整理大綱架構' },
+                solutionCard: { type: '✅ 倫理解法', icon: 'fa-tag', text: '落實「透明原則」：在作業結尾附上 AI 工具使用聲明' }
+            }
+        ];
+
+        let memoryCards = [];
+        let flippedIndices = [];
+        let matchedPairIds = new Set();
+        let movesCount = 0;
+        let lockBoard = false;
+
+        function initMemoryMatchGame() {
+            const deck = [];
+            memoryPairsData.forEach(pair => {
+                deck.push({
+                    uid: `r-${pair.pairId}`,
+                    pairId: pair.pairId,
+                    category: 'risk',
+                    badge: pair.riskCard.type,
+                    icon: pair.riskCard.icon,
+                    text: pair.riskCard.text,
+                    frontColor: 'bg-m-red text-white'
+                });
+                deck.push({
+                    uid: `s-${pair.pairId}`,
+                    pairId: pair.pairId,
+                    category: 'solution',
+                    badge: pair.solutionCard.type,
+                    icon: pair.solutionCard.icon,
+                    text: pair.solutionCard.text,
+                    frontColor: 'bg-m-blue text-white'
+                });
+            });
+
+            memoryCards = deck.sort(() => Math.random() - 0.5);
+            flippedIndices = [];
+            matchedPairIds = new Set();
+            movesCount = 0;
+            lockBoard = false;
+            renderMemoryGrid();
+        }
+
+        function renderMemoryGrid() {
+            document.getElementById('matchPairsCount').textContent = matchedPairIds.size;
+            document.getElementById('matchMovesCount').textContent = movesCount;
+
+            const mondrianBacks = ['bg-m-red text-white', 'bg-m-yellow text-black', 'bg-m-blue text-white', 'bg-m-white text-black'];
+            const grid = document.getElementById('memoryGrid');
+
+            grid.innerHTML = memoryCards.map((card, idx) => {
+                const isFlipped = flippedIndices.includes(idx) || matchedPairIds.has(card.pairId);
+                const isMatched = matchedPairIds.has(card.pairId);
+                const coverStyle = mondrianBacks[idx % mondrianBacks.length];
+                const faceBg = card.category === 'risk' ? 'bg-red-50' : 'bg-emerald-50';
+                const badgeBg = card.category === 'risk' ? 'bg-m-red text-white' : 'bg-m-green text-white';
+
+                return `
+                    <div onclick="handleMemoryCardClick(${idx})" 
+                         class="perspective-1000 h-44 sm:h-48 cursor-pointer select-none ${isFlipped ? 'flipped' : ''}">
+                        <div class="flip-card-inner m-border m-shadow-sm">
+                            <!-- Card Back (Mondrian Cover) -->
+                            <div class="flip-card-front ${coverStyle} p-4 flex flex-col items-center justify-center justify-between">
+                                <div class="w-full flex justify-between items-center text-xs font-black">
+                                    <span>MONDRIAN #${idx + 1}</span>
+                                    <i class="fa-solid fa-sparkles"></i>
+                                </div>
+                                <div class="w-12 h-12 bg-white text-black m-border flex items-center justify-center text-xl font-black">
+                                    ?
+                                </div>
+                                <div class="text-xs font-black uppercase tracking-wider">點擊翻牌</div>
+                            </div>
+
+                            <!-- Card Front (Revealed Content) -->
+                            <div class="flip-card-back ${faceBg} text-black p-3.5 flex flex-col justify-between">
+                                <div class="flex items-center justify-between gap-1">
+                                    <span class="${badgeBg} text-[11px] font-black px-2 py-0.5 border border-black">${card.badge}</span>
+                                    ${isMatched ? '<span class="bg-m-yellow text-black text-[11px] font-black px-1.5 py-0.5 border border-black">✓ 配對成功</span>' : ''}
+                                </div>
+                                <div class="my-auto py-1">
+                                    <p class="text-xs sm:text-sm font-black leading-snug text-neutral-900">
+                                        <i class="fa-solid ${card.icon} mr-1"></i> ${card.text}
+                                    </p>
+                                </div>
+                                <div class="text-[10px] font-bold text-neutral-500 border-t border-neutral-300 pt-1">
+                                    配對編號 #0${card.pairId}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function handleMemoryCardClick(idx) {
+            if (lockBoard) return;
+            if (flippedIndices.includes(idx)) return;
+            const clickedCard = memoryCards[idx];
+            if (matchedPairIds.has(clickedCard.pairId)) return;
+
+            playTone('click');
+            flippedIndices.push(idx);
+            renderMemoryGrid();
+
+            if (flippedIndices.length === 2) {
+                movesCount++;
+                lockBoard = true;
+                const [firstIdx, secondIdx] = flippedIndices;
+                const firstCard = memoryCards[firstIdx];
+                const secondCard = memoryCards[secondIdx];
+
+                if (firstCard.pairId === secondCard.pairId) {
+                    setTimeout(() => {
+                        playTone('success');
+                        matchedPairIds.add(firstCard.pairId);
+                        flippedIndices = [];
+                        lockBoard = false;
+                        renderMemoryGrid();
+                        showToast('配對成功！找到對應的 AI 倫理神隊友解法！', 'success');
+
+                        if (matchedPairIds.size === memoryPairsData.length && !progressState.flipCompleted) {
+                            progressState.flipCompleted = true;
+                            updateGlobalProgress();
+                            showToast('🎉 恭喜完成所有「倫理翻翻樂」配對，解鎖認證！', 'success');
+                        }
+                    }, 400);
+                } else {
+                    setTimeout(() => {
+                        playTone('error');
+                        flippedIndices = [];
+                        lockBoard = false;
+                        renderMemoryGrid();
+                    }, 950);
+                }
+            }
+        }
+
+        /* Mode 2: 3D Flashcards Data (De-Identification & Prompt Makeover) */
+        const flashcardsMakeoverData = [
+            {
+                title: "去識別化第 1 招：匿名化與遮蔽",
+                frontTag: "❌ 危險個資輸入（點擊翻面改造）",
+                frontText: "「我是臺中市向上國中 7 年 2 班林小宇，學號 112045，我媽媽在台積電上班，請幫我寫一篇我的家庭英文作文。」",
+                backTag: "✅ 安全去識別化提示詞",
+                backText: "「我是一名國中七年級學生（代號 A 同學），家中有四口人，父母從事科技業。請提供一篇 100 字的『我的家庭』英文作文架構與常用單字，我自己再填入內容。」"
+            },
+            {
+                title: "去識別化第 2 招：資料聚合",
+                frontTag: "❌ 外洩同儕隱私（點擊翻面改造）",
+                frontText: "「這是我們班陳大明（42分）、李小美（55分）、張阿豪（88分）的數學考卷照片，請幫我分析誰最不用功？」",
+                backTag: "✅ 安全資料聚合提示詞",
+                backText: "「某國中八年級班級在『一元二次方程式』小考中，約有 35% 同學在十字交乘法計算出錯。請提供 3 個適合全班共同複習的教學活動建議。」"
+            },
+            {
+                title: "拒絕認知卸載：從代寫變陪練",
+                frontTag: "❌ 答案外包代寫（點擊翻面改造）",
+                frontText: "「請直接幫我算出『雞兔同籠共 12 隻，腳共 32 隻』的答案，我要直接抄到作業本上。」",
+                backTag: "✅ THINK 引導式提示詞",
+                backText: "「我正在寫『雞兔同籠共 12 隻，腳共 32 隻』的數學題，我想假設雞有 x 隻，但不知道怎麼列第二個式子。請不要直接給我答案，請用問題引導我列式！」"
+            },
+            {
+                title: "打破演算法偏見：多元文化視角",
+                frontTag: "❌ 單一文化刻板印象（點擊翻面改造）",
+                frontText: "「幫我畫一張慶祝新年的海報，還有一個標準的成功企業家。」（易只出現單一文化與性別）",
+                backTag: "✅ 包容多元提示詞",
+                backText: "「請幫我構思一張展現『臺灣多元文化新年』的插畫海報元素，包含農曆春節、原住民族歲時祭儀與新住民文化特色，人物包含不同性別與年齡。」"
+            },
+            {
+                title: "防範 AI 幻覺：STEP 查證追問",
+                frontTag: "❌ 盲目相信 AI 數據（點擊翻面改造）",
+                frontText: "AI 說：「喝檸檬水每天可殺死 99% 感冒病毒（Wang, 2022）。」→ 直接轉傳到家族群組！",
+                backTag: "✅ 查證守門員行動",
+                backText: "先暫停不轉傳！追問 AI：「這篇研究的全名是什麼？」並前往衛生福利部疾管署官網或事實查核中心查證，發現是假訊息後提醒家人別受騙。"
+            },
+            {
+                title: "時間與專案管理：打造讀書計畫",
+                frontTag: "❌ 模糊無效的提示詞（點擊翻面改造）",
+                frontText: "「段考快到了我好焦慮，幫我排讀書計畫。」（沒有背景與格式，AI 無法給出實用建議）",
+                backTag: "✅ 角色＋背景＋任務＋格式",
+                backText: "「請扮演高效學習導師（角色），針對我 14 天後要考五科、平日每晚有 2 小時可讀書的現況（背景），以表格形式（格式）規劃導入『番茄鐘工作法』的複習表（任務）。」"
+            }
+        ];
+
+        function renderFlashcardsMakeover() {
+            const container = document.getElementById('flashcardsGrid');
+            container.innerHTML = flashcardsMakeoverData.map((card, i) => `
+                <div onclick="this.classList.toggle('flipped'); playTone('click');" 
+                     class="flashcard-item perspective-1000 h-60 cursor-pointer select-none">
+                    <div class="flip-card-inner m-border m-shadow">
+                        <!-- Front: Wrong / Risky Prompt -->
+                        <div class="flip-card-front bg-m-white p-4 flex flex-col justify-between">
+                            <div>
+                                <div class="flex items-center justify-between gap-2 mb-2">
+                                    <span class="bg-m-red text-white text-xs font-black px-2 py-0.5 border border-black">${card.frontTag}</span>
+                                    <i class="fa-solid fa-rotate text-black"></i>
+                                </div>
+                                <h5 class="font-black text-base mb-2">${card.title}</h5>
+                                <div class="bg-red-50 border-2 border-black p-3 text-xs sm:text-sm font-bold text-red-950 leading-relaxed">
+                                    ${card.frontText}
+                                </div>
+                            </div>
+                            <div class="text-xs font-black text-right text-neutral-600">點擊卡片翻面看正確改法 ➔</div>
+                        </div>
+
+                        <!-- Back: Safe / Ethical Prompt -->
+                        <div class="flip-card-back bg-m-yellow p-4 flex flex-col justify-between">
+                            <div>
+                                <div class="flex items-center justify-between gap-2 mb-2">
+                                    <span class="bg-m-green text-white text-xs font-black px-2 py-0.5 border border-black">${card.backTag}</span>
+                                    <i class="fa-solid fa-check-double text-black"></i>
+                                </div>
+                                <h5 class="font-black text-base mb-2">${card.title}</h5>
+                                <div class="bg-white border-2 border-black p-3 text-xs sm:text-sm font-bold text-emerald-950 leading-relaxed">
+                                    ${card.backText}
+                                </div>
+                            </div>
+                            <div class="text-xs font-black text-right text-black">✨ 學會這招，安全又高效！</div>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function switchFlipMode(mode) {
+            playTone('click');
+            const matchDiv = document.getElementById('flip-mode-match');
+            const flashDiv = document.getElementById('flip-mode-flashcard');
+            const btnMatch = document.getElementById('flipModeBtn-match');
+            const btnFlash = document.getElementById('flipModeBtn-flashcard');
+
+            if (mode === 'match') {
+                matchDiv.classList.remove('hidden');
+                flashDiv.classList.add('hidden');
+                btnMatch.className = 'px-4 py-2 font-black text-xs sm:text-sm m-border bg-m-red text-white m-btn';
+                btnFlash.className = 'px-4 py-2 font-black text-xs sm:text-sm m-border bg-white text-black m-btn';
+            } else {
+                matchDiv.classList.add('hidden');
+                flashDiv.classList.remove('hidden');
+                btnFlash.className = 'px-4 py-2 font-black text-xs sm:text-sm m-border bg-m-red text-white m-btn';
+                btnMatch.className = 'px-4 py-2 font-black text-xs sm:text-sm m-border bg-white text-black m-btn';
+                if (!progressState.flipCompleted) {
+                    progressState.flipCompleted = true;
+                    updateGlobalProgress();
+                }
+            }
+        }
+
+        function flipAllFlashcards() {
+            playTone('click');
+            document.querySelectorAll('.flashcard-item').forEach(el => {
+                el.classList.toggle('flipped');
+            });
+        }
+
+        /* =========================================================
+         * SECTION 5: AI DISCLOSURE GENERATOR & SELF-CHECKLIST
+         * ========================================================= */
+        const selfCheckItems = [
+            "1. 【拒絕認知卸載】我有先自己思考嘗試，並能用自己的話解釋 AI 的回答，而不是直接複製貼上。",
+            "2. 【查核 AI 幻覺】這個回答若涉及最新資訊、具體數據或文獻，我已用課本或至少兩個可靠來源交叉查證。",
+            "3. 【檢視多元公平】我有留意這份 AI 回答是否含有性別、種族、職業或單一文化的刻板印象。",
+            "4. 【守護個資隱私】我確認輸入的提示詞中，完全沒有自己或他人的真實姓名、學號、密碼或私密照片。",
+            "5. 【誠實透明標註】如果在作業或比賽作品中有使用 AI 輔助，我已經清楚標示「AI 工具名稱與協助範圍」。",
+            "6. 【尊重法律與肖像】我絕對不用 AI 製作或轉傳惡搞他人臉部、聲音的深偽（Deepfake）或不實影片。",
+            "7. 【健康人機界線】我優先使用教育型 AI，且在重要決定與心情困擾時，會主動與師長、家人及朋友溝通。"
+        ];
+
+        function renderSelfChecklist() {
+            const container = document.getElementById('selfCheckContainer');
+            container.innerHTML = selfCheckItems.map((text, idx) => `
+                <label class="flex items-start gap-2.5 p-2.5 border-2 border-black bg-white cursor-pointer hover:bg-yellow-50 transition-colors">
+                    <input type="checkbox" onchange="updateSelfCheckScore()" class="self-check-item accent-blue-700 w-4 h-4 mt-0.5 shrink-0">
+                    <span class="text-xs sm:text-sm font-bold leading-snug">${text}</span>
+                </label>
+            `).join('');
+        }
+
+        function updateSelfCheckScore() {
+            playTone('click');
+            const checks = document.querySelectorAll('.self-check-item:checked').length;
+            const badge = document.getElementById('checklistScoreBadge');
+            const certBox = document.getElementById('pledgeCertificateBox');
+            badge.textContent = `${checks} / ${selfCheckItems.length} 項達成`;
+
+            if (checks === selfCheckItems.length) {
+                playTone('success');
+                certBox.className = 'mt-5 bg-m-yellow text-black m-border p-4 text-center m-shadow-sm';
+                certBox.innerHTML = `
+                    <div class="text-2xl mb-1">🏆</div>
+                    <div class="font-black text-base sm:text-lg mb-1">恭喜獲得「AI 倫理智慧領航員」榮譽認證！</div>
+                    <p class="text-xs font-bold">你已具備完整的「思、辨、安、人（WISE）」倫理反射能力！</p>
+                `;
+                showToast('🎉 恭喜完成全部 7 項倫理反射自我檢核！', 'success');
+            } else {
+                certBox.className = 'mt-5 bg-m-red text-white m-border p-4 text-center';
+                certBox.innerHTML = `
+                    <div class="font-black text-base mb-1">🏅 勾選全部 7 項即可領取「AI 智慧領航員證書」！</div>
+                    <p class="text-xs text-red-100">記住：AI 是學習的好夥伴，但學習的主角永遠是你自己！</p>
+                `;
+            }
+        }
+
+        function updateDisclosurePreview() {
+            const student = document.getElementById('discStudentName').value.trim() || '學生本人';
+            const tool = document.getElementById('discToolName').value;
+            const verifyNote = document.getElementById('discVerifyNote').value.trim();
+            const checkedBoxes = Array.from(document.querySelectorAll('.disc-assist:checked')).map(cb => cb.value);
+
+            const assistList = checkedBoxes.length > 0
+                ? checkedBoxes.map(item => `  ● ${item}`).join('\n')
+                : '  ● 初步觀念檢索與學習輔助';
+
+            const statement = `【AI 工具使用揭露聲明】
+宣告人：${student}
+本作業／報告在以下環節使用了生成式 AI 工具（${tool}）協助：
+${assistList}
+
+以下核心內容由本人獨立完成並負起最終責任：
+  ● 資料真實性的核實與多管道交叉查驗（${verifyNote}）
+  ● 核心分析、觀點形成與最終文字撰寫修改
+本作業的核心內容與結論，均代表本人的真實思考與理解。`;
+
+            document.getElementById('disclosureOutput').textContent = statement;
+        }
+
+        function copyDisclosureText() {
+            const text = document.getElementById('disclosureOutput').textContent;
+            const textarea = document.createElement('textarea');
+            textarea.value = text;
+            document.body.appendChild(textarea);
+            textarea.select();
+            try {
+                document.execCommand('copy');
+                playTone('success');
+                showToast('📋 已成功複製「AI 工具使用揭露聲明」！可直接貼到作業下方。', 'success');
+            } catch (err) {
+                showToast('複製失敗，請手動選取文字複製。', 'error');
+            }
+            document.body.removeChild(textarea);
+        }
+
+        /* =========================================================
+         * NAVIGATION TAB SWITCHER
+         * ========================================================= */
+        function switchSection(sectionKey) {
+            playTone('click');
+            const sections = ['ethics', 'drag', 'order', 'flip', 'pledge'];
+            sections.forEach(key => {
+                const secEl = document.getElementById(`section-${key}`);
+                const tabEl = document.getElementById(`tab-${key}`);
+                if (key === sectionKey) {
+                    secEl.classList.remove('hidden');
+                    tabEl.classList.add('bg-m-yellow');
+                    tabEl.classList.remove('hover:bg-yellow-100');
+                } else {
+                    secEl.classList.add('hidden');
+                    tabEl.classList.remove('bg-m-yellow');
+                    tabEl.classList.add('hover:bg-yellow-100');
+                }
+            });
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        /* =========================================================
+         * INITIALIZE APPLICATION ON WINDOW LOAD
+         * ========================================================= */
+        window.onload = function () {
+            renderEthicsGallery();
+            resetDragGame();
+            loadOrderMission(0);
+            initMemoryMatchGame();
+            renderFlashcardsMakeover();
+            renderSelfChecklist();
+            updateDisclosurePreview();
+            updateGlobalProgress();
+        };
+    </script>
+</body>
+</html>
