@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI 倫理蒙德里安美術館｜國中小生成式 AI 六大核心倫理與風險</title>
+    <title>國中小生成式 AI 六大核心倫理與風險</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -21,11 +21,22 @@
             --mondrian-green: #1F8A4C;
         }
 
+        /* 針對國中小學習小平板放大基礎字級，讓所有相對單位自然放大且易讀 */
+        html {
+            font-size: 18px;
+        }
+        @media (min-width: 768px) and (max-width: 1180px) {
+            html {
+                font-size: 19px;
+            }
+        }
+
         body {
             font-family: 'Noto Sans TC', sans-serif;
             background-color: var(--mondrian-white);
             color: var(--mondrian-black);
             overflow-x: hidden;
+            line-height: 1.65;
             background-image: 
                 linear-gradient(to right, rgba(18,18,18,0.04) 1px, transparent 1px),
                 linear-gradient(to bottom, rgba(18,18,18,0.04) 1px, transparent 1px);
@@ -139,58 +150,58 @@
     <header class="sticky top-0 z-40 bg-white border-b-[5px] border-black">
         <div class="max-w-7xl mx-auto grid grid-cols-12">
             <!-- Brand Block -->
-            <div class="col-span-12 lg:col-span-4 bg-m-red p-3 sm:p-4 border-b-4 lg:border-b-0 lg:border-r-[5px] border-black flex items-center justify-between">
+            <div class="col-span-12 xl:col-span-4 bg-m-red p-3.5 sm:p-4 border-b-4 xl:border-b-0 xl:border-r-[5px] border-black flex items-center justify-between">
                 <div class="flex items-center gap-3">
-                    <div class="w-11 h-11 bg-m-yellow m-border flex items-center justify-center text-black font-black text-xl shrink-0 shadow-[3px_3px_0px_#000]">
+                    <div class="w-12 h-12 bg-m-yellow m-border flex items-center justify-center text-black font-black text-2xl shrink-0 shadow-[3px_3px_0px_#000]">
                         AI
                     </div>
                     <div>
-                        <span class="text-xs font-bold tracking-widest uppercase bg-black text-white px-2 py-0.5 inline-block mb-0.5">DE STIJL × AI ETHICS</span>
-                        <h1 class="text-lg sm:text-xl font-black tracking-tight text-white leading-tight">AI 倫理蒙德里安美術館</h1>
+                        <span class="text-xs sm:text-sm font-bold tracking-widest uppercase bg-black text-white px-2.5 py-0.5 inline-block mb-0.5">DE STIJL × AI ETHICS</span>
+                        <h1 class="text-xl sm:text-2xl font-black tracking-tight text-white leading-tight">AI 倫理蒙德里安美術館</h1>
                     </div>
                 </div>
                 <!-- Sound Toggle Button -->
-                <button id="soundToggleBtn" onclick="toggleSound()" class="bg-white text-black m-border px-2.5 py-1.5 text-sm font-black m-btn shrink-0" title="切換音效">
+                <button id="soundToggleBtn" onclick="toggleSound()" class="bg-white text-black m-border px-3.5 py-2 text-base sm:text-lg font-black m-btn shrink-0" title="切換音效">
                     <i id="soundIcon" class="fa-solid fa-volume-high"></i>
                 </button>
             </div>
 
             <!-- Navigation Tabs Block -->
-            <nav class="col-span-12 lg:col-span-5 bg-m-white border-b-4 lg:border-b-0 lg:border-r-[5px] border-black flex overflow-x-auto">
-                <button onclick="switchSection('ethics')" id="tab-ethics" class="nav-tab flex-1 py-3 px-3 font-black text-xs sm:text-sm border-r-4 border-black bg-m-yellow flex flex-col items-center justify-center gap-1 whitespace-nowrap transition-colors">
-                    <i class="fa-solid fa-table-cells-large text-base"></i>
-                    <span>1. 六大倫理畫布</span>
+            <nav class="col-span-12 md:col-span-8 xl:col-span-5 bg-m-white border-b-4 md:border-b-0 md:border-r-[5px] border-black flex overflow-x-auto">
+                <button onclick="switchSection('ethics')" id="tab-ethics" class="nav-tab flex-1 py-3.5 px-3.5 font-black text-sm sm:text-base border-r-4 border-black bg-m-yellow flex flex-col items-center justify-center gap-1.5 whitespace-nowrap transition-colors">
+                    <i class="fa-solid fa-table-cells-large text-lg sm:text-xl"></i>
+                    <span>1. 六大倫理</span>
                 </button>
-                <button onclick="switchSection('drag')" id="tab-drag" class="nav-tab flex-1 py-3 px-3 font-black text-xs sm:text-sm border-r-4 border-black hover:bg-yellow-100 flex flex-col items-center justify-center gap-1 whitespace-nowrap transition-colors">
-                    <i class="fa-solid fa-hand-pointer text-base"></i>
+                <button onclick="switchSection('drag')" id="tab-drag" class="nav-tab flex-1 py-3.5 px-3.5 font-black text-sm sm:text-base border-r-4 border-black hover:bg-yellow-100 flex flex-col items-center justify-center gap-1.5 whitespace-nowrap transition-colors">
+                    <i class="fa-solid fa-hand-pointer text-lg sm:text-xl"></i>
                     <span>2. 紅綠燈拖拉</span>
                 </button>
-                <button onclick="switchSection('order')" id="tab-order" class="nav-tab flex-1 py-3 px-3 font-black text-xs sm:text-sm border-r-4 border-black hover:bg-yellow-100 flex flex-col items-center justify-center gap-1 whitespace-nowrap transition-colors">
-                    <i class="fa-solid fa-arrow-down-1-9 text-base"></i>
+                <button onclick="switchSection('order')" id="tab-order" class="nav-tab flex-1 py-3.5 px-3.5 font-black text-sm sm:text-base border-r-4 border-black hover:bg-yellow-100 flex flex-col items-center justify-center gap-1.5 whitespace-nowrap transition-colors">
+                    <i class="fa-solid fa-arrow-down-1-9 text-lg sm:text-xl"></i>
                     <span>3. 思辨排列</span>
                 </button>
-                <button onclick="switchSection('flip')" id="tab-flip" class="nav-tab flex-1 py-3 px-3 font-black text-xs sm:text-sm border-r-4 border-black hover:bg-yellow-100 flex flex-col items-center justify-center gap-1 whitespace-nowrap transition-colors">
-                    <i class="fa-solid fa-clone text-base"></i>
+                <button onclick="switchSection('flip')" id="tab-flip" class="nav-tab flex-1 py-3.5 px-3.5 font-black text-sm sm:text-base border-r-4 border-black hover:bg-yellow-100 flex flex-col items-center justify-center gap-1.5 whitespace-nowrap transition-colors">
+                    <i class="fa-solid fa-clone text-lg sm:text-xl"></i>
                     <span>4. 倫理翻翻樂</span>
                 </button>
-                <button onclick="switchSection('pledge')" id="tab-pledge" class="nav-tab flex-1 py-3 px-3 font-black text-xs sm:text-sm hover:bg-yellow-100 flex flex-col items-center justify-center gap-1 whitespace-nowrap transition-colors">
-                    <i class="fa-solid fa-file-signature text-base"></i>
+                <button onclick="switchSection('pledge')" id="tab-pledge" class="nav-tab flex-1 py-3.5 px-3.5 font-black text-sm sm:text-base hover:bg-yellow-100 flex flex-col items-center justify-center gap-1.5 whitespace-nowrap transition-colors">
+                    <i class="fa-solid fa-file-signature text-lg sm:text-xl"></i>
                     <span>5. 揭露與公約</span>
                 </button>
             </nav>
 
             <!-- Badge / Score Block -->
-            <div class="col-span-12 lg:col-span-3 bg-m-blue p-3 sm:p-4 flex items-center justify-between text-white">
-                <div class="flex items-center gap-2.5">
-                    <div class="w-10 h-10 bg-m-yellow m-border flex items-center justify-center text-black font-black text-lg shrink-0">
+            <div class="col-span-12 md:col-span-4 xl:col-span-3 bg-m-blue p-3.5 sm:p-4 flex items-center justify-between text-white">
+                <div class="flex items-center gap-3">
+                    <div class="w-11 h-11 bg-m-yellow m-border flex items-center justify-center text-black font-black text-xl shrink-0">
                         <i class="fa-solid fa-medal"></i>
                     </div>
                     <div>
-                        <div class="text-xs font-bold text-yellow-200">AI 領航員探索進度</div>
-                        <div class="text-sm sm:text-base font-black" id="globalProgressText">已解鎖 0 / 9 認證</div>
+                        <div class="text-xs sm:text-sm font-bold text-yellow-200">AI 領航員探索進度</div>
+                        <div class="text-base sm:text-lg font-black" id="globalProgressText">已解鎖 0 / 9 認證</div>
                     </div>
                 </div>
-                <div class="w-20 bg-black h-4 border-2 border-white p-0.5">
+                <div class="w-20 bg-black h-5 border-2 border-white p-0.5 shrink-0">
                     <div id="globalProgressBar" class="bg-m-yellow h-full transition-all duration-300" style="width: 0%"></div>
                 </div>
             </div>
@@ -203,26 +214,26 @@
         <section class="m-border-thick bg-black mb-8 m-shadow">
             <div class="grid grid-cols-12 gap-[5px] bg-black">
                 <!-- Left Main Title Block -->
-                <div class="col-span-12 md:col-span-7 bg-m-white p-5 sm:p-8 flex flex-col justify-between">
+                <div class="col-span-12 lg:col-span-7 bg-m-white p-5 sm:p-7 flex flex-col justify-between">
                     <div>
-                        <div class="inline-flex items-center gap-2 bg-m-blue text-white px-3 py-1 text-xs sm:text-sm font-black m-border mb-4">
+                        <div class="inline-flex items-center gap-2 bg-m-blue text-white px-3.5 py-1.5 text-sm sm:text-base font-black m-border mb-4">
                             <i class="fa-solid fa-graduation-cap"></i>
                             <span>教育部中小學生成式 AI 使用指引 2.1 互動教材</span>
                         </div>
-                        <h2 class="text-2xl sm:text-4xl font-black leading-tight mb-3 text-black">
+                        <h2 class="text-2xl sm:text-4xl font-black leading-tight mb-4 text-black">
                             科技本身沒有對錯，<br>
-                            <span class="bg-m-yellow px-2 border-2 border-black inline-block mt-1">決定善惡的是我們如何運用它！</span>
+                            <span class="bg-m-yellow px-2.5 py-0.5 border-2 border-black inline-block mt-1.5">決定善惡的是我們如何運用它！</span>
                         </h2>
-                        <p class="text-sm sm:text-base text-neutral-800 font-medium leading-relaxed mb-5">
-                            歡迎來到<strong>「AI 倫理蒙德里安美術館」</strong>！在這裡，紅、黃、藍、白、黑的幾何色塊代表<strong>理性秩序與人文思辨的平衡</strong>。點擊下方畫布的<strong>燈箱展間</strong>，並完成<strong>拖拉、排列、翻翻樂</strong>三大挑戰，成為聰明又負責任的 AI 領航員！
+                        <p class="text-base sm:text-lg text-neutral-800 font-bold leading-relaxed mb-5">
+                            歡迎來到<strong>「AI 倫理蒙德里安美術館」</strong>！在這裡，紅、黃、藍、白、黑的幾何色塊代表<strong>理性秩序與人文思辨的平衡</strong>。請點選下方畫布的<strong>燈箱展間</strong>，並完成<strong>拖拉、排列、翻翻樂</strong>三大挑戰，成為聰明又負責任的 AI 領航員！
                         </p>
                     </div>
-                    <div class="flex flex-wrap gap-3 pt-2">
-                        <button onclick="openWiseModal()" class="bg-m-red text-white font-black px-4 py-2.5 text-sm m-border m-btn flex items-center gap-2">
+                    <div class="flex flex-wrap gap-3.5 pt-2">
+                        <button onclick="openWiseModal()" class="bg-m-red text-white font-black px-5 py-3 text-base sm:text-lg m-border m-btn flex items-center gap-2">
                             <i class="fa-solid fa-compass"></i>
                             <span>認識 WISE 與 THINK 原則 (燈箱)</span>
                         </button>
-                        <button onclick="openAiCompareModal()" class="bg-m-yellow text-black font-black px-4 py-2.5 text-sm m-border m-btn flex items-center gap-2">
+                        <button onclick="openAiCompareModal()" class="bg-m-yellow text-black font-black px-5 py-3 text-base sm:text-lg m-border m-btn flex items-center gap-2">
                             <i class="fa-solid fa-scale-balanced"></i>
                             <span>通用 AI vs. 教育 AI 比較表 (燈箱)</span>
                         </button>
@@ -230,43 +241,43 @@
                 </div>
 
                 <!-- Right Geometric Mondrian Art Interactive Blocks -->
-                <div class="col-span-12 md:col-span-5 grid grid-cols-6 grid-rows-4 gap-[5px] bg-black min-h-[260px]">
+                <div class="col-span-12 lg:col-span-5 grid grid-cols-6 grid-rows-4 gap-[5px] bg-black min-h-[300px]">
                     <div onclick="openEthicsLightbox(0)" class="col-span-4 row-span-2 bg-m-red p-4 flex flex-col justify-between cursor-pointer hover:brightness-110 transition-all group">
                         <div class="flex justify-between items-start">
-                            <span class="bg-black text-white text-xs font-black px-2 py-0.5">CORE 01</span>
-                            <i class="fa-solid fa-expand text-white group-hover:scale-125 transition-transform"></i>
+                            <span class="bg-black text-white text-xs sm:text-sm font-black px-2.5 py-0.5">CORE 01</span>
+                            <i class="fa-solid fa-expand text-lg text-white group-hover:scale-125 transition-transform"></i>
                         </div>
                         <div>
-                            <div class="font-black text-lg sm:text-xl text-white">拒絕認知卸載</div>
-                            <div class="text-xs text-red-100 font-bold">思考不能外包，AI 是陪練教練</div>
+                            <div class="font-black text-xl sm:text-2xl text-white">拒絕認知卸載</div>
+                            <div class="text-sm sm:text-base text-red-100 font-bold">思考不能外包，AI 是陪練教練</div>
                         </div>
                     </div>
-                    <div onclick="openEthicsLightbox(1)" class="col-span-2 row-span-3 bg-m-yellow p-3 flex flex-col justify-between cursor-pointer hover:brightness-105 transition-all group">
-                        <span class="bg-black text-white text-[11px] font-black px-1.5 py-0.5 self-start">CORE 02</span>
+                    <div onclick="openEthicsLightbox(1)" class="col-span-2 row-span-3 bg-m-yellow p-3.5 flex flex-col justify-between cursor-pointer hover:brightness-105 transition-all group">
+                        <span class="bg-black text-white text-xs sm:text-sm font-black px-2 py-0.5 self-start">CORE 02</span>
                         <div class="my-auto text-center">
-                            <i class="fa-solid fa-magnifying-glass-chart text-3xl text-black mb-1"></i>
-                            <div class="font-black text-sm sm:text-base text-black leading-snug">當心 AI 幻覺與查證</div>
+                            <i class="fa-solid fa-magnifying-glass-chart text-3xl sm:text-4xl text-black mb-1.5"></i>
+                            <div class="font-black text-base sm:text-lg text-black leading-snug">當心 AI 幻覺與查證</div>
                         </div>
-                        <div class="text-[11px] font-black text-center bg-white border-2 border-black py-0.5">點擊開燈箱</div>
+                        <div class="text-xs sm:text-sm font-black text-center bg-white border-2 border-black py-1">點此開燈箱</div>
                     </div>
-                    <div onclick="openEthicsLightbox(3)" class="col-span-2 row-span-2 bg-m-blue p-3 flex flex-col justify-between text-white cursor-pointer hover:brightness-110 transition-all">
-                        <span class="bg-white text-black text-[11px] font-black px-1.5 py-0.5 self-start">CORE 04</span>
+                    <div onclick="openEthicsLightbox(3)" class="col-span-2 row-span-2 bg-m-blue p-3.5 flex flex-col justify-between text-white cursor-pointer hover:brightness-110 transition-all">
+                        <span class="bg-white text-black text-xs sm:text-sm font-black px-2 py-0.5 self-start">CORE 04</span>
                         <div>
-                            <i class="fa-solid fa-user-shield text-xl mb-1 text-yellow-300"></i>
-                            <div class="font-black text-sm">個資去識別化</div>
+                            <i class="fa-solid fa-user-shield text-2xl mb-1 text-yellow-300"></i>
+                            <div class="font-black text-base sm:text-lg">個資去識別化</div>
                         </div>
                     </div>
-                    <div onclick="switchSection('drag')" class="col-span-2 row-span-1 bg-m-white p-2 flex items-center justify-center cursor-pointer hover:bg-yellow-100 transition-all">
-                        <span class="font-black text-xs sm:text-sm flex items-center gap-1">
+                    <div onclick="switchSection('drag')" class="col-span-2 row-span-1 bg-m-white p-2.5 flex items-center justify-center cursor-pointer hover:bg-yellow-100 transition-all">
+                        <span class="font-black text-sm sm:text-base flex items-center gap-1.5">
                             <i class="fa-solid fa-gamepad text-red-600"></i> 立即闖關
                         </span>
                     </div>
-                    <div onclick="openEthicsLightbox(4)" class="col-span-4 row-span-1 bg-m-white p-2.5 flex items-center justify-between cursor-pointer hover:bg-red-50 transition-all">
+                    <div onclick="openEthicsLightbox(4)" class="col-span-4 row-span-1 bg-m-white p-3 flex items-center justify-between cursor-pointer hover:bg-red-50 transition-all">
                         <div class="flex items-center gap-2">
-                            <span class="w-3 h-3 bg-m-red inline-block border border-black"></span>
-                            <span class="font-black text-xs sm:text-sm">深偽 Deepfake 零容忍</span>
+                            <span class="w-4 h-4 bg-m-red inline-block border-2 border-black shrink-0"></span>
+                            <span class="font-black text-sm sm:text-base">深偽 Deepfake 零容忍</span>
                         </div>
-                        <i class="fa-solid fa-arrow-right text-xs"></i>
+                        <i class="fa-solid fa-arrow-right text-base"></i>
                     </div>
                 </div>
             </div>
@@ -278,20 +289,20 @@
         <section id="section-ethics" class="tab-section space-y-6">
             <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b-4 border-black pb-4">
                 <div>
-                    <div class="inline-block bg-black text-white text-xs font-black px-2.5 py-1 mb-1">GALLERY 01 / MONDRIAN GRID</div>
+                    <div class="inline-block bg-black text-white text-sm font-black px-3 py-1 mb-1.5">GALLERY 01 / MONDRIAN GRID</div>
                     <h3 class="text-2xl sm:text-3xl font-black">六大核心倫理與風險・校園情境燈箱畫廊</h3>
-                    <p class="text-sm sm:text-base text-neutral-700 font-medium mt-1">
-                        點擊任一塊蒙德里安畫布，開啟<strong>「互動情境燈箱」</strong>查看國中小真實案例、❌錯誤 vs. ✅正確做法，並完成隨堂快問快答！
+                    <p class="text-base sm:text-lg text-neutral-800 font-bold mt-1.5">
+                        輕觸任一塊蒙德里安畫布，開啟<strong>「互動情境燈箱」</strong>查看國中小真實案例、❌錯誤 vs. ✅正確做法，並完成隨堂快問快答！
                     </p>
                 </div>
-                <div class="flex items-center gap-2 bg-m-yellow px-3 py-2 m-border text-xs sm:text-sm font-black shrink-0">
-                    <i class="fa-solid fa-lightbulb"></i>
+                <div class="flex items-center gap-2 bg-m-yellow px-4 py-2.5 m-border text-base font-black shrink-0">
+                    <i class="fa-solid fa-lightbulb text-lg"></i>
                     <span id="ethicsReadCounter">已探索展間：0 / 6</span>
                 </div>
             </div>
 
             <!-- 6 Core Ethics Asymmetric Mondrian Grid -->
-            <div id="ethicsGridContainer" class="grid grid-cols-1 md:grid-cols-12 gap-6">
+            <div id="ethicsGridContainer" class="grid grid-cols-1 lg:grid-cols-12 gap-6">
                 <!-- Populated dynamically by JavaScript -->
             </div>
         </section>
@@ -302,34 +313,34 @@
         <section id="section-drag" class="tab-section hidden space-y-6">
             <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b-4 border-black pb-4">
                 <div>
-                    <div class="inline-block bg-m-red text-white text-xs font-black px-2.5 py-1 mb-1 m-border">CHALLENGE 02 / DRAG & DROP</div>
+                    <div class="inline-block bg-m-red text-white text-sm font-black px-3 py-1 mb-1.5 m-border">CHALLENGE 02 / DRAG & DROP</div>
                     <h3 class="text-2xl sm:text-3xl font-black">🚦 人機協作紅綠燈・拖拉分類大挑戰</h3>
-                    <p class="text-sm sm:text-base text-neutral-700 font-medium mt-1">
-                        請將下方的「校園生活情境卡」<strong>直接拖拉（或點擊卡片再點選目標燈區）</strong>放入正確的紅、黃、綠燈區！
+                    <p class="text-base sm:text-lg text-neutral-800 font-bold mt-1.5">
+                        平板操作小撇步：<strong>直接用手指輕觸選取上方「情境卡」，再點選下方的綠燈、黃燈或紅燈區</strong>即可放入！（亦支援拖拉）
                     </p>
                 </div>
-                <div class="flex items-center gap-3">
-                    <div class="bg-white m-border px-4 py-2 font-black text-sm">
-                        得分：<span id="dragScore" class="text-red-600 text-lg">0</span> / <span id="dragTotal">9</span>
+                <div class="flex items-center gap-3 shrink-0">
+                    <div class="bg-white m-border px-4 py-2.5 font-black text-base sm:text-lg">
+                        得分：<span id="dragScore" class="text-red-600 text-xl">0</span> / <span id="dragTotal">9</span>
                     </div>
-                    <button onclick="resetDragGame()" class="bg-m-yellow text-black font-black px-4 py-2 m-border m-btn text-sm flex items-center gap-1.5">
+                    <button onclick="resetDragGame()" class="bg-m-yellow text-black font-black px-4 py-2.5 m-border m-btn text-base sm:text-lg flex items-center gap-2">
                         <i class="fa-solid fa-rotate-right"></i> 重新洗牌
                     </button>
                 </div>
             </div>
 
             <!-- Unsorted Cards Pool -->
-            <div class="bg-white m-border p-4 sm:p-5 m-shadow">
-                <div class="flex items-center justify-between mb-3">
-                    <h4 class="font-black text-base sm:text-lg flex items-center gap-2">
-                        <span class="w-4 h-4 bg-m-blue inline-block border-2 border-black"></span>
-                        <span>待分類的校園 AI 行為卡（可拖曳，或點擊卡片後再點擊下方分區）</span>
+            <div class="bg-white m-border p-4 sm:p-6 m-shadow">
+                <div class="flex flex-wrap items-center justify-between gap-2 mb-4">
+                    <h4 class="font-black text-lg sm:text-xl flex items-center gap-2.5">
+                        <span class="w-5 h-5 bg-m-blue inline-block border-2 border-black shrink-0"></span>
+                        <span>待分類的校園 AI 行為卡（請先點選一張卡片，再點選下方燈號區）</span>
                     </h4>
-                    <span id="selectedCardHint" class="text-xs font-black bg-m-yellow px-2.5 py-1 border-2 border-black hidden">
-                        已選取卡片！請點擊下方綠燈、黃燈或紅燈區放入
+                    <span id="selectedCardHint" class="text-sm sm:text-base font-black bg-m-yellow px-3.5 py-1.5 border-2 border-black hidden animate-bounce">
+                        👆 已選取卡片！請點選下方「綠燈、黃燈或紅燈區」放入
                     </span>
                 </div>
-                <div id="dragPool" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 min-h-[90px]">
+                <div id="dragPool" class="grid grid-cols-1 md:grid-cols-2 gap-4 min-h-[100px]">
                     <!-- Cards injected via JS -->
                 </div>
             </div>
@@ -342,21 +353,21 @@
                      ondragleave="handleDragLeave(event, 'green')"
                      ondrop="handleDrop(event, 'green')"
                      onclick="handleZoneClick('green')"
-                     class="m-border bg-emerald-50 flex flex-col justify-between m-shadow cursor-pointer transition-all min-h-[320px]">
+                     class="m-border bg-emerald-50 flex flex-col justify-between m-shadow cursor-pointer transition-all min-h-[340px]">
                     <div>
-                        <div class="bg-m-green text-white p-4 border-b-4 border-black flex items-center justify-between">
-                            <div class="flex items-center gap-2.5">
-                                <span class="w-8 h-8 rounded-full bg-emerald-300 text-black border-2 border-black flex items-center justify-center font-black">🟢</span>
+                        <div class="bg-m-green text-white p-4 sm:p-5 border-b-4 border-black flex items-center justify-between">
+                            <div class="flex items-center gap-3">
+                                <span class="w-10 h-10 rounded-full bg-emerald-300 text-black border-2 border-black flex items-center justify-center font-black text-xl shrink-0">🟢</span>
                                 <div>
-                                    <h5 class="font-black text-lg">綠燈區：鼓勵自主探索</h5>
-                                    <p class="text-xs text-emerald-100 font-bold">激發靈感、解釋概念、模擬出題陪練</p>
+                                    <h5 class="font-black text-xl">綠燈區：鼓勵自主探索</h5>
+                                    <p class="text-sm text-emerald-100 font-bold">激發靈感、解釋概念、模擬出題陪練</p>
                                 </div>
                             </div>
-                            <span id="count-green" class="bg-black text-white text-xs font-black px-2.5 py-1">0 張</span>
+                            <span id="count-green" class="bg-black text-white text-sm font-black px-3 py-1 shrink-0">0 張</span>
                         </div>
-                        <div id="items-green" class="p-4 space-y-2.5"></div>
+                        <div id="items-green" class="p-4 space-y-3"></div>
                     </div>
-                    <div class="px-4 py-2 bg-emerald-100 border-t-2 border-black text-xs font-bold text-emerald-950">
+                    <div class="px-4 py-3 bg-emerald-100 border-t-2 border-black text-sm sm:text-base font-bold text-emerald-950">
                         💡 原則：先自己想再問 AI，把 AI 當成「理解助手」與「練習夥伴」。
                     </div>
                 </div>
@@ -367,21 +378,21 @@
                      ondragleave="handleDragLeave(event, 'yellow')"
                      ondrop="handleDrop(event, 'yellow')"
                      onclick="handleZoneClick('yellow')"
-                     class="m-border bg-amber-50 flex flex-col justify-between m-shadow cursor-pointer transition-all min-h-[320px]">
+                     class="m-border bg-amber-50 flex flex-col justify-between m-shadow cursor-pointer transition-all min-h-[340px]">
                     <div>
-                        <div class="bg-m-yellow text-black p-4 border-b-4 border-black flex items-center justify-between">
-                            <div class="flex items-center gap-2.5">
-                                <span class="w-8 h-8 rounded-full bg-white text-black border-2 border-black flex items-center justify-center font-black">🟡</span>
+                        <div class="bg-m-yellow text-black p-4 sm:p-5 border-b-4 border-black flex items-center justify-between">
+                            <div class="flex items-center gap-3">
+                                <span class="w-10 h-10 rounded-full bg-white text-black border-2 border-black flex items-center justify-center font-black text-xl shrink-0">🟡</span>
                                 <div>
-                                    <h5 class="font-black text-lg">黃燈區：需查核並標示</h5>
-                                    <p class="text-xs text-neutral-800 font-bold">初稿調整、去識別化提問、誠實揭露</p>
+                                    <h5 class="font-black text-xl">黃燈區：需查核並標示</h5>
+                                    <p class="text-sm text-neutral-800 font-bold">初稿調整、去識別化提問、誠實揭露</p>
                                 </div>
                             </div>
-                            <span id="count-yellow" class="bg-black text-white text-xs font-black px-2.5 py-1">0 張</span>
+                            <span id="count-yellow" class="bg-black text-white text-sm font-black px-3 py-1 shrink-0">0 張</span>
                         </div>
-                        <div id="items-yellow" class="p-4 space-y-2.5"></div>
+                        <div id="items-yellow" class="p-4 space-y-3"></div>
                     </div>
-                    <div class="px-4 py-2 bg-amber-100 border-t-2 border-black text-xs font-bold text-amber-950">
+                    <div class="px-4 py-3 bg-amber-100 border-t-2 border-black text-sm sm:text-base font-bold text-amber-950">
                         ⚠️ 原則：必須自己大幅修改、交叉查證事實，並在作業中清楚標註 AI 協助範圍。
                     </div>
                 </div>
@@ -392,21 +403,21 @@
                      ondragleave="handleDragLeave(event, 'red')"
                      ondrop="handleDrop(event, 'red')"
                      onclick="handleZoneClick('red')"
-                     class="m-border bg-red-50 flex flex-col justify-between m-shadow cursor-pointer transition-all min-h-[320px]">
+                     class="m-border bg-red-50 flex flex-col justify-between m-shadow cursor-pointer transition-all min-h-[340px]">
                     <div>
-                        <div class="bg-m-red text-white p-4 border-b-4 border-black flex items-center justify-between">
-                            <div class="flex items-center gap-2.5">
-                                <span class="w-8 h-8 rounded-full bg-white text-black border-2 border-black flex items-center justify-center font-black">🔴</span>
+                        <div class="bg-m-red text-white p-4 sm:p-5 border-b-4 border-black flex items-center justify-between">
+                            <div class="flex items-center gap-3">
+                                <span class="w-10 h-10 rounded-full bg-white text-black border-2 border-black flex items-center justify-center font-black text-xl shrink-0">🔴</span>
                                 <div>
-                                    <h5 class="font-black text-lg">紅燈區：嚴格禁止行為</h5>
-                                    <p class="text-xs text-red-100 font-bold">直接代寫抄襲、外洩個資、深偽惡搞</p>
+                                    <h5 class="font-black text-xl">紅燈區：嚴格禁止行為</h5>
+                                    <p class="text-sm text-red-100 font-bold">直接代寫抄襲、外洩個資、深偽惡搞</p>
                                 </div>
                             </div>
-                            <span id="count-red" class="bg-black text-white text-xs font-black px-2.5 py-1">0 張</span>
+                            <span id="count-red" class="bg-black text-white text-sm font-black px-3 py-1 shrink-0">0 張</span>
                         </div>
-                        <div id="items-red" class="p-4 space-y-2.5"></div>
+                        <div id="items-red" class="p-4 space-y-3"></div>
                     </div>
-                    <div class="px-4 py-2 bg-red-100 border-t-2 border-black text-xs font-bold text-red-950">
+                    <div class="px-4 py-3 bg-red-100 border-t-2 border-black text-sm sm:text-base font-bold text-red-950">
                         🚫 原則：嚴禁複製代寫、嚴禁上傳同學照片與帳密個資、禁止深偽換臉與散播假訊息。
                     </div>
                 </div>
@@ -419,22 +430,22 @@
         <section id="section-order" class="tab-section hidden space-y-6">
             <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b-4 border-black pb-4">
                 <div>
-                    <div class="inline-block bg-m-blue text-white text-xs font-black px-2.5 py-1 mb-1 m-border">CHALLENGE 03 / SEQUENCE ORDERING</div>
+                    <div class="inline-block bg-m-blue text-white text-sm font-black px-3 py-1 mb-1.5 m-border">CHALLENGE 03 / SEQUENCE ORDERING</div>
                     <h3 class="text-2xl sm:text-3xl font-black">🔢 慢用 AI 與防詐查證・順序排列任務</h3>
-                    <p class="text-sm sm:text-base text-neutral-700 font-medium mt-1">
-                        遇到不會的作業或可疑的 AI 回答時，正確的先後步驟是什麼？<strong>可拖拉步驟卡或點擊「上移 ▲ / 下移 ▼」按鈕</strong>排出正確順序！
+                    <p class="text-base sm:text-lg text-neutral-800 font-bold mt-1.5">
+                        遇到不會的作業或可疑的 AI 回答時，正確的先後步驟是什麼？<strong>請點擊右側大按鈕「▲ 上移 / ▼ 下移」或拖拉步驟卡</strong>排出正確順序！
                     </p>
                 </div>
                 <!-- Mission Selector -->
-                <div class="flex flex-wrap gap-2">
-                    <button onclick="loadOrderMission(0)" id="orderTab-0" class="px-3.5 py-2 font-black text-xs sm:text-sm m-border bg-m-yellow m-btn">
+                <div class="flex flex-wrap gap-2.5">
+                    <button onclick="loadOrderMission(0)" id="orderTab-0" class="px-4 py-2.5 font-black text-sm sm:text-base m-border bg-m-yellow m-btn">
                         任務 A：批判查證四部曲
                     </button>
-                    <button onclick="loadOrderMission(1)" id="orderTab-1" class="px-3.5 py-2 font-black text-xs sm:text-sm m-border bg-white m-btn">
-                        任務 B：THINK 拒絕認知卸載五步驟
+                    <button onclick="loadOrderMission(1)" id="orderTab-1" class="px-4 py-2.5 font-black text-sm sm:text-base m-border bg-white m-btn">
+                        任務 B：THINK 拒絕認知卸載
                     </button>
-                    <button onclick="loadOrderMission(2)" id="orderTab-2" class="px-3.5 py-2 font-black text-xs sm:text-sm m-border bg-white m-btn">
-                        任務 C：SAFE 個資安全提問四步驟
+                    <button onclick="loadOrderMission(2)" id="orderTab-2" class="px-4 py-2.5 font-black text-sm sm:text-base m-border bg-white m-btn">
+                        任務 C：SAFE 個資安全四步驟
                     </button>
                 </div>
             </div>
@@ -443,22 +454,22 @@
                 <!-- Mission Scenario Context Card -->
                 <div class="lg:col-span-5 bg-m-blue text-white m-border p-5 sm:p-6 m-shadow flex flex-col justify-between">
                     <div>
-                        <span id="orderMissionBadge" class="bg-m-yellow text-black font-black text-xs px-2.5 py-1 m-border inline-block mb-3">
+                        <span id="orderMissionBadge" class="bg-m-yellow text-black font-black text-sm px-3 py-1 m-border inline-block mb-3">
                             MISSION A
                         </span>
-                        <h4 id="orderMissionTitle" class="text-xl sm:text-2xl font-black mb-3"></h4>
-                        <div class="bg-white text-black m-border p-4 mb-4">
-                            <div class="text-xs font-black text-red-600 mb-1">🎭 校園真實情境：</div>
-                            <p id="orderMissionScenario" class="text-sm font-medium leading-relaxed"></p>
+                        <h4 id="orderMissionTitle" class="text-2xl sm:text-3xl font-black mb-4"></h4>
+                        <div class="bg-white text-black m-border p-4 sm:p-5 mb-4">
+                            <div class="text-sm sm:text-base font-black text-red-600 mb-1.5">🎭 校園真實情境：</div>
+                            <p id="orderMissionScenario" class="text-base sm:text-lg font-bold leading-relaxed"></p>
                         </div>
-                        <p id="orderMissionHint" class="text-xs sm:text-sm text-blue-100 font-medium leading-relaxed"></p>
+                        <p id="orderMissionHint" class="text-sm sm:text-base text-yellow-200 font-bold leading-relaxed"></p>
                     </div>
 
                     <div class="mt-6 pt-4 border-t-2 border-blue-400 flex flex-wrap gap-3">
-                        <button onclick="checkOrderSolution()" class="flex-1 bg-m-yellow text-black font-black py-3 px-4 m-border m-btn text-sm sm:text-base flex items-center justify-center gap-2">
+                        <button onclick="checkOrderSolution()" class="flex-1 bg-m-yellow text-black font-black py-3.5 px-5 m-border m-btn text-base sm:text-lg flex items-center justify-center gap-2">
                             <i class="fa-solid fa-check-double"></i> 檢查排列順序
                         </button>
-                        <button onclick="shuffleCurrentOrder()" class="bg-white text-black font-black py-3 px-4 m-border m-btn text-sm flex items-center justify-center gap-1.5">
+                        <button onclick="shuffleCurrentOrder()" class="bg-white text-black font-black py-3.5 px-5 m-border m-btn text-base sm:text-lg flex items-center justify-center gap-2">
                             <i class="fa-solid fa-shuffle"></i> 打亂重排
                         </button>
                     </div>
@@ -468,10 +479,10 @@
                 <div class="lg:col-span-7 bg-white m-border p-5 sm:p-6 m-shadow flex flex-col justify-between">
                     <div>
                         <div class="flex items-center justify-between mb-4">
-                            <span class="font-black text-base">請由上而下（第 1 步 → 最後一步）排列：</span>
-                            <span id="orderStatusBadge" class="text-xs font-black px-2.5 py-1 bg-neutral-200 border-2 border-black">尚未檢查</span>
+                            <span class="font-black text-lg sm:text-xl">請由上而下（第 1 步 → 最後一步）排列：</span>
+                            <span id="orderStatusBadge" class="text-sm font-black px-3 py-1 bg-neutral-200 border-2 border-black">尚未檢查</span>
                         </div>
-                        <div id="orderListContainer" class="space-y-3">
+                        <div id="orderListContainer" class="space-y-3.5">
                             <!-- Injected via JS -->
                         </div>
                     </div>
@@ -486,17 +497,17 @@
         <section id="section-flip" class="tab-section hidden space-y-6">
             <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b-4 border-black pb-4">
                 <div>
-                    <div class="inline-block bg-m-yellow text-black text-xs font-black px-2.5 py-1 mb-1 m-border">CHALLENGE 04 / FLIP & MATCH</div>
+                    <div class="inline-block bg-m-yellow text-black text-sm font-black px-3 py-1 mb-1.5 m-border">CHALLENGE 04 / FLIP & MATCH</div>
                     <h3 class="text-2xl sm:text-3xl font-black">🃏 AI 倫理翻翻樂・配對與去識別化偵探</h3>
-                    <p class="text-sm sm:text-base text-neutral-700 font-medium mt-1">
+                    <p class="text-base sm:text-lg text-neutral-800 font-bold mt-1.5">
                         提供兩種翻牌互動：<strong>模式一「風險 vs. 解法記憶配對」</strong>找出對應的倫理行動；<strong>模式二「去識別化＆幻覺改造翻牌」</strong>一秒看懂正確提示詞！
                     </p>
                 </div>
-                <div class="flex gap-2">
-                    <button onclick="switchFlipMode('match')" id="flipModeBtn-match" class="px-4 py-2 font-black text-xs sm:text-sm m-border bg-m-red text-white m-btn">
+                <div class="flex flex-wrap gap-3">
+                    <button onclick="switchFlipMode('match')" id="flipModeBtn-match" class="px-5 py-3 font-black text-sm sm:text-base m-border bg-m-red text-white m-btn">
                         🎮 模式一：記憶配對翻翻樂
                     </button>
-                    <button onclick="switchFlipMode('flashcard')" id="flipModeBtn-flashcard" class="px-4 py-2 font-black text-xs sm:text-sm m-border bg-white text-black m-btn">
+                    <button onclick="switchFlipMode('flashcard')" id="flipModeBtn-flashcard" class="px-5 py-3 font-black text-sm sm:text-base m-border bg-white text-black m-btn">
                         🔍 模式二：提示詞改造翻翻卡
                     </button>
                 </div>
@@ -504,42 +515,42 @@
 
             <!-- Mode 1: Memory Match Game -->
             <div id="flip-mode-match" class="space-y-4">
-                <div class="bg-white m-border p-4 flex flex-wrap items-center justify-between gap-3 m-shadow-sm">
+                <div class="bg-white m-border p-4 sm:p-5 flex flex-wrap items-center justify-between gap-3 m-shadow-sm">
                     <div class="flex items-center gap-4">
-                        <span class="font-black text-sm sm:text-base">
-                            🎯 任務：翻開兩張卡，將<span class="bg-red-100 text-red-800 px-1.5 py-0.5 border border-black mx-1">⚠️ 校園風險情境</span>與對應的<span class="bg-emerald-100 text-emerald-800 px-1.5 py-0.5 border border-black mx-1">✅ 正確倫理解法</span>配對成功！
+                        <span class="font-black text-base sm:text-lg leading-relaxed">
+                            🎯 任務：翻開兩張卡，將<span class="bg-red-100 text-red-800 px-2 py-0.5 border-2 border-black mx-1">⚠️ 校園風險情境</span>與對應的<span class="bg-emerald-100 text-emerald-800 px-2 py-0.5 border-2 border-black mx-1">✅ 正確倫理解法</span>配對成功！
                         </span>
                     </div>
-                    <div class="flex items-center gap-3">
-                        <span class="text-sm font-black bg-m-yellow px-3 py-1 m-border">
+                    <div class="flex flex-wrap items-center gap-3">
+                        <span class="text-base font-black bg-m-yellow px-3.5 py-1.5 m-border">
                             已配對：<span id="matchPairsCount">0</span> / 6 組
                         </span>
-                        <span class="text-sm font-black bg-white px-3 py-1 m-border">
+                        <span class="text-base font-black bg-white px-3.5 py-1.5 m-border">
                             翻牌次數：<span id="matchMovesCount">0</span>
                         </span>
-                        <button onclick="initMemoryMatchGame()" class="bg-black text-white font-black px-3 py-1 text-sm m-border m-btn">
+                        <button onclick="initMemoryMatchGame()" class="bg-black text-white font-black px-4 py-1.5 text-base m-border m-btn">
                             <i class="fa-solid fa-rotate"></i> 重新開局
                         </button>
                     </div>
                 </div>
 
-                <!-- 12 Memory Cards Grid -->
-                <div id="memoryGrid" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+                <!-- 12 Memory Cards Grid (3 cols on tablet for larger card size) -->
+                <div id="memoryGrid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-5">
                     <!-- Populated by JS -->
                 </div>
             </div>
 
             <!-- Mode 2: Interactive 3D De-Identification & Fact-Check Flip Flashcards -->
-            <div id="flip-mode-flashcard" class="hidden space-y-4">
-                <div class="bg-m-blue text-white m-border p-4 m-shadow-sm flex items-center justify-between">
-                    <p class="text-sm sm:text-base font-bold">
-                        💡 點擊任一張卡片即可<strong>180度翻面</strong>，比較「❌ 危險/錯誤用法」如何改造成「✅ 去識別化與精準學習用法」！
+            <div id="flip-mode-flashcard" class="hidden space-y-5">
+                <div class="bg-m-blue text-white m-border p-4 sm:p-5 m-shadow-sm flex flex-wrap items-center justify-between gap-3">
+                    <p class="text-base sm:text-lg font-bold">
+                        💡 輕觸任一張卡片即可<strong>180度翻面</strong>，比較「❌ 危險/錯誤用法」如何改造成「✅ 去識別化與精準學習用法」！
                     </p>
-                    <button onclick="flipAllFlashcards()" class="bg-m-yellow text-black font-black px-3 py-1.5 text-xs sm:text-sm m-border m-btn shrink-0">
+                    <button onclick="flipAllFlashcards()" class="bg-m-yellow text-black font-black px-4 py-2 text-base m-border m-btn shrink-0">
                         全部翻面檢視
                     </button>
                 </div>
-                <div id="flashcardsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div id="flashcardsGrid" class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <!-- Populated by JS -->
                 </div>
             </div>
@@ -550,29 +561,29 @@
         <!-- ========================================== -->
         <section id="section-pledge" class="tab-section hidden space-y-6">
             <div class="border-b-4 border-black pb-4">
-                <div class="inline-block bg-m-red text-white text-xs font-black px-2.5 py-1 mb-1 m-border">TOOLKIT 05 / TRANSPARENCY & PLEDGE</div>
+                <div class="inline-block bg-m-red text-white text-sm font-black px-3 py-1 mb-1.5 m-border">TOOLKIT 05 / TRANSPARENCY & PLEDGE</div>
                 <h3 class="text-2xl sm:text-3xl font-black">📜 作業 AI 使用揭露聲明產生器 ＆ 倫理反射自我檢核表</h3>
-                <p class="text-sm sm:text-base text-neutral-700 font-medium mt-1">
+                <p class="text-base sm:text-lg text-neutral-800 font-bold mt-1.5">
                     用 AI 輔助完成報告或作業時，誠實標註是<strong>「透明原則」與「學術誠信」</strong>的表現！勾選下方項目，一鍵生成你的專屬聲明。
                 </p>
             </div>
 
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
                 <!-- Left: Interactive AI Disclosure Generator -->
-                <div class="lg:col-span-7 bg-white m-border p-5 sm:p-6 m-shadow space-y-4">
-                    <div class="flex items-center gap-2 border-b-4 border-black pb-3">
-                        <span class="w-6 h-6 bg-m-yellow m-border inline-flex items-center justify-center font-black text-xs">1</span>
-                        <h4 class="font-black text-lg sm:text-xl">📄 作業 AI 使用揭露聲明產生器（可直接複製貼入報告）</h4>
+                <div class="lg:col-span-7 bg-white m-border p-5 sm:p-6 m-shadow space-y-5">
+                    <div class="flex items-center gap-2.5 border-b-4 border-black pb-3">
+                        <span class="w-8 h-8 bg-m-yellow m-border inline-flex items-center justify-center font-black text-base shrink-0">1</span>
+                        <h4 class="font-black text-xl sm:text-2xl">📄 作業 AI 使用揭露聲明產生器（可直接複製貼入報告）</h4>
                     </div>
 
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div>
-                            <label class="block text-xs font-black mb-1">你的年級／班級代稱（去識別化示範）：</label>
-                            <input type="text" id="discStudentName" value="國中八年級 A 同學" oninput="updateDisclosurePreview()" class="w-full m-border px-3 py-2 text-sm font-bold bg-neutral-50 focus:bg-yellow-50 focus:outline-none">
+                            <label class="block text-sm sm:text-base font-black mb-1.5">你的年級／班級代稱（去識別化示範）：</label>
+                            <input type="text" id="discStudentName" value="國中八年級 A 同學" oninput="updateDisclosurePreview()" class="w-full m-border px-3.5 py-2.5 text-base font-bold bg-neutral-50 focus:bg-yellow-50 focus:outline-none">
                         </div>
                         <div>
-                            <label class="block text-xs font-black mb-1">本次使用的 AI 工具名稱：</label>
-                            <select id="discToolName" onchange="updateDisclosurePreview()" class="w-full m-border px-3 py-2 text-sm font-bold bg-neutral-50 focus:bg-yellow-50 focus:outline-none">
+                            <label class="block text-sm sm:text-base font-black mb-1.5">本次使用的 AI 工具名稱：</label>
+                            <select id="discToolName" onchange="updateDisclosurePreview()" class="w-full m-border px-3.5 py-2.5 text-base font-bold bg-neutral-50 focus:bg-yellow-50 focus:outline-none">
                                 <option value="教育部因材網 e度 (教育 AI)">教育部因材網 e度 (教育 AI)</option>
                                 <option value="酷英網 CoolE Bot (教育 AI)">酷英網 CoolE Bot (教育 AI)</option>
                                 <option value="Google Gemini">Google Gemini</option>
@@ -584,71 +595,71 @@
                     </div>
 
                     <div>
-                        <label class="block text-xs font-black mb-2">✅ 請勾選 AI 協助你的環節（可複選）：</label>
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs sm:text-sm font-bold">
-                            <label class="flex items-center gap-2 p-2 border-2 border-black bg-neutral-50 cursor-pointer hover:bg-yellow-50">
-                                <input type="checkbox" class="disc-assist accent-red-600 w-4 h-4" value="整理專題方向與初步腦力激盪大綱" checked onchange="updateDisclosurePreview()">
+                        <label class="block text-sm sm:text-base font-black mb-2">✅ 請輕觸勾選 AI 協助你的環節（可複選）：</label>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-base font-bold">
+                            <label class="flex items-center gap-3 p-3 border-2 border-black bg-neutral-50 cursor-pointer hover:bg-yellow-50">
+                                <input type="checkbox" class="disc-assist accent-red-600 w-5 h-5 shrink-0" value="整理專題方向與初步腦力激盪大綱" checked onchange="updateDisclosurePreview()">
                                 <span>整理專題方向與初步腦力激盪大綱</span>
                             </label>
-                            <label class="flex items-center gap-2 p-2 border-2 border-black bg-neutral-50 cursor-pointer hover:bg-yellow-50">
-                                <input type="checkbox" class="disc-assist accent-red-600 w-4 h-4" value="解釋課本難懂的科學/社會科概念" checked onchange="updateDisclosurePreview()">
+                            <label class="flex items-center gap-3 p-3 border-2 border-black bg-neutral-50 cursor-pointer hover:bg-yellow-50">
+                                <input type="checkbox" class="disc-assist accent-red-600 w-5 h-5 shrink-0" value="解釋課本難懂的科學/社會科概念" checked onchange="updateDisclosurePreview()">
                                 <span>解釋課本難懂的科學/社會科概念</span>
                             </label>
-                            <label class="flex items-center gap-2 p-2 border-2 border-black bg-neutral-50 cursor-pointer hover:bg-yellow-50">
-                                <input type="checkbox" class="disc-assist accent-red-600 w-4 h-4" value="修正部分中文語句通順度與錯別字" onchange="updateDisclosurePreview()">
+                            <label class="flex items-center gap-3 p-3 border-2 border-black bg-neutral-50 cursor-pointer hover:bg-yellow-50">
+                                <input type="checkbox" class="disc-assist accent-red-600 w-5 h-5 shrink-0" value="修正部分中文語句通順度與錯別字" onchange="updateDisclosurePreview()">
                                 <span>修正部分中文語句通順度與錯別字</span>
                             </label>
-                            <label class="flex items-center gap-2 p-2 border-2 border-black bg-neutral-50 cursor-pointer hover:bg-yellow-50">
-                                <input type="checkbox" class="disc-assist accent-red-600 w-4 h-4" value="協助英文段落文法檢查與單字對照" onchange="updateDisclosurePreview()">
+                            <label class="flex items-center gap-3 p-3 border-2 border-black bg-neutral-50 cursor-pointer hover:bg-yellow-50">
+                                <input type="checkbox" class="disc-assist accent-red-600 w-5 h-5 shrink-0" value="協助英文段落文法檢查與單字對照" onchange="updateDisclosurePreview()">
                                 <span>協助英文段落文法檢查與單字對照</span>
                             </label>
-                            <label class="flex items-center gap-2 p-2 border-2 border-black bg-neutral-50 cursor-pointer hover:bg-yellow-50">
-                                <input type="checkbox" class="disc-assist accent-red-600 w-4 h-4" value="生成海報配圖靈感草圖（已標註 AI 生成）" onchange="updateDisclosurePreview()">
+                            <label class="flex items-center gap-3 p-3 border-2 border-black bg-neutral-50 cursor-pointer hover:bg-yellow-50">
+                                <input type="checkbox" class="disc-assist accent-red-600 w-5 h-5 shrink-0" value="生成海報配圖靈感草圖（已標註 AI 生成）" onchange="updateDisclosurePreview()">
                                 <span>生成海報配圖靈感草圖（已標註 AI 生成）</span>
                             </label>
-                            <label class="flex items-center gap-2 p-2 border-2 border-black bg-neutral-50 cursor-pointer hover:bg-yellow-50">
-                                <input type="checkbox" class="disc-assist accent-red-600 w-4 h-4" value="模擬出題供我考前自主練習" onchange="updateDisclosurePreview()">
+                            <label class="flex items-center gap-3 p-3 border-2 border-black bg-neutral-50 cursor-pointer hover:bg-yellow-50">
+                                <input type="checkbox" class="disc-assist accent-red-600 w-5 h-5 shrink-0" value="模擬出題供我考前自主練習" onchange="updateDisclosurePreview()">
                                 <span>模擬出題供我考前自主練習</span>
                             </label>
                         </div>
                     </div>
 
                     <div>
-                        <label class="block text-xs font-black mb-1">🔍 你如何查證並親自完成核心內容？</label>
-                        <input type="text" id="discVerifyNote" value="已對照自然課本與政府官方網站交叉查核數據，並以自己的話重新撰寫結論。" oninput="updateDisclosurePreview()" class="w-full m-border px-3 py-2 text-sm font-bold bg-neutral-50 focus:bg-yellow-50 focus:outline-none">
+                        <label class="block text-sm sm:text-base font-black mb-1.5">🔍 你如何查證並親自完成核心內容？</label>
+                        <input type="text" id="discVerifyNote" value="已對照自然課本與政府官方網站交叉查核數據，並以自己的話重新撰寫結論。" oninput="updateDisclosurePreview()" class="w-full m-border px-3.5 py-2.5 text-base font-bold bg-neutral-50 focus:bg-yellow-50 focus:outline-none">
                     </div>
 
                     <!-- Output Box -->
-                    <div class="bg-m-yellow m-border p-4 relative">
-                        <div class="text-xs font-black uppercase mb-1">📋 即時預覽：AI 工具使用聲明（範本）</div>
-                        <pre id="disclosureOutput" class="whitespace-pre-wrap font-sans text-xs sm:text-sm font-bold bg-white p-3 border-2 border-black leading-relaxed"></pre>
-                        <button onclick="copyDisclosureText()" class="mt-3 w-full bg-black text-white font-black py-2.5 px-4 m-border m-btn text-sm flex items-center justify-center gap-2">
+                    <div class="bg-m-yellow m-border p-4 sm:p-5 relative">
+                        <div class="text-sm sm:text-base font-black uppercase mb-2">📋 即時預覽：AI 工具使用聲明（範本）</div>
+                        <pre id="disclosureOutput" class="whitespace-pre-wrap font-sans text-base sm:text-lg font-bold bg-white p-4 border-2 border-black leading-relaxed"></pre>
+                        <button onclick="copyDisclosureText()" class="mt-3.5 w-full bg-black text-white font-black py-3.5 px-5 m-border m-btn text-base sm:text-lg flex items-center justify-center gap-2">
                             <i class="fa-solid fa-copy"></i> 複製聲明文字（貼到作業結尾）
                         </button>
                     </div>
                 </div>
 
-                <!-- Right: 8-Point Ethical Reflex Self-Check -->
+                <!-- Right: 7-Point Ethical Reflex Self-Check -->
                 <div class="lg:col-span-5 bg-m-white m-border p-5 sm:p-6 m-shadow flex flex-col justify-between">
                     <div>
                         <div class="flex items-center justify-between border-b-4 border-black pb-3 mb-4">
-                            <div class="flex items-center gap-2">
-                                <span class="w-6 h-6 bg-m-red text-white m-border inline-flex items-center justify-center font-black text-xs">2</span>
-                                <h4 class="font-black text-lg sm:text-xl">📊 AI 倫理反射自我檢核表</h4>
+                            <div class="flex items-center gap-2.5">
+                                <span class="w-8 h-8 bg-m-red text-white m-border inline-flex items-center justify-center font-black text-base shrink-0">2</span>
+                                <h4 class="font-black text-xl sm:text-2xl">📊 AI 倫理反射自我檢核表</h4>
                             </div>
-                            <span id="checklistScoreBadge" class="bg-m-blue text-white text-xs font-black px-2.5 py-1 m-border">0 / 7 項達成</span>
+                            <span id="checklistScoreBadge" class="bg-m-blue text-white text-sm font-black px-3 py-1 m-border shrink-0">0 / 7 項達成</span>
                         </div>
-                        <p class="text-xs sm:text-sm font-medium text-neutral-700 mb-3">
+                        <p class="text-base font-bold text-neutral-800 mb-3.5">
                             每次按下「送出」或繳交作業前，先停下來用這 7 個問題培養你的<strong>「倫理反射」</strong>：
                         </p>
-                        <div id="selfCheckContainer" class="space-y-2.5">
+                        <div id="selfCheckContainer" class="space-y-3">
                             <!-- Populated by JS -->
                         </div>
                     </div>
 
-                    <div id="pledgeCertificateBox" class="mt-5 bg-m-red text-white m-border p-4 text-center">
-                        <div class="font-black text-base mb-1">🏅 勾選全部 7 項即可領取「AI 智慧領航員證書」！</div>
-                        <p class="text-xs text-red-100">記住：AI 是學習的好夥伴，但學習的主角永遠是你自己！</p>
+                    <div id="pledgeCertificateBox" class="mt-5 bg-m-red text-white m-border p-4 sm:p-5 text-center">
+                        <div class="font-black text-lg sm:text-xl mb-1">🏅 勾選全部 7 項即可領取「AI 智慧領航員證書」！</div>
+                        <p class="text-sm sm:text-base text-red-100 font-bold">記住：AI 是學習的好夥伴，但學習的主角永遠是你自己！</p>
                     </div>
                 </div>
             </div>
@@ -656,32 +667,32 @@
 
     </main>
 
-    <div id="lightboxOverlay" class="fixed inset-0 z-50 bg-black/80 hidden items-center justify-center p-3 sm:p-6 overflow-y-auto" onclick="handleOverlayClick(event)">
-        <div id="lightboxContent" class="bg-m-white m-border-thick max-w-4xl w-full m-shadow modal-animate overflow-hidden my-auto max-h-[92vh] flex flex-col" onclick="event.stopPropagation()">
+    <div id="lightboxOverlay" class="fixed inset-0 z-50 bg-black/80 hidden items-center justify-center p-2 sm:p-5 overflow-y-auto" onclick="handleOverlayClick(event)">
+        <div id="lightboxContent" class="bg-m-white m-border-thick max-w-5xl w-full m-shadow modal-animate overflow-hidden my-auto max-h-[94vh] flex flex-col" onclick="event.stopPropagation()">
             <!-- Modal Header -->
             <div id="lightboxHeader" class="bg-m-red text-white p-4 sm:p-5 border-b-[5px] border-black flex items-center justify-between shrink-0">
                 <div class="flex items-center gap-3">
-                    <span id="lightboxBadge" class="bg-black text-white font-black text-xs px-2.5 py-1 border-2 border-white">CORE 01</span>
-                    <h3 id="lightboxTitle" class="text-lg sm:text-2xl font-black">標題</h3>
+                    <span id="lightboxBadge" class="bg-black text-white font-black text-sm sm:text-base px-3 py-1 border-2 border-white shrink-0">CORE 01</span>
+                    <h3 id="lightboxTitle" class="text-xl sm:text-2xl md:text-3xl font-black leading-snug">標題</h3>
                 </div>
-                <button onclick="closeLightbox()" class="bg-white text-black w-9 h-9 m-border font-black text-lg flex items-center justify-center m-btn shrink-0" title="關閉燈箱">
+                <button onclick="closeLightbox()" class="bg-white text-black w-11 h-11 m-border font-black text-2xl flex items-center justify-center m-btn shrink-0" title="關閉燈箱">
                     <i class="fa-solid fa-xmark"></i>
                 </button>
             </div>
             <!-- Modal Scrollable Body -->
-            <div id="lightboxBody" class="p-4 sm:p-6 overflow-y-auto space-y-5 flex-grow">
+            <div id="lightboxBody" class="p-4 sm:p-6 overflow-y-auto space-y-6 flex-grow">
                 <!-- Populated dynamically -->
             </div>
             <!-- Modal Footer -->
-            <div id="lightboxFooter" class="bg-neutral-100 px-4 sm:px-6 py-3 border-t-4 border-black flex items-center justify-between shrink-0">
-                <div class="text-xs font-black text-neutral-700">
-                    <i class="fa-solid fa-keyboard mr-1"></i> 按 ESC 鍵或點擊右上角 ✕ 即可關閉燈箱
+            <div id="lightboxFooter" class="bg-neutral-100 px-4 sm:px-6 py-3.5 border-t-4 border-black flex flex-wrap items-center justify-between gap-3 shrink-0">
+                <div class="text-sm sm:text-base font-black text-neutral-800">
+                    <i class="fa-solid fa-hand-pointer mr-1"></i> 輕觸右上角 ✕ 或左右按鈕即可切換展間
                 </div>
-                <div class="flex gap-2">
-                    <button id="lightboxPrevBtn" onclick="navigateEthicsModal(-1)" class="bg-white text-black font-black px-3 py-1.5 text-xs sm:text-sm m-border m-btn">
+                <div class="flex gap-3">
+                    <button id="lightboxPrevBtn" onclick="navigateEthicsModal(-1)" class="bg-white text-black font-black px-4 py-2.5 text-base m-border m-btn">
                         <i class="fa-solid fa-arrow-left mr-1"></i> 上一個主題
                     </button>
-                    <button id="lightboxNextBtn" onclick="navigateEthicsModal(1)" class="bg-m-yellow text-black font-black px-3 py-1.5 text-xs sm:text-sm m-border m-btn">
+                    <button id="lightboxNextBtn" onclick="navigateEthicsModal(1)" class="bg-m-yellow text-black font-black px-4 py-2.5 text-base m-border m-btn">
                         下一個主題 <i class="fa-solid fa-arrow-right ml-1"></i>
                     </button>
                 </div>
@@ -690,33 +701,33 @@
     </div>
 
     <!-- Custom Toast Notification -->
-    <div id="toastBox" class="fixed bottom-5 right-5 z-50 hidden m-border bg-m-yellow text-black px-4 py-3 m-shadow font-black text-sm flex items-center gap-2.5 max-w-sm">
-        <i id="toastIcon" class="fa-solid fa-circle-check text-lg"></i>
+    <div id="toastBox" class="fixed bottom-5 right-5 z-50 hidden m-border bg-m-yellow text-black px-5 py-4 m-shadow font-black text-base sm:text-lg flex items-center gap-3 max-w-md">
+        <i id="toastIcon" class="fa-solid fa-circle-check text-2xl"></i>
         <span id="toastMessage">提示訊息</span>
     </div>
 
     <footer class="border-t-[5px] border-black bg-white mt-12">
         <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-12">
-            <div class="md:col-span-5 p-5 border-b-4 md:border-b-0 md:border-r-4 border-black bg-m-black text-white">
+            <div class="md:col-span-5 p-5 sm:p-6 border-b-4 md:border-b-0 md:border-r-4 border-black bg-m-black text-white">
                 <div class="flex items-center gap-2 mb-2">
                     <span class="w-4 h-4 bg-m-red inline-block border border-white"></span>
                     <span class="w-4 h-4 bg-m-yellow inline-block border border-white"></span>
                     <span class="w-4 h-4 bg-m-blue inline-block border border-white"></span>
-                    <span class="font-black text-base ml-1">AI 倫理蒙德里安美術館</span>
+                    <span class="font-black text-lg ml-1">AI 倫理蒙德里安美術館</span>
                 </div>
-                <p class="text-xs text-neutral-300 leading-relaxed">
+                <p class="text-sm sm:text-base text-neutral-200 leading-relaxed">
                     依據教育部《中小學使用「生成式人工智慧」注意事項 2.1（學生版）》與《AI 時代數位素養與媒體識讀教學實務》設計開發。
                 </p>
             </div>
-            <div class="md:col-span-4 p-5 border-b-4 md:border-b-0 md:border-r-4 border-black bg-m-yellow text-black">
-                <div class="font-black text-sm mb-1">🆘 遭遇深偽（Deepfake）或不當影像求助專區</div>
-                <p class="text-xs font-bold leading-relaxed">
+            <div class="md:col-span-4 p-5 sm:p-6 border-b-4 md:border-b-0 md:border-r-4 border-black bg-m-yellow text-black">
+                <div class="font-black text-base sm:text-lg mb-1">🆘 遭遇深偽（Deepfake）或不當影像求助專區</div>
+                <p class="text-sm sm:text-base font-bold leading-relaxed">
                     若發現自己或同學遭 AI 換臉製作不當影像，<strong>請先截圖保留證據、切勿轉傳</strong>，立即向師長反映或至「衛生福利部性影像處理中心」線上申訴協助下架。
                 </p>
             </div>
-            <div class="md:col-span-3 p-5 bg-m-blue text-white flex flex-col justify-center">
-                <div class="font-black text-xs text-yellow-300 uppercase mb-1">核心金句</div>
-                <p class="text-xs sm:text-sm font-black leading-snug">
+            <div class="md:col-span-3 p-5 sm:p-6 bg-m-blue text-white flex flex-col justify-center">
+                <div class="font-black text-sm text-yellow-300 uppercase mb-1">核心金句</div>
+                <p class="text-base sm:text-lg font-black leading-snug">
                     「AI 寫了報告 ≠ 你學會了主題。保持人類自主，做科技的主人！」
                 </p>
             </div>
@@ -788,16 +799,16 @@
             const icon = document.getElementById('toastIcon');
             const text = document.getElementById('toastMessage');
 
-            box.className = 'fixed bottom-5 right-5 z-50 m-border px-4 py-3 m-shadow font-black text-sm flex items-center gap-2.5 max-w-sm modal-animate ';
+            box.className = 'fixed bottom-5 right-5 z-50 m-border px-5 py-4 m-shadow font-black text-base sm:text-lg flex items-center gap-3 max-w-md modal-animate ';
             if (status === 'error') {
                 box.classList.add('bg-m-red', 'text-white');
-                icon.className = 'fa-solid fa-triangle-exclamation text-lg';
+                icon.className = 'fa-solid fa-triangle-exclamation text-2xl shrink-0';
             } else if (status === 'info') {
                 box.classList.add('bg-m-blue', 'text-white');
-                icon.className = 'fa-solid fa-circle-info text-lg';
+                icon.className = 'fa-solid fa-circle-info text-2xl shrink-0';
             } else {
                 box.classList.add('bg-m-yellow', 'text-black');
-                icon.className = 'fa-solid fa-circle-check text-lg';
+                icon.className = 'fa-solid fa-circle-check text-2xl shrink-0';
             }
             text.textContent = msg;
             box.classList.remove('hidden');
@@ -805,7 +816,7 @@
             clearTimeout(window.toastTimer);
             window.toastTimer = setTimeout(() => {
                 box.classList.add('hidden');
-            }, 3200);
+            }, 3500);
         }
 
         /* =========================================================
@@ -912,7 +923,7 @@
                         "T (Time 看時間) & E (Evidence 看證據)：確認是否為最新官方數據或課本有記載的證據。",
                         "P (Perspective 看觀點)：至少比對 2～3 個不同可靠來源（課本、政府官網、學術資料庫）。"
                     ],
-                    promptExample: "「請解釋光反应與暗反應的差別，並標出哪個部分我應該去對照國中生物課本的哪個章節來查證？」"
+                    promptExample: "「請解釋光反應與暗反應的差別，並標出哪個部分我應該去對照國中生物課本的哪個章節來查證？」"
                 },
                 quiz: {
                     question: "為什麼生成式 AI 有時候會「一本正經地胡說八道（產生幻覺）」？",
@@ -1115,48 +1126,49 @@
             container.innerHTML = sixCoreEthicsData.map((item, idx) => {
                 const isExplored = progressState.exploredEthics.has(idx);
                 const textColor = (item.colorClass === 'bg-m-red' || item.colorClass === 'bg-m-blue') ? 'text-white' : 'text-black';
-                const subTextColor = (item.colorClass === 'bg-m-red') ? 'text-red-100' : (item.colorClass === 'bg-m-blue' ? 'text-blue-100' : 'text-neutral-700');
+                const subTextColor = (item.colorClass === 'bg-m-red') ? 'text-red-100' : (item.colorClass === 'bg-m-blue' ? 'text-blue-100' : 'text-neutral-800');
+                const lgSpan = item.colSpan.replace('md:', 'lg:');
 
                 return `
                 <article onclick="openEthicsLightbox(${idx})" 
-                         class="${item.colSpan} m-border ${item.colorClass} ${textColor} p-5 sm:p-6 m-shadow cursor-pointer flex flex-col justify-between group relative overflow-hidden transition-all hover:-translate-y-1">
+                         class="${lgSpan} m-border ${item.colorClass} ${textColor} p-5 sm:p-7 m-shadow cursor-pointer flex flex-col justify-between group relative overflow-hidden transition-all hover:-translate-y-1">
                     <div>
                         <!-- Top Row -->
                         <div class="flex items-center justify-between gap-2 mb-4">
-                            <span class="${item.badgeBg} font-black text-xs px-2.5 py-1 border-2 border-black tracking-wider">
+                            <span class="${item.badgeBg} font-black text-sm sm:text-base px-3 py-1 border-2 border-black tracking-wider">
                                 ${item.code}
                             </span>
                             <div class="flex items-center gap-2">
                                 ${isExplored 
-                                    ? `<span class="bg-emerald-400 text-black text-xs font-black px-2.5 py-1 border-2 border-black"><i class="fa-solid fa-check mr-1"></i>已探索</span>` 
-                                    : `<span class="bg-white text-black text-xs font-black px-2.5 py-1 border-2 border-black">點擊開啟燈箱</span>`
+                                    ? `<span class="bg-emerald-400 text-black text-sm sm:text-base font-black px-3 py-1 border-2 border-black"><i class="fa-solid fa-check mr-1"></i>已探索</span>` 
+                                    : `<span class="bg-white text-black text-sm sm:text-base font-black px-3 py-1 border-2 border-black">點此開啟燈箱</span>`
                                 }
                             </div>
                         </div>
 
                         <!-- Icon & Title -->
-                        <div class="flex items-start gap-3.5 mb-3">
-                            <div class="w-12 h-12 bg-white text-black m-border flex items-center justify-center text-2xl shrink-0 shadow-[3px_3px_0px_#000] group-hover:rotate-6 transition-transform">
+                        <div class="flex items-start gap-4 mb-4">
+                            <div class="w-14 h-14 bg-white text-black m-border flex items-center justify-center text-3xl shrink-0 shadow-[3px_3px_0px_#000] group-hover:rotate-6 transition-transform">
                                 <i class="fa-solid ${item.icon}"></i>
                             </div>
                             <div>
-                                <h4 class="text-xl sm:text-2xl font-black leading-snug">${item.title}</h4>
-                                <p class="text-xs sm:text-sm font-bold ${subTextColor} mt-0.5">${item.subtitle}</p>
+                                <h4 class="text-2xl sm:text-3xl font-black leading-snug">${item.title}</h4>
+                                <p class="text-base sm:text-lg font-bold ${subTextColor} mt-1">${item.subtitle}</p>
                             </div>
                         </div>
 
                         <!-- Summary -->
-                        <p class="text-sm font-medium leading-relaxed mb-4 ${item.colorClass === 'bg-m-white' ? 'bg-neutral-100' : 'bg-black/15'} p-3 border-2 border-black">
+                        <p class="text-base sm:text-lg font-bold leading-relaxed mb-5 ${item.colorClass === 'bg-m-white' ? 'bg-neutral-100' : 'bg-black/20'} p-4 border-2 border-black">
                             ${item.summary}
                         </p>
                     </div>
 
                     <!-- Bottom Tags & Action -->
-                    <div class="pt-3 border-t-2 border-black flex flex-wrap items-center justify-between gap-2">
-                        <div class="flex flex-wrap gap-1.5">
-                            ${item.keywords.map(kw => `<span class="bg-white text-black text-[11px] font-black px-2 py-0.5 border border-black">#${kw}</span>`).join('')}
+                    <div class="pt-4 border-t-2 border-black flex flex-wrap items-center justify-between gap-3">
+                        <div class="flex flex-wrap gap-2">
+                            ${item.keywords.map(kw => `<span class="bg-white text-black text-sm font-black px-2.5 py-1 border-2 border-black">#${kw}</span>`).join('')}
                         </div>
-                        <span class="bg-black text-white text-xs font-black px-3 py-1.5 border-2 border-white group-hover:bg-m-yellow group-hover:text-black group-hover:border-black transition-colors">
+                        <span class="bg-black text-white text-sm sm:text-base font-black px-4 py-2 border-2 border-white group-hover:bg-m-yellow group-hover:text-black group-hover:border-black transition-colors">
                             進入情境燈箱 <i class="fa-solid fa-up-right-from-square ml-1"></i>
                         </span>
                     </div>
@@ -1188,83 +1200,83 @@
             const body = document.getElementById('lightboxBody');
             body.innerHTML = `
                 <!-- Scenario Theater Block -->
-                <div class="bg-m-white m-border p-4 sm:p-5 m-shadow-sm">
-                    <div class="flex items-center gap-2 mb-2">
-                        <span class="bg-m-blue text-white text-xs font-black px-2.5 py-1 border-2 border-black">國中小生活情境劇場</span>
-                        <h4 class="font-black text-base sm:text-lg">${item.theater.title}</h4>
+                <div class="bg-m-white m-border p-4 sm:p-6 m-shadow-sm">
+                    <div class="flex flex-wrap items-center gap-2.5 mb-3">
+                        <span class="bg-m-blue text-white text-sm sm:text-base font-black px-3 py-1 border-2 border-black">國中小生活情境劇場</span>
+                        <h4 class="font-black text-xl sm:text-2xl">${item.theater.title}</h4>
                     </div>
-                    <p class="text-sm sm:text-base font-medium leading-relaxed text-neutral-800 mb-3 bg-white p-3.5 border-2 border-black">
+                    <p class="text-base sm:text-xl font-bold leading-relaxed text-neutral-900 mb-4 bg-white p-4 border-2 border-black">
                         ${item.theater.story}
                     </p>
-                    <div class="bg-m-yellow text-black p-3 border-2 border-black text-xs sm:text-sm font-black flex items-start gap-2">
-                        <i class="fa-solid fa-lightbulb text-base mt-0.5"></i>
+                    <div class="bg-m-yellow text-black p-4 border-2 border-black text-base sm:text-lg font-black flex items-start gap-2.5">
+                        <i class="fa-solid fa-lightbulb text-xl mt-1 shrink-0"></i>
                         <span>關鍵省思：${item.theater.reflection}</span>
                     </div>
                 </div>
 
                 <!-- Wrong vs Right Comparison Grid -->
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-5">
                     <!-- Wrong Way -->
-                    <div class="bg-red-50 m-border p-4 flex flex-col justify-between">
+                    <div class="bg-red-50 m-border p-4 sm:p-5 flex flex-col justify-between">
                         <div>
-                            <div class="bg-m-red text-white font-black text-sm sm:text-base px-3 py-2 border-2 border-black mb-3">
+                            <div class="bg-m-red text-white font-black text-lg sm:text-xl px-3.5 py-2.5 border-2 border-black mb-4">
                                 ${item.wrongWay.title}
                             </div>
-                            <ul class="space-y-2 text-xs sm:text-sm font-bold text-neutral-900 mb-4">
+                            <ul class="space-y-3 text-base sm:text-lg font-bold text-neutral-900 mb-5">
                                 ${item.wrongWay.items.map(point => `
-                                    <li class="flex items-start gap-2">
-                                        <span class="text-red-600 font-black">✖</span>
-                                        <span>${point}</span>
+                                    <li class="flex items-start gap-2.5">
+                                        <span class="text-red-600 font-black text-xl leading-none mt-0.5">✖</span>
+                                        <span class="leading-relaxed">${point}</span>
                                     </li>
                                 `).join('')}
                             </ul>
                         </div>
-                        <div class="bg-white p-3 border-2 border-black">
-                            <div class="text-[11px] font-black text-red-600 mb-1">🚫 踩雷提示詞 / 行為範例：</div>
-                            <p class="text-xs font-bold text-neutral-800">${item.wrongWay.promptExample}</p>
+                        <div class="bg-white p-4 border-2 border-black">
+                            <div class="text-sm sm:text-base font-black text-red-600 mb-1">🚫 踩雷提示詞 / 行為範例：</div>
+                            <p class="text-base sm:text-lg font-bold text-neutral-900 leading-relaxed">${item.wrongWay.promptExample}</p>
                         </div>
                     </div>
 
                     <!-- Right Way -->
-                    <div class="bg-emerald-50 m-border p-4 flex flex-col justify-between">
+                    <div class="bg-emerald-50 m-border p-4 sm:p-5 flex flex-col justify-between">
                         <div>
-                            <div class="bg-m-green text-white font-black text-sm sm:text-base px-3 py-2 border-2 border-black mb-3">
+                            <div class="bg-m-green text-white font-black text-lg sm:text-xl px-3.5 py-2.5 border-2 border-black mb-4">
                                 ${item.rightWay.title}
                             </div>
-                            <ul class="space-y-2 text-xs sm:text-sm font-bold text-neutral-900 mb-4">
+                            <ul class="space-y-3 text-base sm:text-lg font-bold text-neutral-900 mb-5">
                                 ${item.rightWay.items.map(point => `
-                                    <li class="flex items-start gap-2">
-                                        <span class="text-emerald-700 font-black">✔</span>
-                                        <span>${point}</span>
+                                    <li class="flex items-start gap-2.5">
+                                        <span class="text-emerald-700 font-black text-xl leading-none mt-0.5">✔</span>
+                                        <span class="leading-relaxed">${point}</span>
                                     </li>
                                 `).join('')}
                             </ul>
                         </div>
-                        <div class="bg-white p-3 border-2 border-black">
-                            <div class="text-[11px] font-black text-emerald-700 mb-1">✨ 正確神隊友提示詞 / 做法範例：</div>
-                            <p class="text-xs font-bold text-neutral-800">${item.rightWay.promptExample}</p>
+                        <div class="bg-white p-4 border-2 border-black">
+                            <div class="text-sm sm:text-base font-black text-emerald-700 mb-1">✨ 正確神隊友提示詞 / 做法範例：</div>
+                            <p class="text-base sm:text-lg font-bold text-neutral-900 leading-relaxed">${item.rightWay.promptExample}</p>
                         </div>
                     </div>
                 </div>
 
                 <!-- Mini Interactive Check inside Lightbox -->
-                <div class="bg-white m-border p-4 sm:p-5">
-                    <div class="flex items-center gap-2 mb-2">
-                        <span class="bg-black text-white text-xs font-black px-2 py-0.5">隨堂倫理快問快答</span>
-                        <h5 class="font-black text-sm sm:text-base">測測看你的 AI 倫理反射！</h5>
+                <div class="bg-white m-border p-4 sm:p-6">
+                    <div class="flex flex-wrap items-center gap-2.5 mb-3">
+                        <span class="bg-black text-white text-sm font-black px-3 py-1">隨堂倫理快問快答</span>
+                        <h5 class="font-black text-lg sm:text-xl">測測看你的 AI 倫理反射！</h5>
                     </div>
-                    <p class="text-sm font-bold mb-3">${item.quiz.question}</p>
-                    <div class="space-y-2">
+                    <p class="text-base sm:text-xl font-black mb-4 leading-relaxed">${item.quiz.question}</p>
+                    <div class="space-y-3">
                         ${item.quiz.options.map((opt, optIdx) => `
                             <button onclick="answerLightboxQuiz(${idx}, ${optIdx})" 
                                     id="lbQuizOpt-${optIdx}"
-                                    class="w-full text-left p-3 border-2 border-black font-bold text-xs sm:text-sm bg-neutral-50 hover:bg-yellow-100 transition-colors flex items-center gap-2.5">
-                                <span class="w-6 h-6 bg-black text-white font-black text-xs flex items-center justify-center shrink-0">${String.fromCharCode(65 + optIdx)}</span>
-                                <span>${opt}</span>
+                                    class="w-full text-left p-4 border-2 border-black font-bold text-base sm:text-lg bg-neutral-50 hover:bg-yellow-100 transition-colors flex items-center gap-3.5">
+                                <span class="w-8 h-8 bg-black text-white font-black text-base flex items-center justify-center shrink-0">${String.fromCharCode(65 + optIdx)}</span>
+                                <span class="leading-snug">${opt}</span>
                             </button>
                         `).join('')}
                     </div>
-                    <div id="lbQuizFeedback" class="mt-3 p-3 border-2 border-black hidden text-xs sm:text-sm font-bold"></div>
+                    <div id="lbQuizFeedback" class="mt-4 p-4 border-2 border-black hidden text-base sm:text-lg font-bold leading-relaxed"></div>
                 </div>
             `;
 
@@ -1312,50 +1324,50 @@
             document.getElementById('lightboxFooter').classList.add('hidden');
 
             document.getElementById('lightboxBody').innerHTML = `
-                <div class="space-y-5">
+                <div class="space-y-6">
                     <!-- WISE 4 Principles -->
-                    <div class="bg-white m-border p-4 m-shadow-sm">
-                        <h4 class="font-black text-lg mb-3 flex items-center gap-2">
-                            <span class="bg-m-red text-white px-2 py-0.5 text-xs border border-black">「思、辨、安、人」</span>
+                    <div class="bg-white m-border p-4 sm:p-6 m-shadow-sm">
+                        <h4 class="font-black text-xl sm:text-2xl mb-4 flex flex-wrap items-center gap-2.5">
+                            <span class="bg-m-red text-white px-3 py-1 text-sm sm:text-base border-2 border-black">「思、辨、安、人」</span>
                             <span>從風險辨識到明智行動：WISE 四原則</span>
                         </h4>
-                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
-                            <div class="bg-m-yellow p-3 border-2 border-black">
-                                <div class="font-black text-xl">W｜思 (Weigh)</div>
-                                <div class="text-xs font-black mt-1">思量資訊與行動後果</div>
-                                <p class="text-xs mt-1 font-medium">使用 AI 前先停下來想：這樣做對學習、對他人有什麼影響？</p>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div class="bg-m-yellow p-4 border-2 border-black">
+                                <div class="font-black text-2xl">W｜思 (Weigh)</div>
+                                <div class="text-base sm:text-lg font-black mt-1">思量資訊與行動後果</div>
+                                <p class="text-base mt-1.5 font-bold leading-relaxed">使用 AI 前先停下來想：這樣做對學習、對他人有什麼影響？</p>
                             </div>
-                            <div class="bg-m-white p-3 border-2 border-black">
-                                <div class="font-black text-xl">I｜辨 (Inspect)</div>
-                                <div class="text-xs font-black mt-1">檢視來源、證據與偏見</div>
-                                <p class="text-xs mt-1 font-medium">運用 STEP 與 FACT 查核 AI 回答是否有幻覺或文化偏見。</p>
+                            <div class="bg-m-white p-4 border-2 border-black">
+                                <div class="font-black text-2xl">I｜辨 (Inspect)</div>
+                                <div class="text-base sm:text-lg font-black mt-1">檢視來源、證據與偏見</div>
+                                <p class="text-base mt-1.5 font-bold leading-relaxed">運用 STEP 與 FACT 查核 AI 回答是否有幻覺或文化偏見。</p>
                             </div>
-                            <div class="bg-m-red text-white p-3 border-2 border-black">
-                                <div class="font-black text-xl">S｜安 (Safeguard)</div>
-                                <div class="text-xs font-black mt-1">守護隱私、資安與身心</div>
-                                <p class="text-xs mt-1 font-medium">運用 SAFE 四步驟將個資去識別化，絕不上傳同學照片或帳密。</p>
+                            <div class="bg-m-red text-white p-4 border-2 border-black">
+                                <div class="font-black text-2xl">S｜安 (Safeguard)</div>
+                                <div class="text-base sm:text-lg font-black mt-1">守護隱私、資安與身心</div>
+                                <p class="text-base mt-1.5 font-bold leading-relaxed">運用 SAFE 四步驟將個資去識別化，絕不上傳同學照片或帳密。</p>
                             </div>
-                            <div class="bg-m-blue text-white p-3 border-2 border-black">
-                                <div class="font-black text-xl">E｜人 (Empathize)</div>
-                                <div class="text-xs font-black mt-1">以人為本、同理關懷</div>
-                                <p class="text-xs mt-1 font-medium">發揮人類自主性、真實人際互動與共同福祉，不做科技的奴隸。</p>
+                            <div class="bg-m-blue text-white p-4 border-2 border-black">
+                                <div class="font-black text-2xl">E｜人 (Empathize)</div>
+                                <div class="text-base sm:text-lg font-black mt-1">以人為本、同理關懷</div>
+                                <p class="text-base mt-1.5 font-bold leading-relaxed">發揮人類自主性、真實人際互動與共同福祉，不做科技的奴隸。</p>
                             </div>
                         </div>
                     </div>
 
                     <!-- Six Design Principles Table -->
-                    <div class="bg-white m-border p-4 m-shadow-sm">
-                        <h4 class="font-black text-lg mb-2">🏛️ AI 系統設計與評估的「六大倫理原則」</h4>
-                        <p class="text-xs sm:text-sm font-medium text-neutral-700 mb-3">
+                    <div class="bg-white m-border p-4 sm:p-6 m-shadow-sm">
+                        <h4 class="font-black text-xl sm:text-2xl mb-2">🏛️ AI 系統設計與評估的「六大倫理原則」</h4>
+                        <p class="text-base sm:text-lg font-bold text-neutral-800 mb-4">
                             如果學校想設計一個「自動偵測學生情緒的校園 AI 助手」，我們該用哪六個問題來檢視它？
                         </p>
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-xs sm:text-sm">
-                            <div class="p-3 border-2 border-black bg-neutral-50"><strong>1. 隱私 (Privacy)：</strong>這個功能真的需要攝影機持續監控表情嗎？資料如何保存？</div>
-                            <div class="p-3 border-2 border-black bg-neutral-50"><strong>2. 公平 (Fairness)：</strong>這個 AI 對每個人都一樣公平嗎？會不會對特定族群產生偏見？</div>
-                            <div class="p-3 border-2 border-black bg-neutral-50"><strong>3. 責任 (Accountability)：</strong>如果 AI 判斷錯誤害同學被誤貼標籤，誰應該負責？有申訴機制嗎？</div>
-                            <div class="p-3 border-2 border-black bg-neutral-50"><strong>4. 透明 (Transparency)：</strong>學生和家長知道自己正在被 AI 偵測嗎？決策過程可被理解嗎？</div>
-                            <div class="p-3 border-2 border-black bg-neutral-50"><strong>5. 安全 (Safety)：</strong>如果 AI 出錯，會對學生造成什麼心理或實質傷害？</div>
-                            <div class="p-3 border-2 border-black bg-m-yellow"><strong>6. 人類自主 (Human Agency)：</strong>使用 AI 後，老師與學生還是最終決定者嗎？</div>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5 text-base sm:text-lg font-medium">
+                            <div class="p-4 border-2 border-black bg-neutral-50"><strong>1. 隱私 (Privacy)：</strong>這個功能真的需要攝影機持續監控表情嗎？資料如何保存？</div>
+                            <div class="p-4 border-2 border-black bg-neutral-50"><strong>2. 公平 (Fairness)：</strong>這個 AI 對每個人都一樣公平嗎？會不會對特定族群產生偏見？</div>
+                            <div class="p-4 border-2 border-black bg-neutral-50"><strong>3. 責任 (Accountability)：</strong>如果 AI 判斷錯誤害同學被誤貼標籤，誰應該負責？有申訴機制嗎？</div>
+                            <div class="p-4 border-2 border-black bg-neutral-50"><strong>4. 透明 (Transparency)：</strong>學生和家長知道自己正在被 AI 偵測嗎？決策過程可被理解嗎？</div>
+                            <div class="p-4 border-2 border-black bg-neutral-50"><strong>5. 安全 (Safety)：</strong>如果 AI 出錯，會對學生造成什麼心理或實質傷害？</div>
+                            <div class="p-4 border-2 border-black bg-m-yellow font-bold"><strong>6. 人類自主 (Human Agency)：</strong>使用 AI 後，老師與學生還是最終決定者嗎？</div>
                         </div>
                     </div>
                 </div>
@@ -1377,31 +1389,31 @@
 
             document.getElementById('lightboxBody').innerHTML = `
                 <div class="space-y-4">
-                    <p class="text-sm font-bold text-neutral-800">
+                    <p class="text-base sm:text-xl font-bold text-neutral-900 leading-relaxed">
                         不同 AI 的設計目的不同！教育部《中小學使用生成式人工智慧注意事項 2.1》建議國中小同學優先使用<strong>為教育目的而設計的生成式 AI 工具</strong>：
                     </p>
                     <div class="overflow-x-auto m-border">
-                        <table class="w-full text-left border-collapse text-xs sm:text-sm">
+                        <table class="w-full text-left border-collapse text-base sm:text-lg">
                             <thead>
                                 <tr class="bg-black text-white font-black">
-                                    <th class="p-3 border-r-2 border-white">類型</th>
-                                    <th class="p-3 border-r-2 border-white">代表工具</th>
-                                    <th class="p-3 border-r-2 border-white">設計重點</th>
-                                    <th class="p-3">可能的風險與特色</th>
+                                    <th class="p-4 border-r-2 border-white">類型</th>
+                                    <th class="p-4 border-r-2 border-white">代表工具</th>
+                                    <th class="p-4 border-r-2 border-white">設計重點</th>
+                                    <th class="p-4">可能的風險與特色</th>
                                 </tr>
                             </thead>
                             <tbody class="font-bold">
                                 <tr class="bg-emerald-50 border-b-4 border-black">
-                                    <td class="p-3 border-r-2 border-black font-black text-emerald-900">📚 教育 AI<br><span class="text-[11px] bg-m-green text-white px-1.5 py-0.5 inline-block mt-1">國中小優先推薦</span></td>
-                                    <td class="p-3 border-r-2 border-black">教育部因材網 e度、酷英網 E-BOT、均一教育平臺、Khanmigo</td>
-                                    <td class="p-3 border-r-2 border-black">針對教學情境設計，配合課綱與課程，使用教育 OpenID 登入</td>
-                                    <td class="p-3">具備<strong>三大守護功能</strong>：<br>1. 智慧導師（引導思考不直接給答案）<br>2. 安全過濾網（阻隔偏誤訊息）<br>3. 隱形盾牌（保護個資與記錄學習歷程）</td>
+                                    <td class="p-4 border-r-2 border-black font-black text-emerald-900">📚 教育 AI<br><span class="text-sm bg-m-green text-white px-2 py-0.5 inline-block mt-1.5">國中小優先推薦</span></td>
+                                    <td class="p-4 border-r-2 border-black">教育部因材網 e度、酷英網 E-BOT、均一教育平臺、Khanmigo</td>
+                                    <td class="p-4 border-r-2 border-black">針對教學情境設計，配合課綱與課程，使用教育 OpenID 登入</td>
+                                    <td class="p-4 leading-relaxed">具備<strong>三大守護功能</strong>：<br>1. 智慧導師（引導思考不直接給答案）<br>2. 安全過濾網（阻隔偏誤訊息）<br>3. 隱形盾牌（保護個資與記錄學習歷程）</td>
                                 </tr>
                                 <tr class="bg-white">
-                                    <td class="p-3 border-r-2 border-black font-black text-red-700">🌐 通用 AI<br><span class="text-[11px] bg-m-yellow text-black border border-black px-1.5 py-0.5 inline-block mt-1">需師長指導評估</span></td>
-                                    <td class="p-3 border-r-2 border-black">ChatGPT、Google Gemini、Claude、Perplexity</td>
-                                    <td class="p-3 border-r-2 border-black">回答廣泛問題，適用各種日常與工作情境</td>
-                                    <td class="p-3">回答廣博但不一定精準，<strong>較容易產生「幻覺」或偏見</strong>，且會直接給出完整答案（易造成認知卸載），需遵守年齡限制並在師長指導下使用。</td>
+                                    <td class="p-4 border-r-2 border-black font-black text-red-700">🌐 通用 AI<br><span class="text-sm bg-m-yellow text-black border border-black px-2 py-0.5 inline-block mt-1.5">需師長指導評估</span></td>
+                                    <td class="p-4 border-r-2 border-black">ChatGPT、Google Gemini、Claude、Perplexity</td>
+                                    <td class="p-4 border-r-2 border-black">回答廣泛問題，適用各種日常與工作情境</td>
+                                    <td class="p-4 leading-relaxed">回答廣博但不一定精準，<strong>較容易產生「幻覺」或偏見</strong>，且會直接給出完整答案（易造成認知卸載），需遵守年齡限制並在師長指導下使用。</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -1524,7 +1536,7 @@
 
             if (dragState.pool.length === 0) {
                 poolEl.innerHTML = `
-                    <div class="col-span-full bg-emerald-100 border-2 border-black p-4 text-center font-black text-base">
+                    <div class="col-span-full bg-emerald-100 border-2 border-black p-5 text-center font-black text-lg sm:text-xl">
                         🎉 恭喜！你已經將所有 9 張校園行為卡全部分類到正確的紅綠燈區！
                     </div>
                 `;
@@ -1537,9 +1549,9 @@
                              ondragstart="handleDragStart(event, '${card.id}')"
                              ondragend="handleDragEnd(event)"
                              onclick="selectCardForTap('${card.id}', event)"
-                             class="draggable-card m-border p-3.5 text-xs sm:text-sm font-bold transition-all flex items-start gap-2.5 ${isSelected ? 'bg-m-yellow ring-4 ring-blue-600 -translate-y-1' : 'bg-neutral-50 hover:bg-yellow-50'} m-shadow-sm">
-                            <span class="w-6 h-6 bg-black text-white font-black text-xs flex items-center justify-center shrink-0 mt-0.5">
-                                <i class="fa-solid fa-grip-vertical"></i>
+                             class="draggable-card m-border p-4 text-base sm:text-lg font-bold transition-all flex items-start gap-3 ${isSelected ? 'bg-m-yellow ring-4 ring-blue-600 -translate-y-1' : 'bg-neutral-50 hover:bg-yellow-50'} m-shadow-sm">
+                            <span class="w-8 h-8 bg-black text-white font-black text-sm flex items-center justify-center shrink-0 mt-0.5">
+                                <i class="fa-solid fa-hand-pointer"></i>
                             </span>
                             <span class="leading-relaxed">${card.text}</span>
                         </div>
@@ -1553,12 +1565,12 @@
                 countBadge.textContent = `${dragState[zone].length} 張`;
 
                 container.innerHTML = dragState[zone].map(card => `
-                    <div class="bg-white border-2 border-black p-3 text-xs font-bold shadow-[2px_2px_0px_#000]">
+                    <div class="bg-white border-2 border-black p-3.5 text-base font-bold shadow-[2px_2px_0px_#000]">
                         <div class="flex items-start justify-between gap-2">
-                            <span class="text-neutral-900">${card.text}</span>
-                            <span class="bg-emerald-600 text-white px-1.5 py-0.5 text-[10px] font-black shrink-0">✓ 正確</span>
+                            <span class="text-neutral-900 leading-relaxed">${card.text}</span>
+                            <span class="bg-emerald-600 text-white px-2 py-0.5 text-xs font-black shrink-0">✓ 正確</span>
                         </div>
-                        <div class="mt-1.5 pt-1.5 border-t border-neutral-300 text-[11px] text-emerald-900 font-black">
+                        <div class="mt-2 pt-2 border-t border-neutral-300 text-sm sm:text-base text-emerald-900 font-black leading-snug">
                             💡 ${card.reason}
                         </div>
                     </div>
@@ -1696,8 +1708,8 @@
             [0, 1, 2].forEach(i => {
                 const btn = document.getElementById(`orderTab-${i}`);
                 btn.className = (i === idx)
-                    ? 'px-3.5 py-2 font-black text-xs sm:text-sm m-border bg-m-yellow m-btn'
-                    : 'px-3.5 py-2 font-black text-xs sm:text-sm m-border bg-white m-btn';
+                    ? 'px-4 py-2.5 font-black text-sm sm:text-base m-border bg-m-yellow m-btn'
+                    : 'px-4 py-2.5 font-black text-sm sm:text-base m-border bg-white m-btn';
             });
 
             document.getElementById('orderMissionBadge').textContent = mission.badge;
@@ -1718,7 +1730,7 @@
             document.getElementById('orderFeedbackBox').classList.add('hidden');
             const badge = document.getElementById('orderStatusBadge');
             badge.textContent = '請排列順序';
-            badge.className = 'text-xs font-black px-2.5 py-1 bg-neutral-200 border-2 border-black';
+            badge.className = 'text-sm font-black px-3 py-1 bg-neutral-200 border-2 border-black';
             renderOrderList();
         }
 
@@ -1736,29 +1748,29 @@
                          ondragstart="handleOrderDragStart(event, ${index})"
                          ondragover="handleOrderDragOver(event)"
                          ondrop="handleOrderDrop(event, ${index})"
-                         class="m-border ${borderAndBg} p-3 sm:p-4 flex items-center justify-between gap-3 m-shadow-sm cursor-grab active:cursor-grabbing transition-all">
-                        <div class="flex items-center gap-3">
-                            <div class="w-8 h-8 bg-black text-white font-black text-sm flex items-center justify-center shrink-0">
+                         class="m-border ${borderAndBg} p-4 flex items-center justify-between gap-3.5 m-shadow-sm cursor-grab active:cursor-grabbing transition-all">
+                        <div class="flex items-center gap-3.5">
+                            <div class="w-10 h-10 bg-black text-white font-black text-lg flex items-center justify-center shrink-0">
                                 ${index + 1}
                             </div>
                             <div>
-                                <div class="font-black text-sm sm:text-base text-black flex items-center gap-2">
+                                <div class="font-black text-lg sm:text-xl text-black flex flex-wrap items-center gap-2">
                                     <span>${item.tag}</span>
                                     ${highlightResult ? (isRightPos 
-                                        ? '<span class="text-xs bg-emerald-600 text-white px-1.5 py-0.5">✓ 位置正確</span>' 
-                                        : '<span class="text-xs bg-m-red text-white px-1.5 py-0.5">✗ 順序需調整</span>') : ''}
+                                        ? '<span class="text-sm bg-emerald-600 text-white px-2 py-0.5">✓ 位置正確</span>' 
+                                        : '<span class="text-sm bg-m-red text-white px-2 py-0.5">✗ 順序需調整</span>') : ''}
                                 </div>
-                                <p class="text-xs sm:text-sm font-medium text-neutral-800 mt-0.5">${item.desc}</p>
+                                <p class="text-base sm:text-lg font-bold text-neutral-800 mt-1 leading-relaxed">${item.desc}</p>
                             </div>
                         </div>
-                        <!-- Up / Down Buttons for easy mobile/click sorting -->
-                        <div class="flex flex-col gap-1 shrink-0">
+                        <!-- Up / Down Buttons enlarged for easy tablet touch sorting -->
+                        <div class="flex flex-col gap-2 shrink-0">
                             <button onclick="moveOrderItem(${index}, -1)" ${index === 0 ? 'disabled' : ''} 
-                                    class="w-7 h-7 bg-white border-2 border-black font-black text-xs flex items-center justify-center hover:bg-m-yellow disabled:opacity-30" title="上移">
+                                    class="w-11 h-10 bg-white border-2 border-black font-black text-base flex items-center justify-center hover:bg-m-yellow active:bg-yellow-300 disabled:opacity-30 shadow-[2px_2px_0px_#000]" title="上移">
                                 ▲
                             </button>
                             <button onclick="moveOrderItem(${index}, 1)" ${index === currentOrderItems.length - 1 ? 'disabled' : ''} 
-                                    class="w-7 h-7 bg-white border-2 border-black font-black text-xs flex items-center justify-center hover:bg-m-yellow disabled:opacity-30" title="下移">
+                                    class="w-11 h-10 bg-white border-2 border-black font-black text-base flex items-center justify-center hover:bg-m-yellow active:bg-yellow-300 disabled:opacity-30 shadow-[2px_2px_0px_#000]" title="下移">
                                 ▼
                             </button>
                         </div>
@@ -1807,13 +1819,13 @@
             if (allCorrect) {
                 playTone('success');
                 badge.textContent = '🎉 完全正確！';
-                badge.className = 'text-xs font-black px-2.5 py-1 bg-m-green text-white border-2 border-black';
+                badge.className = 'text-sm font-black px-3 py-1 bg-m-green text-white border-2 border-black';
                 fb.classList.add('bg-emerald-100');
                 fb.innerHTML = `
-                    <div class="font-black text-emerald-950 text-sm sm:text-base">
+                    <div class="font-black text-emerald-950 text-lg sm:text-xl">
                         🏆 太棒了！你成功掌握了「${orderMissions[currentOrderMissionIdx].title}」的黃金順序！
                     </div>
-                    <p class="text-xs font-bold text-emerald-800 mt-1">你可以點擊右上角切換挑戰另外兩個排序任務喔！</p>
+                    <p class="text-base font-bold text-emerald-800 mt-1">你可以點選上方按鈕切換挑戰另外兩個排序任務喔！</p>
                 `;
                 if (!progressState.orderCompleted) {
                     progressState.orderCompleted = true;
@@ -1822,11 +1834,11 @@
             } else {
                 playTone('error');
                 badge.textContent = '⚠️ 部分順序有誤';
-                badge.className = 'text-xs font-black px-2.5 py-1 bg-m-red text-white border-2 border-black';
+                badge.className = 'text-sm font-black px-3 py-1 bg-m-red text-white border-2 border-black';
                 fb.classList.add('bg-red-100');
                 fb.innerHTML = `
-                    <div class="font-black text-red-950 text-sm">
-                        標示紅色的步驟位置還不對喔！請使用右側 ▲ / ▼ 按鈕或滑鼠拖曳調整後再檢查一次。
+                    <div class="font-black text-red-950 text-base sm:text-lg">
+                        標示紅色的步驟位置還不對喔！請輕觸右側 ▲ / ▼ 大按鈕調整順序後再檢查一次。
                     </div>
                 `;
             }
@@ -1921,32 +1933,32 @@
 
                 return `
                     <div onclick="handleMemoryCardClick(${idx})" 
-                         class="perspective-1000 h-44 sm:h-48 cursor-pointer select-none ${isFlipped ? 'flipped' : ''}">
+                         class="perspective-1000 h-56 sm:h-60 cursor-pointer select-none ${isFlipped ? 'flipped' : ''}">
                         <div class="flip-card-inner m-border m-shadow-sm">
                             <!-- Card Back (Mondrian Cover) -->
-                            <div class="flip-card-front ${coverStyle} p-4 flex flex-col items-center justify-center justify-between">
-                                <div class="w-full flex justify-between items-center text-xs font-black">
+                            <div class="flip-card-front ${coverStyle} p-4 sm:p-5 flex flex-col items-center justify-between">
+                                <div class="w-full flex justify-between items-center text-sm sm:text-base font-black">
                                     <span>MONDRIAN #${idx + 1}</span>
                                     <i class="fa-solid fa-sparkles"></i>
                                 </div>
-                                <div class="w-12 h-12 bg-white text-black m-border flex items-center justify-center text-xl font-black">
+                                <div class="w-14 h-14 bg-white text-black m-border flex items-center justify-center text-2xl font-black">
                                     ?
                                 </div>
-                                <div class="text-xs font-black uppercase tracking-wider">點擊翻牌</div>
+                                <div class="text-sm sm:text-base font-black uppercase tracking-wider">輕觸翻牌</div>
                             </div>
 
                             <!-- Card Front (Revealed Content) -->
-                            <div class="flip-card-back ${faceBg} text-black p-3.5 flex flex-col justify-between">
+                            <div class="flip-card-back ${faceBg} text-black p-4 flex flex-col justify-between">
                                 <div class="flex items-center justify-between gap-1">
-                                    <span class="${badgeBg} text-[11px] font-black px-2 py-0.5 border border-black">${card.badge}</span>
-                                    ${isMatched ? '<span class="bg-m-yellow text-black text-[11px] font-black px-1.5 py-0.5 border border-black">✓ 配對成功</span>' : ''}
+                                    <span class="${badgeBg} text-sm font-black px-2.5 py-0.5 border border-black">${card.badge}</span>
+                                    ${isMatched ? '<span class="bg-m-yellow text-black text-xs sm:text-sm font-black px-2 py-0.5 border border-black">✓ 配對成功</span>' : ''}
                                 </div>
                                 <div class="my-auto py-1">
-                                    <p class="text-xs sm:text-sm font-black leading-snug text-neutral-900">
+                                    <p class="text-base sm:text-lg font-black leading-snug text-neutral-900">
                                         <i class="fa-solid ${card.icon} mr-1"></i> ${card.text}
                                     </p>
                                 </div>
-                                <div class="text-[10px] font-bold text-neutral-500 border-t border-neutral-300 pt-1">
+                                <div class="text-xs sm:text-sm font-bold text-neutral-600 border-t border-neutral-300 pt-1.5">
                                     配對編號 #0${card.pairId}
                                 </div>
                             </div>
@@ -2049,36 +2061,36 @@
             const container = document.getElementById('flashcardsGrid');
             container.innerHTML = flashcardsMakeoverData.map((card, i) => `
                 <div onclick="this.classList.toggle('flipped'); playTone('click');" 
-                     class="flashcard-item perspective-1000 h-60 cursor-pointer select-none">
+                     class="flashcard-item perspective-1000 h-72 sm:h-80 cursor-pointer select-none">
                     <div class="flip-card-inner m-border m-shadow">
                         <!-- Front: Wrong / Risky Prompt -->
-                        <div class="flip-card-front bg-m-white p-4 flex flex-col justify-between">
+                        <div class="flip-card-front bg-m-white p-5 flex flex-col justify-between">
                             <div>
-                                <div class="flex items-center justify-between gap-2 mb-2">
-                                    <span class="bg-m-red text-white text-xs font-black px-2 py-0.5 border border-black">${card.frontTag}</span>
-                                    <i class="fa-solid fa-rotate text-black"></i>
+                                <div class="flex items-center justify-between gap-2 mb-2.5">
+                                    <span class="bg-m-red text-white text-sm sm:text-base font-black px-3 py-1 border border-black">${card.frontTag}</span>
+                                    <i class="fa-solid fa-rotate text-xl text-black"></i>
                                 </div>
-                                <h5 class="font-black text-base mb-2">${card.title}</h5>
-                                <div class="bg-red-50 border-2 border-black p-3 text-xs sm:text-sm font-bold text-red-950 leading-relaxed">
+                                <h5 class="font-black text-xl sm:text-2xl mb-3">${card.title}</h5>
+                                <div class="bg-red-50 border-2 border-black p-3.5 text-base sm:text-lg font-bold text-red-950 leading-relaxed">
                                     ${card.frontText}
                                 </div>
                             </div>
-                            <div class="text-xs font-black text-right text-neutral-600">點擊卡片翻面看正確改法 ➔</div>
+                            <div class="text-sm sm:text-base font-black text-right text-neutral-700">輕觸卡片翻面看正確改法 ➔</div>
                         </div>
 
                         <!-- Back: Safe / Ethical Prompt -->
-                        <div class="flip-card-back bg-m-yellow p-4 flex flex-col justify-between">
+                        <div class="flip-card-back bg-m-yellow p-5 flex flex-col justify-between">
                             <div>
-                                <div class="flex items-center justify-between gap-2 mb-2">
-                                    <span class="bg-m-green text-white text-xs font-black px-2 py-0.5 border border-black">${card.backTag}</span>
-                                    <i class="fa-solid fa-check-double text-black"></i>
+                                <div class="flex items-center justify-between gap-2 mb-2.5">
+                                    <span class="bg-m-green text-white text-sm sm:text-base font-black px-3 py-1 border border-black">${card.backTag}</span>
+                                    <i class="fa-solid fa-check-double text-xl text-black"></i>
                                 </div>
-                                <h5 class="font-black text-base mb-2">${card.title}</h5>
-                                <div class="bg-white border-2 border-black p-3 text-xs sm:text-sm font-bold text-emerald-950 leading-relaxed">
+                                <h5 class="font-black text-xl sm:text-2xl mb-3">${card.title}</h5>
+                                <div class="bg-white border-2 border-black p-3.5 text-base sm:text-lg font-bold text-emerald-950 leading-relaxed">
                                     ${card.backText}
                                 </div>
                             </div>
-                            <div class="text-xs font-black text-right text-black">✨ 學會這招，安全又高效！</div>
+                            <div class="text-sm sm:text-base font-black text-right text-black">✨ 學會這招，安全又高效！</div>
                         </div>
                     </div>
                 </div>
@@ -2095,13 +2107,13 @@
             if (mode === 'match') {
                 matchDiv.classList.remove('hidden');
                 flashDiv.classList.add('hidden');
-                btnMatch.className = 'px-4 py-2 font-black text-xs sm:text-sm m-border bg-m-red text-white m-btn';
-                btnFlash.className = 'px-4 py-2 font-black text-xs sm:text-sm m-border bg-white text-black m-btn';
+                btnMatch.className = 'px-5 py-3 font-black text-sm sm:text-base m-border bg-m-red text-white m-btn';
+                btnFlash.className = 'px-5 py-3 font-black text-sm sm:text-base m-border bg-white text-black m-btn';
             } else {
                 matchDiv.classList.add('hidden');
                 flashDiv.classList.remove('hidden');
-                btnFlash.className = 'px-4 py-2 font-black text-xs sm:text-sm m-border bg-m-red text-white m-btn';
-                btnMatch.className = 'px-4 py-2 font-black text-xs sm:text-sm m-border bg-white text-black m-btn';
+                btnFlash.className = 'px-5 py-3 font-black text-sm sm:text-base m-border bg-m-red text-white m-btn';
+                btnMatch.className = 'px-5 py-3 font-black text-sm sm:text-base m-border bg-white text-black m-btn';
                 if (!progressState.flipCompleted) {
                     progressState.flipCompleted = true;
                     updateGlobalProgress();
@@ -2132,9 +2144,9 @@
         function renderSelfChecklist() {
             const container = document.getElementById('selfCheckContainer');
             container.innerHTML = selfCheckItems.map((text, idx) => `
-                <label class="flex items-start gap-2.5 p-2.5 border-2 border-black bg-white cursor-pointer hover:bg-yellow-50 transition-colors">
-                    <input type="checkbox" onchange="updateSelfCheckScore()" class="self-check-item accent-blue-700 w-4 h-4 mt-0.5 shrink-0">
-                    <span class="text-xs sm:text-sm font-bold leading-snug">${text}</span>
+                <label class="flex items-start gap-3 p-3.5 border-2 border-black bg-white cursor-pointer hover:bg-yellow-50 transition-colors">
+                    <input type="checkbox" onchange="updateSelfCheckScore()" class="self-check-item accent-blue-700 w-6 h-6 mt-0.5 shrink-0">
+                    <span class="text-base sm:text-lg font-bold leading-relaxed">${text}</span>
                 </label>
             `).join('');
         }
@@ -2148,18 +2160,18 @@
 
             if (checks === selfCheckItems.length) {
                 playTone('success');
-                certBox.className = 'mt-5 bg-m-yellow text-black m-border p-4 text-center m-shadow-sm';
+                certBox.className = 'mt-5 bg-m-yellow text-black m-border p-5 text-center m-shadow-sm';
                 certBox.innerHTML = `
-                    <div class="text-2xl mb-1">🏆</div>
-                    <div class="font-black text-base sm:text-lg mb-1">恭喜獲得「AI 倫理智慧領航員」榮譽認證！</div>
-                    <p class="text-xs font-bold">你已具備完整的「思、辨、安、人（WISE）」倫理反射能力！</p>
+                    <div class="text-3xl mb-1">🏆</div>
+                    <div class="font-black text-xl sm:text-2xl mb-1">恭喜獲得「AI 倫理智慧領航員」榮譽認證！</div>
+                    <p class="text-base font-bold">你已具備完整的「思、辨、安、人（WISE）」倫理反射能力！</p>
                 `;
                 showToast('🎉 恭喜完成全部 7 項倫理反射自我檢核！', 'success');
             } else {
-                certBox.className = 'mt-5 bg-m-red text-white m-border p-4 text-center';
+                certBox.className = 'mt-5 bg-m-red text-white m-border p-5 text-center';
                 certBox.innerHTML = `
-                    <div class="font-black text-base mb-1">🏅 勾選全部 7 項即可領取「AI 智慧領航員證書」！</div>
-                    <p class="text-xs text-red-100">記住：AI 是學習的好夥伴，但學習的主角永遠是你自己！</p>
+                    <div class="font-black text-lg sm:text-xl mb-1">🏅 勾選全部 7 項即可領取「AI 智慧領航員證書」！</div>
+                    <p class="text-sm sm:text-base text-red-100 font-bold">記住：AI 是學習的好夥伴，但學習的主角永遠是你自己！</p>
                 `;
             }
         }
